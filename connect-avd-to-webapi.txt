@@ -1,0 +1,23 @@
+1) U ServiceGenerator od Android aplikacije postavi:
+
+//Use 10.0.2.2 for default AVD and 10.0.3.2 for genymotion
+private static final String BASE_URL = "http://10.0.2.2:8080/";
+
+
+2) U applicationhost.config "sites" tag u WebApiju:
+
+<site name="WebSite1" id="1" serverAutoStart="true">
+<application path="/">
+  <virtualDirectory path="/" physicalPath="C:\Development\tennis-with-me\TennisWithMe-WebApi\TennisWithMe-WebApi" />
+</application>
+<bindings>
+  <binding protocol="http" bindingInformation=":8080:localhost" />
+  <binding protocol="http" bindingInformation="*:8080:*" /> <!--ovo treba dodati!!!-->
+</bindings>
+</site>
+
+3) U cmd-u pokreni komandu kao admin:
+
+netsh http add urlacl url=http://*:8080/ user=everyone
+
+*4) Postaviti Firewall Inbound Connections port 8080 na Allow Connections od svuda

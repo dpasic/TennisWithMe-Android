@@ -38,7 +38,9 @@ public class LoginPresenterImpl implements LoginPresenter {
                 if (response.isSuccessful()) {
                     //delete old access token from LocalDB
                     AccessToken tokenToDelete = SQLite.select().from(AccessToken.class).querySingle();
-                    tokenToDelete.delete();
+                    if (tokenToDelete != null) {
+                        tokenToDelete.delete();
+                    }
 
                     //save access token to LocalDB
                     AccessToken accessToken = response.body();
@@ -46,7 +48,9 @@ public class LoginPresenterImpl implements LoginPresenter {
 
                     //delete old credentials from LocalDB
                     Credentials credentialsToDelete = SQLite.select().from(Credentials.class).querySingle();
-                    credentialsToDelete.delete();
+                    if (credentialsToDelete != null) {
+                        credentialsToDelete.delete();
+                    }
 
                     //save credentials to LocalDB
                     Credentials credentials = new Credentials(loginViewModel.getEmail(), loginViewModel.getPassword());

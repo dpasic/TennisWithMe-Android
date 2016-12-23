@@ -67,5 +67,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     public void showLoginError(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
+
+    public void goToRegisterClick(View view) {
+        Intent registerActivity = new Intent(this, RegisterActivity.class);
+        startActivity(registerActivity);
+    }
 }
 

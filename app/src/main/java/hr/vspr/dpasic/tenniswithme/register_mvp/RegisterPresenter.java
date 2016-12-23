@@ -5,4 +5,6 @@ package hr.vspr.dpasic.tenniswithme.register_mvp;
  */
 
 public interface RegisterPresenter {
+
+    void doRegister();
 }

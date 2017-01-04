@@ -37,7 +37,7 @@ public class RegisterPresenterImpl implements RegisterPresenter {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-
+                    doLogin(accountRestInterface, registerViewModel);
 
                 } else {
                     registerView.showRegisterError(response.message());
@@ -49,9 +49,11 @@ public class RegisterPresenterImpl implements RegisterPresenter {
                 registerView.showRegisterError(t.getMessage());
             }
         });
+    }
 
-        /*Call<AccessToken> call = accountRestInterface.getAccessToken(loginViewModel.getEmail(), loginViewModel.getPassword(), "password");
-        call.enqueue(new Callback<AccessToken>() {
+    private void doLogin(AccountRestInterface accountRestInterface, final RegisterViewModel registerViewModel) {
+        Call<AccessToken> loginCall = accountRestInterface.getAccessToken(registerViewModel.getEmail(), registerViewModel.getPassword(), "password");
+        loginCall.enqueue(new Callback<AccessToken>() {
             @Override
             public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
                 if (response.isSuccessful()) {
@@ -68,20 +70,20 @@ public class RegisterPresenterImpl implements RegisterPresenter {
                     credentialsToDelete.delete();
 
                     //save credentials to LocalDB
-                    Credentials credentials = new Credentials(loginViewModel.getEmail(), loginViewModel.getPassword());
+                    Credentials credentials = new Credentials(registerViewModel.getEmail(), registerViewModel.getPassword());
                     credentials.save();
 
-                    loginView.goToApp();
+                    registerView.goToApp();
 
                 } else {
-                    loginView.showLoginError(response.message());
+                    registerView.showRegisterError(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<AccessToken> call, Throwable t) {
-                loginView.showLoginError(t.getMessage());
+                registerView.showRegisterError(t.getMessage());
             }
-        });*/
+        });
     }
 }

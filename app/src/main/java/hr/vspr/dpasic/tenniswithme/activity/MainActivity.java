@@ -21,22 +21,23 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.vspr.dpasic.tenniswithme.R;
+import hr.vspr.dpasic.tenniswithme.fragment.ActiveFriendsFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.UserInfoFragment;
+import hr.vspr.dpasic.tenniswithme.fragment.dummy.DummyContent;
 import hr.vspr.dpasic.tenniswithme.main_mvp.MainPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.main_mvp.MainView;
 import hr.vspr.dpasic.tenniswithme.model.User;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainView,
-        UserInfoFragment.OnFragmentInteractionListener {
+        UserInfoFragment.OnFragmentInteractionListener,
+        ActiveFriendsFragment.OnListFragmentInteractionListener {
 
     private MainPresenterImpl mainPresenter;
     private User user;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
     @BindView(R.id.nav_view)
@@ -56,15 +57,14 @@ public class MainActivity extends AppCompatActivity
         navigationName = (TextView) headerLayout.findViewById(R.id.name_view);
         navigationEmail = (TextView) headerLayout.findViewById(R.id.email_view);
 
-        setSupportActionBar(toolbar);
-
-        fab.setOnClickListener(new View.OnClickListener() {
+        headerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                openUserInfo(view);
             }
         });
+
+        setSupportActionBar(toolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -80,7 +80,17 @@ public class MainActivity extends AppCompatActivity
     private void commitUserInfoFragment(User user) {
         Fragment fragment = UserInfoFragment.newInstance(user);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment).commit();
+                .replace(R.id.fragment_container, fragment, UserInfoFragment.class.getName()).commit();
+
+        setTitle(R.string.user_info);
+    }
+
+    private void commitActiveFragmentsFragment() {
+        Fragment fragment = ActiveFriendsFragment.newInstance();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment, ActiveFriendsFragment.class.getName()).commit();
+
+        setTitle(R.string.active_friends);
     }
 
     @Override
@@ -122,6 +132,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_friends) {
+            commitActiveFragmentsFragment();
 
         } else if (id == R.id.nav_matches) {
 
@@ -132,7 +143,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void openUserInfoClick(View view) {
+    private void openUserInfo(View view) {
         commitUserInfoFragment(user);
         drawer.closeDrawer(GravityCompat.START);
     }
@@ -153,6 +164,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
     }
 }

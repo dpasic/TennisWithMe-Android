@@ -70,8 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in_short"
-                android:textStyle="bold"
-                android:onClick="signInClick"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/goto_register_button"
@@ -80,8 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_goto_register"
-                android:textStyle="bold"
-                android:onClick="goToRegisterClick"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>

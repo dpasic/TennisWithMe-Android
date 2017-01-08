@@ -17,8 +17,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    //Use 10.0.2.2 for default AVD and 10.0.3.2 for genymotion
+    //Use 10.0.2.2 for default AVD; 10.0.3.2 for genymotion; 192.168.1.252 for localhost
     private static final String BASE_URL = "http://10.0.2.2:8080/";
+    /*private static final String BASE_URL = "http://192.168.1.252:8080/";*/
 
     public static <T> T createService(Class<T> serviceClass) {
         //Logging
@@ -36,7 +37,8 @@ public class ServiceGenerator {
 
         return retrofit.create(serviceClass);
     }
-    //Za token
+
+    //for access with token
     public static <T> T createService(Class<T> serviceClass, final AccessToken token) {
         if (token != null) {
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();

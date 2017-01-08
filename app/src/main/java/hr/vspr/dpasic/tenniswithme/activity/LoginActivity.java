@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.login_mvp.LoginPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.login_mvp.LoginView;
@@ -41,8 +42,15 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         }
     }
 
+    @OnClick(R.id.email_sign_in_button)
     public void signInClick(View view) {
         loginPresenter.doLogin();
+    }
+
+    @OnClick(R.id.goto_register_button)
+    public void goToRegisterClick(View view) {
+        Intent registerActivity = new Intent(this, RegisterActivity.class);
+        startActivity(registerActivity);
     }
 
     @Override
@@ -68,9 +76,5 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
-    public void goToRegisterClick(View view) {
-        Intent registerActivity = new Intent(this, RegisterActivity.class);
-        startActivity(registerActivity);
-    }
 }
 

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.login_mvp.LoginPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.register_mvp.RegisterPresenterImpl;
@@ -38,10 +39,12 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         registerPresenter = new RegisterPresenterImpl(this);
     }
 
+    @OnClick(R.id.email_register_button)
     public void registerClick(View view) {
         registerPresenter.doRegister();
     }
 
+    @OnClick(R.id.goto_login_button)
     public void goToLoginClick(View view) {
         Intent loginActivity = new Intent(this, LoginActivity.class);
         startActivity(loginActivity);

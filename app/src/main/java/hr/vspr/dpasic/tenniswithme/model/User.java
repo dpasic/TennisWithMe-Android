@@ -57,7 +57,7 @@ public class User implements Parcelable {
     }
 
     public String getFullName() {
-        return firstName + " " + lastName;
+        return ((firstName == null) ? "" : firstName) + " " + ((lastName == null) ? "" : lastName);
     }
 
     public String getFirstName() {

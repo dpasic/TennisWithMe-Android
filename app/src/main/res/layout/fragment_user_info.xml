@@ -1,13 +1,105 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="hr.vspr.dpasic.tenniswithme.fragment.UserInfoFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/FormLabel"
+                    android:text="@string/full_name_lbl" />
+
+                <TextView
+                    android:id="@+id/tv_full_name"
+                    style="@style/FormViewContent"
+                    tools:text="Đani Pašić" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/FormLabel"
+                    android:text="@string/email_lbl" />
+
+                <TextView
+                    android:id="@+id/tv_email"
+                    style="@style/FormViewContent"
+                    tools:text="djani@mail.com" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/FormLabel"
+                    android:text="@string/sex_lbl" />
+
+                <TextView
+                    android:id="@+id/tv_sex"
+                    style="@style/FormViewContent"
+                    tools:text="Male" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/FormLabel"
+                    android:text="@string/age_lbl" />
+
+                <TextView
+                    android:id="@+id/tv_age"
+                    style="@style/FormViewContent"
+                    tools:text="23" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/FormLabel"
+                    android:text="@string/summary_lbl" />
+
+                <TextView
+                    android:id="@+id/tv_summary"
+                    style="@style/FormViewContent"
+                    android:ellipsize="end"
+                    android:lines="3"
+                    tools:text="I'm former tennis player." />
+            </LinearLayout>
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            app:srcCompat="@android:drawable/ic_dialog_email" />
+    </android.support.design.widget.CoordinatorLayout>
 
 </FrameLayout>

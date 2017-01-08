@@ -1,14 +1,24 @@
 package hr.vspr.dpasic.tenniswithme.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import java.io.Serializable;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
+import hr.vspr.dpasic.tenniswithme.activity.EditUserInfoActivity;
+import hr.vspr.dpasic.tenniswithme.edit_user_info_mvp.UserInfoPublisher;
+import hr.vspr.dpasic.tenniswithme.edit_user_info_mvp.UserInfoSubscriber;
 import hr.vspr.dpasic.tenniswithme.model.User;
 
 /**
@@ -19,12 +29,23 @@ import hr.vspr.dpasic.tenniswithme.model.User;
  * Use the {@link UserInfoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UserInfoFragment extends Fragment {
+public class UserInfoFragment extends Fragment implements UserInfoSubscriber, Serializable {
 
     private static final String USER = "user";
 
     private User user;
     private OnFragmentInteractionListener mListener;
+
+    @BindView(R.id.tv_full_name)
+    TextView tvFullName;
+    @BindView(R.id.tv_email)
+    TextView tvEmail;
+    @BindView(R.id.tv_sex)
+    TextView tvSex;
+    @BindView(R.id.tv_age)
+    TextView tvAge;
+    @BindView(R.id.tv_summary)
+    TextView tvSummary;
 
     public UserInfoFragment() {
         // Required empty public constructor
@@ -56,7 +77,40 @@ public class UserInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_info, container, false);
+        ButterKnife.bind(this, view);
+
+        updateUserInfo();
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //TODO: read user info from REST
+    }
+
+    private void updateUserInfo() {
+        tvFullName.setText(user.getFullName());
+        tvEmail.setText(user.getEmail());
+        tvAge.setText(user.getAge());
+        tvSex.setText(user.getSex());
+        tvSummary.setText(user.getSummary());
+    }
+
+    @OnClick(R.id.fab_edit)
+    public void editUserInfoClick() {
+        Intent editUserInfoActivity = new Intent(getContext(), EditUserInfoActivity.class);
+        editUserInfoActivity.putExtra(USER, user);
+
+        startActivity(editUserInfoActivity);
+    }
+
+    @Override
+    public void update(UserInfoPublisher publisher, User user) {
+        this.user = user;
+        updateUserInfo();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

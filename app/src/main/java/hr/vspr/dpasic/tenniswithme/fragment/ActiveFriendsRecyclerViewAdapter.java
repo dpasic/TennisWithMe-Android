@@ -7,21 +7,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import hr.vspr.dpasic.tenniswithme.R;
-import hr.vspr.dpasic.tenniswithme.fragment.dummy.DummyContent.DummyItem;
+import hr.vspr.dpasic.tenniswithme.model.User;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link User} and makes a call to the
  * specified {@link ActiveFriendsFragment.OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
+ *
  */
 public class ActiveFriendsRecyclerViewAdapter extends RecyclerView.Adapter<ActiveFriendsRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<User> mValues;
     private final ActiveFriendsFragment.OnListFragmentInteractionListener mListener;
 
-    public ActiveFriendsRecyclerViewAdapter(List<DummyItem> items, ActiveFriendsFragment.OnListFragmentInteractionListener listener) {
+    public ActiveFriendsRecyclerViewAdapter(List<User> items, ActiveFriendsFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -36,8 +36,7 @@ public class ActiveFriendsRecyclerViewAdapter extends RecyclerView.Adapter<Activ
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mContentView.setText(mValues.get(position).getFullName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,16 +55,16 @@ public class ActiveFriendsRecyclerViewAdapter extends RecyclerView.Adapter<Activ
         return mValues.size();
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         public final View mView;
-        public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public User mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
             mContentView = (TextView) view.findViewById(R.id.content);
         }
 

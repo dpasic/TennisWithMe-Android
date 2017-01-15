@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     private void openMainActivity() {
         Intent mainActivity = new Intent(this, MainActivity.class);
+        mainActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainActivity);
     }
 

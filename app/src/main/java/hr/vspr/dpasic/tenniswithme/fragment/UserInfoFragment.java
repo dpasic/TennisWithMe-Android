@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import hr.vspr.dpasic.tenniswithme.activity.EditUserInfoActivity;
 import hr.vspr.dpasic.tenniswithme.edit_user_info_mvp.UserInfoPublisher;
 import hr.vspr.dpasic.tenniswithme.edit_user_info_mvp.UserInfoSubscriber;
 import hr.vspr.dpasic.tenniswithme.model.User;
+import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,8 +34,10 @@ import hr.vspr.dpasic.tenniswithme.model.User;
 public class UserInfoFragment extends Fragment implements UserInfoSubscriber, Serializable {
 
     private static final String USER = "user";
+    private static final String ACTION_TYPE = "actionType";
 
     private User user;
+    private UserActionType actionType;
     private OnFragmentInteractionListener mListener;
 
     @BindView(R.id.tv_full_name)
@@ -46,6 +50,8 @@ public class UserInfoFragment extends Fragment implements UserInfoSubscriber, Se
     TextView tvAge;
     @BindView(R.id.tv_summary)
     TextView tvSummary;
+    @BindView(R.id.fab_edit)
+    FloatingActionButton fabEdit;
 
     public UserInfoFragment() {
         // Required empty public constructor
@@ -57,10 +63,11 @@ public class UserInfoFragment extends Fragment implements UserInfoSubscriber, Se
      *
      * @return A new instance of fragment UserInfoFragment.
      */
-    public static UserInfoFragment newInstance(User user) {
+    public static UserInfoFragment newInstance(User user, UserActionType actionType) {
         UserInfoFragment fragment = new UserInfoFragment();
         Bundle args = new Bundle();
         args.putParcelable(USER, user);
+        args.putSerializable(ACTION_TYPE, actionType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -70,6 +77,7 @@ public class UserInfoFragment extends Fragment implements UserInfoSubscriber, Se
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             user = getArguments().getParcelable(USER);
+            actionType = (UserActionType) getArguments().getSerializable(ACTION_TYPE);
         }
     }
 
@@ -80,9 +88,21 @@ public class UserInfoFragment extends Fragment implements UserInfoSubscriber, Se
         View view = inflater.inflate(R.layout.fragment_user_info, container, false);
         ButterKnife.bind(this, view);
 
+        prepareViewBasedOnActionType();
         updateUserInfo();
 
         return view;
+    }
+
+    private void prepareViewBasedOnActionType() {
+        switch (actionType) {
+            case VIEW_AND_EDIT:
+                fabEdit.setVisibility(View.VISIBLE);
+                break;
+            case VIEW:
+                fabEdit.setVisibility(View.GONE);
+                break;
+        }
     }
 
     @Override

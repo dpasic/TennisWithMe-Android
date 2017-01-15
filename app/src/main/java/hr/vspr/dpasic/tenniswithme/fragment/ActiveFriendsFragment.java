@@ -3,6 +3,7 @@ package hr.vspr.dpasic.tenniswithme.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,9 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import hr.vspr.dpasic.tenniswithme.R;
-import hr.vspr.dpasic.tenniswithme.fragment.dummy.DummyContent;
-import hr.vspr.dpasic.tenniswithme.fragment.dummy.DummyContent.DummyItem;
+import hr.vspr.dpasic.tenniswithme.active_friends_mvp.ActiveFriendsPresenter;
+import hr.vspr.dpasic.tenniswithme.active_friends_mvp.ActiveFriendsPresenterImpl;
+import hr.vspr.dpasic.tenniswithme.active_friends_mvp.ActiveFriendsView;
+import hr.vspr.dpasic.tenniswithme.model.User;
 
 import java.util.List;
 
@@ -22,11 +27,15 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ActiveFriendsFragment extends Fragment {
+public class ActiveFriendsFragment extends Fragment implements ActiveFriendsView, SwipeRefreshLayout.OnRefreshListener {
 
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private ActiveFriendsPresenter activeFriendsPresenter;
     private OnListFragmentInteractionListener mListener;
+
+    @BindView(R.id.list)
+    RecyclerView recyclerView;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -49,21 +58,18 @@ public class ActiveFriendsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_active_friends_list, container, false);
+        ButterKnife.bind(this, view);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new ActiveFriendsRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }
+        Context context = view.getContext();
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+        activeFriendsPresenter = new ActiveFriendsPresenterImpl(this);
+        activeFriendsPresenter.prepareListView();
+
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -82,6 +88,17 @@ public class ActiveFriendsFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void updateListViewAdapter(List<User> users) {
+        recyclerView.setAdapter(new ActiveFriendsRecyclerViewAdapter(users, mListener));
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefresh() {
+        activeFriendsPresenter.prepareListView();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -93,7 +110,6 @@ public class ActiveFriendsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(User item);
     }
 }

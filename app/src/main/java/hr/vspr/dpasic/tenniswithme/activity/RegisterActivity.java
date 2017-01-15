@@ -62,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     @Override
     public void goToApp() {
         Intent mainActivity = new Intent(this, MainActivity.class);
+        mainActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainActivity);
     }
 

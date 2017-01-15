@@ -23,10 +23,10 @@ import butterknife.ButterKnife;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.fragment.ActiveFriendsFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.UserInfoFragment;
-import hr.vspr.dpasic.tenniswithme.fragment.dummy.DummyContent;
 import hr.vspr.dpasic.tenniswithme.main_mvp.MainPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.main_mvp.MainView;
 import hr.vspr.dpasic.tenniswithme.model.User;
+import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainView,
@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity
         mainPresenter.setUserInfo();
     }
 
-    private void commitUserInfoFragment(User user) {
-        Fragment fragment = UserInfoFragment.newInstance(user);
+    private void commitUserInfoFragment(User user, UserActionType actionType) {
+        Fragment fragment = UserInfoFragment.newInstance(user, actionType);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, UserInfoFragment.class.getName()).commit();
 
@@ -95,11 +95,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
+            /*drawer.closeDrawer(GravityCompat.START);*/
             super.onBackPressed();
+        } else {
+            /*super.onBackPressed();*/
+            drawer.openDrawer(GravityCompat.START);
         }
     }
 
@@ -138,13 +139,12 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     private void openUserInfo(View view) {
-        commitUserInfoFragment(user);
+        commitUserInfoFragment(user, UserActionType.VIEW_AND_EDIT);
         drawer.closeDrawer(GravityCompat.START);
     }
 
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity
         navigationEmail.setText(user.getEmail());
 
         this.user = user;
-        commitUserInfoFragment(user);
+        commitUserInfoFragment(user, UserActionType.VIEW_AND_EDIT);
     }
 
     @Override
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
-
+    public void onListFragmentInteraction(User item) {
+        commitUserInfoFragment(item, UserActionType.VIEW);
     }
 }

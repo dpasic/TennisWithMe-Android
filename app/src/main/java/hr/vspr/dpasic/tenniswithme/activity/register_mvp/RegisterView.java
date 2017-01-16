@@ -1,4 +1,4 @@
-package hr.vspr.dpasic.tenniswithme.register_mvp;
+package hr.vspr.dpasic.tenniswithme.activity.register_mvp;
 
 import hr.vspr.dpasic.tenniswithme.view_model.LoginViewModel;
 import hr.vspr.dpasic.tenniswithme.view_model.RegisterViewModel;

@@ -91,6 +91,25 @@
                     android:lines="3"
                     tools:text="I'm former tennis player." />
             </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/loading_progress"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_confirm_friendship"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/confirm_friendship" />
+            <Button
+                android:id="@+id/btn_request_match"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/request_match" />
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton

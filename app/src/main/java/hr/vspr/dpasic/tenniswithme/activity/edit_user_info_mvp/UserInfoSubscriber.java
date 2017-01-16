@@ -1,4 +1,4 @@
-package hr.vspr.dpasic.tenniswithme.edit_user_info_mvp;
+package hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp;
 
 import hr.vspr.dpasic.tenniswithme.model.User;
 

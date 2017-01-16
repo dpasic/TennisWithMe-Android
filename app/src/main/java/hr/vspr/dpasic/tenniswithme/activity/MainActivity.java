@@ -1,10 +1,7 @@
 package hr.vspr.dpasic.tenniswithme.activity;
 
-import android.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -22,16 +19,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.fragment.ActiveFriendsFragment;
+import hr.vspr.dpasic.tenniswithme.fragment.RequestedFriendsFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.UserInfoFragment;
-import hr.vspr.dpasic.tenniswithme.main_mvp.MainPresenterImpl;
-import hr.vspr.dpasic.tenniswithme.main_mvp.MainView;
+import hr.vspr.dpasic.tenniswithme.activity.main_mvp.MainPresenterImpl;
+import hr.vspr.dpasic.tenniswithme.activity.main_mvp.MainView;
+import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnFriendsListFragmentInteractionListener;
 import hr.vspr.dpasic.tenniswithme.model.User;
 import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainView,
         UserInfoFragment.OnFragmentInteractionListener,
-        ActiveFriendsFragment.OnListFragmentInteractionListener {
+        OnFriendsListFragmentInteractionListener {
 
     private MainPresenterImpl mainPresenter;
     private User user;
@@ -85,12 +84,20 @@ public class MainActivity extends AppCompatActivity
         setTitle(R.string.user_info);
     }
 
-    private void commitActiveFragmentsFragment() {
+    private void commitActiveFriendsFragment() {
         Fragment fragment = ActiveFriendsFragment.newInstance();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, ActiveFriendsFragment.class.getName()).commit();
 
-        setTitle(R.string.active_friends);
+        setTitle(R.string.friends);
+    }
+
+    private void commitRequestedFriendsFragment() {
+        Fragment fragment = RequestedFriendsFragment.newInstance();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment, RequestedFriendsFragment.class.getName()).commit();
+
+        setTitle(R.string.friend_requests);
     }
 
     @Override
@@ -132,11 +139,11 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_friends) {
-            commitActiveFragmentsFragment();
+        if (id == R.id.nav_active_friends) {
+            commitActiveFriendsFragment();
 
-        } else if (id == R.id.nav_matches) {
-
+        } else if (id == R.id.nav_requested_friends) {
+            commitRequestedFriendsFragment();
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -168,7 +175,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction(User item) {
-        commitUserInfoFragment(item, UserActionType.VIEW);
+    public void onListFragmentInteraction(User item, UserActionType actionType) {
+        commitUserInfoFragment(item, actionType);
     }
 }

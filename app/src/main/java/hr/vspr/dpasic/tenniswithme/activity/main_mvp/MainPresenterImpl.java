@@ -1,9 +1,8 @@
-package hr.vspr.dpasic.tenniswithme.main_mvp;
+package hr.vspr.dpasic.tenniswithme.activity.main_mvp;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import hr.vspr.dpasic.tenniswithme.model.AccessToken;
-import hr.vspr.dpasic.tenniswithme.model.Credentials;
 import hr.vspr.dpasic.tenniswithme.model.User;
 import hr.vspr.dpasic.tenniswithme.rest.ServiceGenerator;
 import hr.vspr.dpasic.tenniswithme.rest.api_interface.IdentityPlayerRestInterface;

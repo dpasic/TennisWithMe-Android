@@ -2,18 +2,21 @@ package hr.vspr.dpasic.tenniswithme.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
-import hr.vspr.dpasic.tenniswithme.login_mvp.LoginPresenterImpl;
-import hr.vspr.dpasic.tenniswithme.login_mvp.LoginView;
+import hr.vspr.dpasic.tenniswithme.activity.login_mvp.LoginPresenterImpl;
+import hr.vspr.dpasic.tenniswithme.activity.login_mvp.LoginView;
 import hr.vspr.dpasic.tenniswithme.view_model.LoginViewModel;
 
 /**
@@ -27,6 +30,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     AutoCompleteTextView actvEmail;
     @BindView(R.id.et_password)
     EditText etPassword;
+    @BindView(R.id.login_progress)
+    ProgressBar progressLogin;
+    @BindView(R.id.login_view)
+    LinearLayout loginView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @OnClick(R.id.email_sign_in_button)
     public void signInClick(View view) {
+        progressLogin.setVisibility(View.VISIBLE);
         loginPresenter.doLogin();
     }
 
@@ -63,6 +71,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void goToApp() {
+        progressLogin.setVisibility(View.GONE);
         openMainActivity();
     }
 
@@ -74,7 +83,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void showLoginError(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        progressLogin.setVisibility(View.GONE);
+        Snackbar.make(loginView, msg, Snackbar.LENGTH_LONG).show();
     }
 
 }

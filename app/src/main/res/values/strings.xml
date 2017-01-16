@@ -27,7 +27,9 @@
 
     <string name="action_settings">Settings</string>
     <string name="friends">Friends</string>
+    <string name="friend_requests">Friend requests</string>
     <string name="matches">Matches</string>
+    <string name="match_requests">Match requests</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -129,4 +131,6 @@
     <string name="save_profile">Save profile</string>
     <string name="surname_lbl">Surname:</string>
     <string name="full_name_lbl">Full Name:</string>
+    <string name="confirm_friendship">Confirm friendship</string>
+    <string name="request_match">Request match</string>
 </resources>

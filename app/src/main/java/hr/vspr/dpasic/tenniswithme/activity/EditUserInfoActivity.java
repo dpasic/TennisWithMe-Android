@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +12,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
-import hr.vspr.dpasic.tenniswithme.edit_user_info_mvp.EditUserInfoView;
-import hr.vspr.dpasic.tenniswithme.edit_user_info_mvp.UserInfoPublisher;
-import hr.vspr.dpasic.tenniswithme.edit_user_info_mvp.UserInfoSubscriber;
-import hr.vspr.dpasic.tenniswithme.fragment.UserInfoFragment;
+import hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp.EditUserInfoView;
+import hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp.UserInfoPublisher;
+import hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp.UserInfoSubscriber;
 import hr.vspr.dpasic.tenniswithme.model.User;
 
 public class EditUserInfoActivity extends AppCompatActivity implements EditUserInfoView, UserInfoPublisher {

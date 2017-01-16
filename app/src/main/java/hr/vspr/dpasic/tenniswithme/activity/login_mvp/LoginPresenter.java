@@ -1,4 +1,4 @@
-package hr.vspr.dpasic.tenniswithme.login_mvp;
+package hr.vspr.dpasic.tenniswithme.activity.login_mvp;
 
 /**
  * Created by edjapas on 19.12.2016..

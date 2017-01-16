@@ -9,17 +9,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.activity.EditUserInfoActivity;
-import hr.vspr.dpasic.tenniswithme.edit_user_info_mvp.UserInfoPublisher;
-import hr.vspr.dpasic.tenniswithme.edit_user_info_mvp.UserInfoSubscriber;
+import hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp.UserInfoPublisher;
+import hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp.UserInfoSubscriber;
+import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoView;
 import hr.vspr.dpasic.tenniswithme.model.User;
 import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 
@@ -31,7 +32,7 @@ import hr.vspr.dpasic.tenniswithme.model.UserActionType;
  * Use the {@link UserInfoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UserInfoFragment extends Fragment implements UserInfoSubscriber, Serializable {
+public class UserInfoFragment extends Fragment implements UserInfoView, UserInfoSubscriber {
 
     private static final String USER = "user";
     private static final String ACTION_TYPE = "actionType";
@@ -52,6 +53,12 @@ public class UserInfoFragment extends Fragment implements UserInfoSubscriber, Se
     TextView tvSummary;
     @BindView(R.id.fab_edit)
     FloatingActionButton fabEdit;
+    @BindView(R.id.btn_confirm_friendship)
+    Button btnConfirmFriendship;
+    @BindView(R.id.btn_request_match)
+    Button btnRequestMatch;
+    @BindView(R.id.loading_progress)
+    ProgressBar loadingProgress;
 
     public UserInfoFragment() {
         // Required empty public constructor
@@ -98,9 +105,18 @@ public class UserInfoFragment extends Fragment implements UserInfoSubscriber, Se
         switch (actionType) {
             case VIEW_AND_EDIT:
                 fabEdit.setVisibility(View.VISIBLE);
+                btnConfirmFriendship.setVisibility(View.GONE);
+                btnRequestMatch.setVisibility(View.GONE);
                 break;
-            case VIEW:
+            case CONFIRM_FRIENDSHIP:
                 fabEdit.setVisibility(View.GONE);
+                btnConfirmFriendship.setVisibility(View.VISIBLE);
+                btnRequestMatch.setVisibility(View.GONE);
+                break;
+            case REQUEST_MATCH:
+                fabEdit.setVisibility(View.GONE);
+                btnConfirmFriendship.setVisibility(View.GONE);
+                btnRequestMatch.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -125,6 +141,16 @@ public class UserInfoFragment extends Fragment implements UserInfoSubscriber, Se
         editUserInfoActivity.putExtra(USER, user);
 
         startActivity(editUserInfoActivity);
+    }
+
+    @OnClick(R.id.btn_confirm_friendship)
+    public void confirmFriendshipClick() {
+        loadingProgress.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.btn_request_match)
+    public void requestMatchClick() {
+
     }
 
     @Override

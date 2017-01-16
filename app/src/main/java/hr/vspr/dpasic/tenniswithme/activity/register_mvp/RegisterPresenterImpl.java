@@ -1,13 +1,11 @@
-package hr.vspr.dpasic.tenniswithme.register_mvp;
+package hr.vspr.dpasic.tenniswithme.activity.register_mvp;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
-import hr.vspr.dpasic.tenniswithme.login_mvp.LoginView;
 import hr.vspr.dpasic.tenniswithme.model.AccessToken;
 import hr.vspr.dpasic.tenniswithme.model.Credentials;
 import hr.vspr.dpasic.tenniswithme.rest.ServiceGenerator;
 import hr.vspr.dpasic.tenniswithme.rest.api_interface.AccountRestInterface;
-import hr.vspr.dpasic.tenniswithme.view_model.LoginViewModel;
 import hr.vspr.dpasic.tenniswithme.view_model.RegisterViewModel;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

@@ -10,26 +10,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.vspr.dpasic.tenniswithme.R;
-import hr.vspr.dpasic.tenniswithme.adapter.ActiveFriendsRecyclerViewAdapter;
+import hr.vspr.dpasic.tenniswithme.adapter.RequestedFriendsRecyclerViewAdapter;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsPresenter;
-import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.ActiveFriendsPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsView;
+import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.RequestedFriendsPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnFriendsListFragmentInteractionListener;
 import hr.vspr.dpasic.tenniswithme.model.User;
 import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 
-import java.util.List;
-
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnFriendsListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ActiveFriendsFragment extends Fragment implements FriendsView,
+public class RequestedFriendsFragment extends Fragment implements FriendsView,
         SwipeRefreshLayout.OnRefreshListener {
 
     private FriendsPresenter friendsPresenter;
@@ -44,11 +44,11 @@ public class ActiveFriendsFragment extends Fragment implements FriendsView,
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ActiveFriendsFragment() {
+    public RequestedFriendsFragment() {
     }
 
-    public static ActiveFriendsFragment newInstance() {
-        ActiveFriendsFragment fragment = new ActiveFriendsFragment();
+    public static RequestedFriendsFragment newInstance() {
+        RequestedFriendsFragment fragment = new RequestedFriendsFragment();
         return fragment;
     }
 
@@ -68,7 +68,7 @@ public class ActiveFriendsFragment extends Fragment implements FriendsView,
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        friendsPresenter = new ActiveFriendsPresenterImpl(this);
+        friendsPresenter = new RequestedFriendsPresenterImpl(this);
         friendsPresenter.prepareListView();
 
         return view;
@@ -93,7 +93,7 @@ public class ActiveFriendsFragment extends Fragment implements FriendsView,
 
     @Override
     public void updateListViewAdapter(List<User> users) {
-        recyclerView.setAdapter(new ActiveFriendsRecyclerViewAdapter(users, mListener));
+        recyclerView.setAdapter(new RequestedFriendsRecyclerViewAdapter(users, mListener));
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -101,6 +101,4 @@ public class ActiveFriendsFragment extends Fragment implements FriendsView,
     public void onRefresh() {
         friendsPresenter.prepareListView();
     }
-
-
 }

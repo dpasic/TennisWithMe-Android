@@ -1,4 +1,4 @@
-package hr.vspr.dpasic.tenniswithme.fragment;
+package hr.vspr.dpasic.tenniswithme.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,21 +7,24 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import hr.vspr.dpasic.tenniswithme.R;
+import hr.vspr.dpasic.tenniswithme.fragment.ActiveFriendsFragment;
+import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnFriendsListFragmentInteractionListener;
 import hr.vspr.dpasic.tenniswithme.model.User;
+import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 
 import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link User} and makes a call to the
- * specified {@link ActiveFriendsFragment.OnListFragmentInteractionListener}.
+ * specified {@link OnFriendsListFragmentInteractionListener}.
  *
  */
 public class ActiveFriendsRecyclerViewAdapter extends RecyclerView.Adapter<ActiveFriendsRecyclerViewAdapter.ViewHolder> {
 
     private final List<User> mValues;
-    private final ActiveFriendsFragment.OnListFragmentInteractionListener mListener;
+    private final OnFriendsListFragmentInteractionListener mListener;
 
-    public ActiveFriendsRecyclerViewAdapter(List<User> items, ActiveFriendsFragment.OnListFragmentInteractionListener listener) {
+    public ActiveFriendsRecyclerViewAdapter(List<User> items, OnFriendsListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -44,7 +47,7 @@ public class ActiveFriendsRecyclerViewAdapter extends RecyclerView.Adapter<Activ
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(holder.mItem, UserActionType.REQUEST_MATCH);
                 }
             }
         });

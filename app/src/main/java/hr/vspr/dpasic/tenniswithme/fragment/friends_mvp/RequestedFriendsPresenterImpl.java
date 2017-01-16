@@ -1,16 +1,15 @@
-package hr.vspr.dpasic.tenniswithme.active_friends_mvp;
+package hr.vspr.dpasic.tenniswithme.fragment.friends_mvp;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.util.List;
 
+import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsPresenter;
+import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsView;
 import hr.vspr.dpasic.tenniswithme.model.AccessToken;
-import hr.vspr.dpasic.tenniswithme.model.Credentials;
 import hr.vspr.dpasic.tenniswithme.model.User;
 import hr.vspr.dpasic.tenniswithme.rest.ServiceGenerator;
-import hr.vspr.dpasic.tenniswithme.rest.api_interface.AccountRestInterface;
 import hr.vspr.dpasic.tenniswithme.rest.api_interface.FriendsRestInterface;
-import hr.vspr.dpasic.tenniswithme.view_model.LoginViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,12 +18,12 @@ import retrofit2.Response;
  * Created by dpasic on 1/15/17.
  */
 
-public class ActiveFriendsPresenterImpl implements ActiveFriendsPresenter {
+public class RequestedFriendsPresenterImpl implements FriendsPresenter {
 
-    private ActiveFriendsView activeFriendsView;
+    private FriendsView friendsView;
 
-    public ActiveFriendsPresenterImpl(ActiveFriendsView activeFriendsView) {
-        this.activeFriendsView = activeFriendsView;
+    public RequestedFriendsPresenterImpl(FriendsView friendsView) {
+        this.friendsView = friendsView;
     }
 
     @Override
@@ -32,12 +31,12 @@ public class ActiveFriendsPresenterImpl implements ActiveFriendsPresenter {
         AccessToken token = SQLite.select().from(AccessToken.class).querySingle();
         final FriendsRestInterface friendsRestInterface = ServiceGenerator.createService(FriendsRestInterface.class, token);
 
-        Call<List<User>> call = friendsRestInterface.getActiveFriends();
+        Call<List<User>> call = friendsRestInterface.getRequestedFriends();
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if (response.isSuccessful()) {
-                    activeFriendsView.updateListViewAdapter(response.body());
+                    friendsView.updateListViewAdapter(response.body());
                 }
             }
 

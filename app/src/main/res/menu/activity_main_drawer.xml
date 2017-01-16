@@ -3,13 +3,24 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_friends"
+            android:id="@+id/nav_active_friends"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/friends" />
         <item
-            android:id="@+id/nav_matches"
+            android:id="@+id/nav_requested_friends"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/friend_requests" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_active_matches"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/matches" />
+        <item
+            android:id="@+id/nav_requested_matches"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/match_requests" />
     </group>
 
     <!--<item android:title="Communicate">

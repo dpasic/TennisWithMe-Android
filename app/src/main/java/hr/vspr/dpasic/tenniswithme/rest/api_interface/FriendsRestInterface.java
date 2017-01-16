@@ -14,4 +14,7 @@ public interface FriendsRestInterface {
 
     @GET("api/PlayerFriendships/Active")
     Call<List<User>> getActiveFriends();
+
+    @GET("api/PlayerFriendships/Requested")
+    Call<List<User>> getRequestedFriends();
 }

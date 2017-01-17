@@ -37,12 +37,15 @@ public class RequestedFriendsPresenterImpl implements FriendsPresenter {
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if (response.isSuccessful()) {
                     friendsView.updateListViewAdapter(response.body());
+
+                } else {
+                    friendsView.notifyRequestError(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
-
+                friendsView.notifyRequestError(t.getMessage());
             }
         });
     }

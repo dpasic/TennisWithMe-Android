@@ -2,6 +2,7 @@ package hr.vspr.dpasic.tenniswithme.activity;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -165,11 +166,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void showError(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
@@ -177,5 +173,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onListFragmentInteraction(User item, UserActionType actionType) {
         commitUserInfoFragment(item, actionType);
+    }
+
+    @Override
+    public void notifyRequestError(String msg) {
+        Snackbar.make(drawer, msg, Snackbar.LENGTH_LONG).show();
     }
 }

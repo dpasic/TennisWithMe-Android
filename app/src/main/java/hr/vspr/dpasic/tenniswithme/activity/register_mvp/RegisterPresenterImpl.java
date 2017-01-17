@@ -38,13 +38,13 @@ public class RegisterPresenterImpl implements RegisterPresenter {
                     doLogin(accountRestInterface, registerViewModel);
 
                 } else {
-                    registerView.showRegisterError(response.message());
+                    registerView.notifyRequestError(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                registerView.showRegisterError(t.getMessage());
+                registerView.notifyRequestError(t.getMessage());
             }
         });
     }
@@ -74,13 +74,13 @@ public class RegisterPresenterImpl implements RegisterPresenter {
                     registerView.goToApp();
 
                 } else {
-                    registerView.showRegisterError(response.message());
+                    registerView.notifyRequestError(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<AccessToken> call, Throwable t) {
-                registerView.showRegisterError(t.getMessage());
+                registerView.notifyRequestError(t.getMessage());
             }
         });
     }

@@ -57,13 +57,13 @@ public class LoginPresenterImpl implements LoginPresenter {
                     loginView.goToApp();
 
                 } else {
-                    loginView.showLoginError(response.message());
+                    loginView.notifyRequestError(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<AccessToken> call, Throwable t) {
-                loginView.showLoginError(t.getMessage());
+                loginView.notifyRequestError(t.getMessage());
             }
         });
     }

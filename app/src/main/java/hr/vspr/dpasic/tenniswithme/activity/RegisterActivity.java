@@ -17,6 +17,7 @@ import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.activity.register_mvp.RegisterPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.activity.register_mvp.RegisterView;
+import hr.vspr.dpasic.tenniswithme.common.RestView;
 import hr.vspr.dpasic.tenniswithme.view_model.RegisterViewModel;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterView {
@@ -75,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     }
 
     @Override
-    public void showRegisterError(String msg) {
+    public void notifyRequestError(String msg) {
         registerProgress.setVisibility(View.GONE);
         Snackbar.make(registerView, msg, Snackbar.LENGTH_LONG).show();
     }

@@ -2,6 +2,7 @@ package hr.vspr.dpasic.tenniswithme.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,7 +27,7 @@ import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link OnFriendsListFragmentInteractionListener}
  * interface.
  */
 public class RequestedFriendsFragment extends Fragment implements FriendsView,
@@ -100,5 +101,11 @@ public class RequestedFriendsFragment extends Fragment implements FriendsView,
     @Override
     public void onRefresh() {
         friendsPresenter.prepareListView();
+    }
+
+    @Override
+    public void notifyRequestError(String msg) {
+        swipeRefreshLayout.setRefreshing(false);
+        Snackbar.make(swipeRefreshLayout, msg, Snackbar.LENGTH_LONG);
     }
 }

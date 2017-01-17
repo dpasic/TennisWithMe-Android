@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -20,6 +22,8 @@ import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.activity.EditUserInfoActivity;
 import hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp.UserInfoPublisher;
 import hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp.UserInfoSubscriber;
+import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoPresenter;
+import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoView;
 import hr.vspr.dpasic.tenniswithme.model.User;
 import hr.vspr.dpasic.tenniswithme.model.UserActionType;
@@ -40,6 +44,7 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     private User user;
     private UserActionType actionType;
     private OnFragmentInteractionListener mListener;
+    private UserInfoPresenter userInfoPresenter;
 
     @BindView(R.id.tv_full_name)
     TextView tvFullName;
@@ -59,6 +64,8 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     Button btnRequestMatch;
     @BindView(R.id.loading_progress)
     ProgressBar loadingProgress;
+    @BindView(R.id.userInfoView)
+    FrameLayout userInfoView;
 
     public UserInfoFragment() {
         // Required empty public constructor
@@ -94,6 +101,8 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_info, container, false);
         ButterKnife.bind(this, view);
+
+        userInfoPresenter = new UserInfoPresenterImpl(this);
 
         prepareViewBasedOnActionType();
         updateUserInfo();
@@ -146,6 +155,7 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     @OnClick(R.id.btn_confirm_friendship)
     public void confirmFriendshipClick() {
         loadingProgress.setVisibility(View.VISIBLE);
+        userInfoPresenter.confirmFriendship(user);
     }
 
     @OnClick(R.id.btn_request_match)
@@ -154,9 +164,25 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     }
 
     @Override
+    public void acceptFriendship() {
+        loadingProgress.setVisibility(View.GONE);
+
+        btnConfirmFriendship.setVisibility(View.GONE);
+        btnRequestMatch.setVisibility(View.VISIBLE);
+
+        Snackbar.make(userInfoView, R.string.confirmed_friendship, Snackbar.LENGTH_LONG);
+    }
+
+    @Override
     public void update(UserInfoPublisher publisher, User user) {
         this.user = user;
         updateUserInfo();
+    }
+
+    @Override
+    public void notifyRequestError(String msg) {
+        loadingProgress.setVisibility(View.GONE);
+        Snackbar.make(userInfoView, msg, Snackbar.LENGTH_LONG);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -17,6 +17,7 @@ import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.activity.login_mvp.LoginPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.activity.login_mvp.LoginView;
+import hr.vspr.dpasic.tenniswithme.common.RestView;
 import hr.vspr.dpasic.tenniswithme.view_model.LoginViewModel;
 
 /**
@@ -82,10 +83,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void showLoginError(String msg) {
+    public void notifyRequestError(String msg) {
         progressLogin.setVisibility(View.GONE);
         Snackbar.make(loginView, msg, Snackbar.LENGTH_LONG).show();
     }
-
 }
 

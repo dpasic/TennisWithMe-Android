@@ -76,4 +76,9 @@ public class EditUserInfoActivity extends AppCompatActivity implements EditUserI
             sub.update(this, user);
         }
     }
+
+    @Override
+    public void notifyRequestError(String msg) {
+
+    }
 }

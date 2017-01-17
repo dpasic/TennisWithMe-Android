@@ -2,6 +2,7 @@ package hr.vspr.dpasic.tenniswithme.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -103,4 +104,9 @@ public class ActiveFriendsFragment extends Fragment implements FriendsView,
     }
 
 
+    @Override
+    public void notifyRequestError(String msg) {
+        swipeRefreshLayout.setRefreshing(false);
+        Snackbar.make(swipeRefreshLayout, msg, Snackbar.LENGTH_LONG);
+    }
 }

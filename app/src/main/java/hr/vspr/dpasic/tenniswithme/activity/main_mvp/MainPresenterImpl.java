@@ -35,13 +35,13 @@ public class MainPresenterImpl implements MainPresenter {
                     mainView.setNavigationUserInfo(response.body());
 
                 } else {
-                    mainView.showError(response.message());
+                    mainView.notifyRequestError(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                mainView.showError(t.getMessage());
+                mainView.notifyRequestError(t.getMessage());
             }
         });
     }

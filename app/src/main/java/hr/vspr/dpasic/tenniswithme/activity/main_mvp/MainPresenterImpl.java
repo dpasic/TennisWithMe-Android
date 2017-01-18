@@ -2,6 +2,9 @@ package hr.vspr.dpasic.tenniswithme.activity.main_mvp;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
+import hr.vspr.dpasic.tenniswithme.common.AccessTokenRefresher;
+import hr.vspr.dpasic.tenniswithme.common.RestPublisher;
+import hr.vspr.dpasic.tenniswithme.common.RestSubscriber;
 import hr.vspr.dpasic.tenniswithme.model.AccessToken;
 import hr.vspr.dpasic.tenniswithme.model.User;
 import hr.vspr.dpasic.tenniswithme.rest.ServiceGenerator;
@@ -24,7 +27,19 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void setUserInfo() {
-        AccessToken token = SQLite.select().from(AccessToken.class).querySingle();
+        AccessTokenRefresher refresher = new AccessTokenRefresher();
+
+        refresher.registerSubscriber(new RestSubscriber() {
+            @Override
+            public void doRequest(RestPublisher publisher, AccessToken token) {
+                setUserInfoRequest(token);
+            }
+        });
+
+        refresher.refreshTokenIfNecessary();
+    }
+
+    private void setUserInfoRequest(AccessToken token) {
         final IdentityPlayerRestInterface identityPlayerRestInterface = ServiceGenerator.createService(IdentityPlayerRestInterface.class, token);
 
         Call<User> call = identityPlayerRestInterface.getUserInfo();

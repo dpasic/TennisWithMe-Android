@@ -24,4 +24,10 @@ public interface AccountRestInterface {
             @Field("username") String username,
             @Field("password") String password,
             @Field("grant_type") String grantType);
+
+    @FormUrlEncoded
+    @POST("token")
+    Call<AccessToken> getRefreshedAccessToken(
+            @Field("refresh_token") String refreshToken,
+            @Field("grant_type") String grantType);
 }

@@ -17,6 +17,6 @@ import hr.vspr.dpasic.tenniswithme.model.UserActionType;
  * "http://developer.android.com/training/basics/fragments/communicating.html"
  * >Communicating with Other Fragments</a> for more information.
  */
-public interface OnFriendsListFragmentInteractionListener {
+public interface OnPeopleListFragmentInteractionListener {
     void onListFragmentInteraction(User item, UserActionType actionType);
 }

@@ -6,33 +6,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 import hr.vspr.dpasic.tenniswithme.R;
-import hr.vspr.dpasic.tenniswithme.fragment.ActiveFriendsFragment;
-import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnFriendsListFragmentInteractionListener;
+import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnPeopleListFragmentInteractionListener;
 import hr.vspr.dpasic.tenniswithme.model.User;
 import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 
-import java.util.List;
-
 /**
  * {@link RecyclerView.Adapter} that can display a {@link User} and makes a call to the
- * specified {@link OnFriendsListFragmentInteractionListener}.
+ * specified {@link OnPeopleListFragmentInteractionListener}.
  *
  */
-public class ActiveFriendsRecyclerViewAdapter extends RecyclerView.Adapter<ActiveFriendsRecyclerViewAdapter.ViewHolder> {
+public class PeopleRecyclerViewAdapter extends RecyclerView.Adapter<PeopleRecyclerViewAdapter.ViewHolder> {
 
     private final List<User> mValues;
-    private final OnFriendsListFragmentInteractionListener mListener;
+    private final UserActionType mActionType;
+    private final OnPeopleListFragmentInteractionListener mListener;
 
-    public ActiveFriendsRecyclerViewAdapter(List<User> items, OnFriendsListFragmentInteractionListener listener) {
+    public PeopleRecyclerViewAdapter(List<User> items, UserActionType actionType, OnPeopleListFragmentInteractionListener listener) {
         mValues = items;
+        mActionType = actionType;
         mListener = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_active_friends, parent, false);
+                .inflate(R.layout.friend_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -47,7 +48,7 @@ public class ActiveFriendsRecyclerViewAdapter extends RecyclerView.Adapter<Activ
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem, UserActionType.REQUEST_MATCH);
+                    mListener.onListFragmentInteraction(holder.mItem, mActionType);
                 }
             }
         });

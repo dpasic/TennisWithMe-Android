@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,14 +23,14 @@ import hr.vspr.dpasic.tenniswithme.fragment.RequestedFriendsFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.UserInfoFragment;
 import hr.vspr.dpasic.tenniswithme.activity.main_mvp.MainPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.activity.main_mvp.MainView;
-import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnFriendsListFragmentInteractionListener;
+import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnPeopleListFragmentInteractionListener;
 import hr.vspr.dpasic.tenniswithme.model.User;
 import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainView,
         UserInfoFragment.OnFragmentInteractionListener,
-        OnFriendsListFragmentInteractionListener {
+        OnPeopleListFragmentInteractionListener {
 
     private MainPresenterImpl mainPresenter;
     private User user;

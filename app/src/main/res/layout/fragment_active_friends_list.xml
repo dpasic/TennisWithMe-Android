@@ -15,5 +15,5 @@
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context="hr.vspr.dpasic.tenniswithme.fragment.ActiveFriendsFragment"
-        tools:listitem="@layout/fragment_active_friends" />
+        tools:listitem="@layout/friend_item" />
 </android.support.v4.widget.SwipeRefreshLayout>

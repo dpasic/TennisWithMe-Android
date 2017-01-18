@@ -1,7 +1,9 @@
 package hr.vspr.dpasic.tenniswithme.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,31 +17,35 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
-import hr.vspr.dpasic.tenniswithme.adapter.RequestedFriendsRecyclerViewAdapter;
+import hr.vspr.dpasic.tenniswithme.activity.FriendRequestActivity;
+import hr.vspr.dpasic.tenniswithme.adapter.PeopleRecyclerViewAdapter;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsPresenter;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsView;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.RequestedFriendsPresenterImpl;
-import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnFriendsListFragmentInteractionListener;
+import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnPeopleListFragmentInteractionListener;
 import hr.vspr.dpasic.tenniswithme.model.User;
 import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnFriendsListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link OnPeopleListFragmentInteractionListener}
  * interface.
  */
 public class RequestedFriendsFragment extends Fragment implements FriendsView,
         SwipeRefreshLayout.OnRefreshListener {
 
     private FriendsPresenter friendsPresenter;
-    private OnFriendsListFragmentInteractionListener mListener;
+    private OnPeopleListFragmentInteractionListener mListener;
 
     @BindView(R.id.list)
     RecyclerView recyclerView;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.fab_add)
+    FloatingActionButton fabAdd;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -61,7 +67,7 @@ public class RequestedFriendsFragment extends Fragment implements FriendsView,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_active_friends_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_requested_friends_list, container, false);
         ButterKnife.bind(this, view);
 
         Context context = view.getContext();
@@ -76,25 +82,8 @@ public class RequestedFriendsFragment extends Fragment implements FriendsView,
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFriendsListFragmentInteractionListener) {
-            mListener = (OnFriendsListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFriendsListFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    @Override
     public void updateListViewAdapter(List<User> users) {
-        recyclerView.setAdapter(new RequestedFriendsRecyclerViewAdapter(users, mListener));
+        recyclerView.setAdapter(new PeopleRecyclerViewAdapter(users, UserActionType.CONFIRM_FRIENDSHIP, mListener));
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -107,5 +96,28 @@ public class RequestedFriendsFragment extends Fragment implements FriendsView,
     public void notifyRequestError(String msg) {
         swipeRefreshLayout.setRefreshing(false);
         Snackbar.make(swipeRefreshLayout, msg, Snackbar.LENGTH_LONG);
+    }
+
+    @OnClick(R.id.fab_add)
+    public void editUserInfoClick() {
+        Intent friendRequestActivity = new Intent(getContext(), FriendRequestActivity.class);
+        startActivity(friendRequestActivity);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnPeopleListFragmentInteractionListener) {
+            mListener = (OnPeopleListFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnPeopleListFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 }

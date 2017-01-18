@@ -14,11 +14,11 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.vspr.dpasic.tenniswithme.R;
-import hr.vspr.dpasic.tenniswithme.adapter.ActiveFriendsRecyclerViewAdapter;
+import hr.vspr.dpasic.tenniswithme.adapter.PeopleRecyclerViewAdapter;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsPresenter;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.ActiveFriendsPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsView;
-import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnFriendsListFragmentInteractionListener;
+import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnPeopleListFragmentInteractionListener;
 import hr.vspr.dpasic.tenniswithme.model.User;
 import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 
@@ -27,14 +27,14 @@ import java.util.List;
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnFriendsListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link OnPeopleListFragmentInteractionListener}
  * interface.
  */
 public class ActiveFriendsFragment extends Fragment implements FriendsView,
         SwipeRefreshLayout.OnRefreshListener {
 
     private FriendsPresenter friendsPresenter;
-    private OnFriendsListFragmentInteractionListener mListener;
+    private OnPeopleListFragmentInteractionListener mListener;
 
     @BindView(R.id.list)
     RecyclerView recyclerView;
@@ -78,11 +78,11 @@ public class ActiveFriendsFragment extends Fragment implements FriendsView,
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFriendsListFragmentInteractionListener) {
-            mListener = (OnFriendsListFragmentInteractionListener) context;
+        if (context instanceof OnPeopleListFragmentInteractionListener) {
+            mListener = (OnPeopleListFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFriendsListFragmentInteractionListener");
+                    + " must implement OnPeopleListFragmentInteractionListener");
         }
     }
 
@@ -94,7 +94,7 @@ public class ActiveFriendsFragment extends Fragment implements FriendsView,
 
     @Override
     public void updateListViewAdapter(List<User> users) {
-        recyclerView.setAdapter(new ActiveFriendsRecyclerViewAdapter(users, mListener));
+        recyclerView.setAdapter(new PeopleRecyclerViewAdapter(users, UserActionType.REQUEST_MATCH, mListener));
         swipeRefreshLayout.setRefreshing(false);
     }
 

@@ -7,6 +7,7 @@ package hr.vspr.dpasic.tenniswithme.model;
 public enum UserActionType {
 
     REQUEST_MATCH,
+    REQUEST_FRIENDSHIP,
     CONFIRM_FRIENDSHIP,
     VIEW_AND_EDIT
 }

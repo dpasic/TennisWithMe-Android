@@ -30,7 +30,8 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.EditUserInfoActivity" />
-        <activity android:name=".activity.FriendRequestActivity"></activity>
+        <activity android:name=".activity.FriendRequestActivity" />
+        <activity android:name=".activity.UserInfoActivity"></activity>
     </application>
 
 </manifest>

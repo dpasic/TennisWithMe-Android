@@ -112,6 +112,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/request_match" />
+            <Button
+                android:id="@+id/btn_request_friendship"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/request_friendship" />
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton

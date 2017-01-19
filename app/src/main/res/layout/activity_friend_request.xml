@@ -29,4 +29,10 @@
         app:layoutManager="LinearLayoutManager"
         tools:context="hr.vspr.dpasic.tenniswithme.activity.FriendRequestActivity"
         tools:listitem="@layout/friend_item" />
+
+    <FrameLayout
+        android:id="@+id/friend_request_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"/>
 </LinearLayout>

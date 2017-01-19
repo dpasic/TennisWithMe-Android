@@ -62,6 +62,8 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     Button btnConfirmFriendship;
     @BindView(R.id.btn_request_match)
     Button btnRequestMatch;
+    @BindView(R.id.btn_request_friendship)
+    Button btnRequestFriendship;
     @BindView(R.id.loading_progress)
     ProgressBar loadingProgress;
     @BindView(R.id.userInfoView)
@@ -116,16 +118,25 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
                 fabEdit.setVisibility(View.VISIBLE);
                 btnConfirmFriendship.setVisibility(View.GONE);
                 btnRequestMatch.setVisibility(View.GONE);
+                btnRequestFriendship.setVisibility(View.GONE);
                 break;
             case CONFIRM_FRIENDSHIP:
                 fabEdit.setVisibility(View.GONE);
                 btnConfirmFriendship.setVisibility(View.VISIBLE);
                 btnRequestMatch.setVisibility(View.GONE);
+                btnRequestFriendship.setVisibility(View.GONE);
                 break;
             case REQUEST_MATCH:
                 fabEdit.setVisibility(View.GONE);
                 btnConfirmFriendship.setVisibility(View.GONE);
                 btnRequestMatch.setVisibility(View.VISIBLE);
+                btnRequestFriendship.setVisibility(View.GONE);
+                break;
+            case REQUEST_FRIENDSHIP:
+                fabEdit.setVisibility(View.GONE);
+                btnConfirmFriendship.setVisibility(View.GONE);
+                btnRequestMatch.setVisibility(View.GONE);
+                btnRequestFriendship.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -156,6 +167,11 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     public void confirmFriendshipClick() {
         loadingProgress.setVisibility(View.VISIBLE);
         userInfoPresenter.confirmFriendship(user);
+    }
+
+    @OnClick(R.id.btn_request_friendship)
+    public void requestFriendshipClick() {
+
     }
 
     @OnClick(R.id.btn_request_match)

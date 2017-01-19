@@ -33,6 +33,7 @@ public class AccessTokenRefresher implements RestPublisher {
         expirationTime = expirationTime - (1000 * 60); //1 minute before expiration
         long nowTime = new Date().getTime();
 
+        //TODO: check if refresh token request works ok after access token expiration, otherwise use credentials to log in
         if (nowTime < expirationTime) {
             notifySubscriber(token);
             return;

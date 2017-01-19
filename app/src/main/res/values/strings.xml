@@ -43,4 +43,5 @@
     <string name="confirm_friendship">Confirm friendship</string>
     <string name="request_match">Request match</string>
     <string name="search_by_username">Search by username</string>
+    <string name="request_friendship">Request friendship</string>
 </resources>

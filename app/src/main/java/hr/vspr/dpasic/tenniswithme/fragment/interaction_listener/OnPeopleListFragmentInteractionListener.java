@@ -4,7 +4,7 @@ package hr.vspr.dpasic.tenniswithme.fragment.interaction_listener;
  * Created by edjapas on 16.1.2017..
  */
 
-import hr.vspr.dpasic.tenniswithme.model.User;
+import hr.vspr.dpasic.tenniswithme.model.Player;
 import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 
 /**
@@ -18,5 +18,5 @@ import hr.vspr.dpasic.tenniswithme.model.UserActionType;
  * >Communicating with Other Fragments</a> for more information.
  */
 public interface OnPeopleListFragmentInteractionListener {
-    void onListFragmentInteraction(User item, UserActionType actionType);
+    void onListFragmentInteraction(Player item, UserActionType actionType);
 }

@@ -3,7 +3,7 @@ package hr.vspr.dpasic.tenniswithme.fragment.friends_mvp;
 import java.util.List;
 
 import hr.vspr.dpasic.tenniswithme.common.RestView;
-import hr.vspr.dpasic.tenniswithme.model.User;
+import hr.vspr.dpasic.tenniswithme.model.Player;
 
 /**
  * Created by dpasic on 1/15/17.
@@ -11,5 +11,5 @@ import hr.vspr.dpasic.tenniswithme.model.User;
 
 public interface FriendsView extends RestView {
 
-    void updateListViewAdapter(List<User> users);
+    void updateListViewAdapter(List<Player> players);
 }

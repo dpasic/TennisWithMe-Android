@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by edjapas on 3.1.2017..
  */
 
-public class User implements Parcelable {
+public class Player implements Parcelable {
 
     @SerializedName("Id")
     private String id;
@@ -26,8 +26,8 @@ public class User implements Parcelable {
     @SerializedName("City")
     public String city;
 
-    @SerializedName("Sex")
-    public String sex;
+    @SerializedName("Gender")
+    public String gender;
 
     @SerializedName("MobileNumber")
     public String mobileNumber;
@@ -92,12 +92,12 @@ public class User implements Parcelable {
         this.city = city;
     }
 
-    public String getSex() {
-        return sex;
+    public String getGender() {
+        return gender;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getMobileNumber() {
@@ -164,12 +164,12 @@ public class User implements Parcelable {
         dest.writeString(this.lastName);
         dest.writeString(this.mobileNumber);
         dest.writeString(this.rating);
-        dest.writeString(this.sex);
+        dest.writeString(this.gender);
         dest.writeString(this.summary);
         dest.writeString(this.userName);
     }
 
-    protected User(Parcel in) {
+    protected Player(Parcel in) {
         this.age = in.readString();
         this.city = in.readString();
         this.club = in.readString();
@@ -179,20 +179,20 @@ public class User implements Parcelable {
         this.lastName = in.readString();
         this.mobileNumber = in.readString();
         this.rating = in.readString();
-        this.sex = in.readString();
+        this.gender = in.readString();
         this.summary = in.readString();
         this.userName = in.readString();
     }
 
-    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+    public static final Parcelable.Creator<Player> CREATOR = new Parcelable.Creator<Player>() {
         @Override
-        public User createFromParcel(Parcel source) {
-            return new User(source);
+        public Player createFromParcel(Parcel source) {
+            return new Player(source);
         }
 
         @Override
-        public User[] newArray(int size) {
-            return new User[size];
+        public Player[] newArray(int size) {
+            return new Player[size];
         }
     };
 }

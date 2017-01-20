@@ -4,21 +4,19 @@ import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.FrameLayout;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.fragment.UserInfoFragment;
-import hr.vspr.dpasic.tenniswithme.model.User;
+import hr.vspr.dpasic.tenniswithme.model.Player;
 import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 
 public class UserInfoActivity extends AppCompatActivity implements UserInfoFragment.OnFragmentInteractionListener {
 
-    private static final String USER = "user";
+    private static final String USER = "player";
     private static final String ACTION_TYPE = "actionType";
 
-    private User user;
+    private Player player;
     private UserActionType actionType;
 
     @Override
@@ -28,10 +26,10 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoFragm
 
         ButterKnife.bind(this);
 
-        user = getIntent().getParcelableExtra(USER);
+        player = getIntent().getParcelableExtra(USER);
         actionType = (UserActionType) getIntent().getSerializableExtra(ACTION_TYPE);
 
-        Fragment fragment = UserInfoFragment.newInstance(user, actionType);
+        Fragment fragment = UserInfoFragment.newInstance(player, actionType);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_user_info_container, fragment, UserInfoFragment.class.getName()).commit();
     }

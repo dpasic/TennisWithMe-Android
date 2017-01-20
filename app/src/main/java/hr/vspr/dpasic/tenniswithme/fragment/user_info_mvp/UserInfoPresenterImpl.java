@@ -4,7 +4,7 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import hr.vspr.dpasic.tenniswithme.model.AccessToken;
 import hr.vspr.dpasic.tenniswithme.model.PlayersFriendship;
-import hr.vspr.dpasic.tenniswithme.model.User;
+import hr.vspr.dpasic.tenniswithme.model.Player;
 import hr.vspr.dpasic.tenniswithme.rest.ServiceGenerator;
 import hr.vspr.dpasic.tenniswithme.rest.api_interface.FriendsRestInterface;
 import okhttp3.ResponseBody;
@@ -25,12 +25,12 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
     }
 
     @Override
-    public void confirmFriendship(User user) {
+    public void confirmFriendship(Player player) {
         AccessToken token = SQLite.select().from(AccessToken.class).querySingle();
         final FriendsRestInterface friendsRestInterface = ServiceGenerator.createService(FriendsRestInterface.class, token);
 
         PlayersFriendship friendship = new PlayersFriendship();
-        friendship.playerTwoId = user.getId();
+        friendship.playerTwoId = player.getId();
 
         Call<ResponseBody> call = friendsRestInterface.confirmFriendship(friendship);
         call.enqueue(new Callback<ResponseBody>() {

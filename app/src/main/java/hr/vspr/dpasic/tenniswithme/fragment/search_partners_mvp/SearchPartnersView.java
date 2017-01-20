@@ -1,4 +1,4 @@
-package hr.vspr.dpasic.tenniswithme.activity.friend_request_mvp;
+package hr.vspr.dpasic.tenniswithme.fragment.search_partners_mvp;
 
 import java.util.List;
 
@@ -6,10 +6,10 @@ import hr.vspr.dpasic.tenniswithme.common.RestView;
 import hr.vspr.dpasic.tenniswithme.model.Player;
 
 /**
- * Created by edjapas on 18.1.2017..
+ * Created by edjapas on 20.1.2017..
  */
 
-public interface FriendRequestView extends RestView {
+public interface SearchPartnersView extends RestView {
 
     void updateListViewAdapter(List<Player> players);
 }

@@ -5,7 +5,7 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import java.util.List;
 
 import hr.vspr.dpasic.tenniswithme.model.AccessToken;
-import hr.vspr.dpasic.tenniswithme.model.User;
+import hr.vspr.dpasic.tenniswithme.model.Player;
 import hr.vspr.dpasic.tenniswithme.rest.ServiceGenerator;
 import hr.vspr.dpasic.tenniswithme.rest.api_interface.FriendsRestInterface;
 import retrofit2.Call;
@@ -29,10 +29,10 @@ public class ActiveFriendsPresenterImpl implements FriendsPresenter {
         AccessToken token = SQLite.select().from(AccessToken.class).querySingle();
         final FriendsRestInterface friendsRestInterface = ServiceGenerator.createService(FriendsRestInterface.class, token);
 
-        Call<List<User>> call = friendsRestInterface.getActiveFriends();
-        call.enqueue(new Callback<List<User>>() {
+        Call<List<Player>> call = friendsRestInterface.getActiveFriends();
+        call.enqueue(new Callback<List<Player>>() {
             @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+            public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
                 if (response.isSuccessful()) {
                     friendsView.updateListViewAdapter(response.body());
 
@@ -42,7 +42,7 @@ public class ActiveFriendsPresenterImpl implements FriendsPresenter {
             }
 
             @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
+            public void onFailure(Call<List<Player>> call, Throwable t) {
                 friendsView.notifyRequestError(t.getMessage());
             }
         });

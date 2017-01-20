@@ -25,7 +25,7 @@ import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsPresenter;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsView;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.RequestedFriendsPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnPeopleListFragmentInteractionListener;
-import hr.vspr.dpasic.tenniswithme.model.User;
+import hr.vspr.dpasic.tenniswithme.model.Player;
 import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 
 /**
@@ -82,8 +82,8 @@ public class RequestedFriendsFragment extends Fragment implements FriendsView,
     }
 
     @Override
-    public void updateListViewAdapter(List<User> users) {
-        recyclerView.setAdapter(new PeopleRecyclerViewAdapter(users, UserActionType.CONFIRM_FRIENDSHIP, mListener));
+    public void updateListViewAdapter(List<Player> players) {
+        recyclerView.setAdapter(new PeopleRecyclerViewAdapter(players, UserActionType.CONFIRM_FRIENDSHIP, mListener));
         swipeRefreshLayout.setRefreshing(false);
     }
 

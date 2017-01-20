@@ -10,21 +10,21 @@ import java.util.List;
 
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnPeopleListFragmentInteractionListener;
-import hr.vspr.dpasic.tenniswithme.model.User;
+import hr.vspr.dpasic.tenniswithme.model.Player;
 import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link User} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Player} and makes a call to the
  * specified {@link OnPeopleListFragmentInteractionListener}.
  *
  */
 public class PeopleRecyclerViewAdapter extends RecyclerView.Adapter<PeopleRecyclerViewAdapter.ViewHolder> {
 
-    private final List<User> mValues;
+    private final List<Player> mValues;
     private final UserActionType mActionType;
     private final OnPeopleListFragmentInteractionListener mListener;
 
-    public PeopleRecyclerViewAdapter(List<User> items, UserActionType actionType, OnPeopleListFragmentInteractionListener listener) {
+    public PeopleRecyclerViewAdapter(List<Player> items, UserActionType actionType, OnPeopleListFragmentInteractionListener listener) {
         mValues = items;
         mActionType = actionType;
         mListener = listener;
@@ -64,7 +64,7 @@ public class PeopleRecyclerViewAdapter extends RecyclerView.Adapter<PeopleRecycl
 
         public final View mView;
         public final TextView mContentView;
-        public User mItem;
+        public Player mItem;
 
         public ViewHolder(View view) {
             super(view);

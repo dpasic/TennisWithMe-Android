@@ -15,13 +15,13 @@ import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp.EditUserInfoView;
 import hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp.UserInfoPublisher;
 import hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp.UserInfoSubscriber;
-import hr.vspr.dpasic.tenniswithme.model.User;
+import hr.vspr.dpasic.tenniswithme.model.Player;
 
 public class EditUserInfoActivity extends AppCompatActivity implements EditUserInfoView, UserInfoPublisher {
 
-    private static final String USER = "user";
+    private static final String USER = "player";
 
-    private User user;
+    private Player player;
     private List<UserInfoSubscriber> subscribers;
 
     @BindView(R.id.et_name)
@@ -44,24 +44,24 @@ public class EditUserInfoActivity extends AppCompatActivity implements EditUserI
 
         ButterKnife.bind(this);
 
-        user = getIntent().getParcelableExtra(USER);
+        player = getIntent().getParcelableExtra(USER);
         subscribers = new ArrayList<>();
 
         setUserInfo();
     }
 
     private void setUserInfo() {
-        etName.setText(user.getFirstName());
-        etSurname.setText(user.getLastName());
-        etEmail.setText(user.getEmail());
-        etAge.setText(user.getAge());
-        etSex.setText(user.getSex());
-        etSummary.setText(user.getSummary());
+        etName.setText(player.getFirstName());
+        etSurname.setText(player.getLastName());
+        etEmail.setText(player.getEmail());
+        etAge.setText(player.getAge());
+        etSex.setText(player.getGender());
+        etSummary.setText(player.getSummary());
     }
 
     @OnClick(R.id.btn_save_profile)
     public void saveProfileClick(View view) {
-        notifySubscribers(user);
+        notifySubscribers(player);
         finish();
     }
 
@@ -71,9 +71,9 @@ public class EditUserInfoActivity extends AppCompatActivity implements EditUserI
     }
 
     @Override
-    public void notifySubscribers(User user) {
+    public void notifySubscribers(Player player) {
         for (UserInfoSubscriber sub : subscribers) {
-            sub.update(this, user);
+            sub.update(this, player);
         }
     }
 

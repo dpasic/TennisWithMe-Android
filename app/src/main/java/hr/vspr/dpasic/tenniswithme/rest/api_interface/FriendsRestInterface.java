@@ -3,7 +3,7 @@ package hr.vspr.dpasic.tenniswithme.rest.api_interface;
 import java.util.List;
 
 import hr.vspr.dpasic.tenniswithme.model.PlayersFriendship;
-import hr.vspr.dpasic.tenniswithme.model.User;
+import hr.vspr.dpasic.tenniswithme.model.Player;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -19,13 +19,13 @@ import retrofit2.http.Query;
 public interface FriendsRestInterface {
 
     @GET("api/PlayerFriendships/Active")
-    Call<List<User>> getActiveFriends();
+    Call<List<Player>> getActiveFriends();
 
     @GET("api/PlayerFriendships/Requested")
-    Call<List<User>> getRequestedFriends();
+    Call<List<Player>> getRequestedFriends();
 
     @GET("api/PlayerFriendships/Strangers")
-    Call<List<User>> getStrangers(@Query("query") String query);
+    Call<List<Player>> getStrangers(@Query("query") String query);
 
     @POST("api/PlayerFriendships/RequestFriendship")
     Call<ResponseBody> requestFriendship(@Body PlayersFriendship friendship);

@@ -44,4 +44,28 @@
     <string name="request_match">Request match</string>
     <string name="search_by_username">Search by username</string>
     <string name="request_friendship">Request friendship</string>
+    <string name="find_partner">Find partner</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="city_lbl">City</string>
+    <string name="gender_lbl">Gender</string>
+    <string name="skill_lbl">Skill</string>
+    <string name="search_partners">Search partners</string>
+
+    <string name="all">All</string>
+
+    <string-array name="array_genders">
+        <item>@string/all</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="array_skills">
+        <item>@string/all</item>
+        <item>Rookie</item>
+        <item>Amateur</item>
+        <item>Professional</item>
+        <item>Former Player</item>
+    </string-array>
 </resources>

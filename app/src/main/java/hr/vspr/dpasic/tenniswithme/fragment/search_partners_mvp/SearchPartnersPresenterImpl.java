@@ -1,4 +1,4 @@
-package hr.vspr.dpasic.tenniswithme.activity.friend_request_mvp;
+package hr.vspr.dpasic.tenniswithme.fragment.search_partners_mvp;
 
 import java.util.List;
 
@@ -8,55 +8,55 @@ import hr.vspr.dpasic.tenniswithme.common.RestSubscriber;
 import hr.vspr.dpasic.tenniswithme.model.AccessToken;
 import hr.vspr.dpasic.tenniswithme.model.Player;
 import hr.vspr.dpasic.tenniswithme.rest.ServiceGenerator;
-import hr.vspr.dpasic.tenniswithme.rest.api_interface.FriendsRestInterface;
+import hr.vspr.dpasic.tenniswithme.rest.api_interface.PlayersRestInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by edjapas on 19.1.2017..
+ * Created by edjapas on 20.1.2017..
  */
 
-public class FriendRequestPresenterImpl implements FriendRequestPresenter {
+public class SearchPartnersPresenterImpl implements SearchPartnersPresenter {
 
-    private FriendRequestView friendRequestView;
+    private SearchPartnersView searchPartnersView;
 
-    public FriendRequestPresenterImpl(FriendRequestView friendRequestView) {
-        this.friendRequestView = friendRequestView;
+    public SearchPartnersPresenterImpl(SearchPartnersView searchPartnersView) {
+        this.searchPartnersView = searchPartnersView;
     }
 
     @Override
-    public void sendFriendsQuery(final String query) {
+    public void searchPartnersByQueries(final String city, final String gender, final String skill) {
         AccessTokenRefresher refresher = new AccessTokenRefresher();
 
         refresher.registerSubscriber(new RestSubscriber() {
             @Override
             public void doRequest(RestPublisher publisher, AccessToken token) {
-                sendFriendsQueryRequest(query, token);
+                searchPartnersByQueriesRequest(city, gender, skill, token);
             }
         });
 
         refresher.refreshTokenIfNecessary();
     }
 
-    private void sendFriendsQueryRequest(String query, AccessToken token) {
-        final FriendsRestInterface friendsRestInterface = ServiceGenerator.createService(FriendsRestInterface.class, token);
+    private void searchPartnersByQueriesRequest(String city, String gender, String skill, AccessToken token) {
+        final PlayersRestInterface playersRestInterface = ServiceGenerator.createService(PlayersRestInterface.class, token);
 
-        Call<List<Player>> call = friendsRestInterface.getStrangers(query);
+        Call<List<Player>> call = playersRestInterface.getPlayers(city, gender, skill);
         call.enqueue(new Callback<List<Player>>() {
             @Override
             public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
                 if (response.isSuccessful()) {
-                    friendRequestView.updateListViewAdapter(response.body());
+                    searchPartnersView.updateListViewAdapter(response.body());
 
                 } else {
-                    friendRequestView.notifyRequestError(response.message());
+                    searchPartnersView.notifyRequestError(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Player>> call, Throwable t) {
-                friendRequestView.notifyRequestError(t.getMessage());
+                searchPartnersView.notifyRequestError(t.getMessage());
             }
         });
     }

@@ -19,12 +19,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.fragment.ActiveFriendsFragment;
+import hr.vspr.dpasic.tenniswithme.fragment.SearchPartnersFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.RequestedFriendsFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.UserInfoFragment;
 import hr.vspr.dpasic.tenniswithme.activity.main_mvp.MainPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.activity.main_mvp.MainView;
 import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnPeopleListFragmentInteractionListener;
-import hr.vspr.dpasic.tenniswithme.model.User;
+import hr.vspr.dpasic.tenniswithme.model.Player;
 import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 
 public class MainActivity extends AppCompatActivity
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity
         OnPeopleListFragmentInteractionListener {
 
     private MainPresenterImpl mainPresenter;
-    private User user;
+    private Player player;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -76,8 +77,8 @@ public class MainActivity extends AppCompatActivity
         mainPresenter.setUserInfo();
     }
 
-    private void commitUserInfoFragment(User user, UserActionType actionType) {
-        Fragment fragment = UserInfoFragment.newInstance(user, actionType);
+    private void commitUserInfoFragment(Player player, UserActionType actionType) {
+        Fragment fragment = UserInfoFragment.newInstance(player, actionType);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, UserInfoFragment.class.getName()).commit();
 
@@ -98,6 +99,14 @@ public class MainActivity extends AppCompatActivity
                 .replace(R.id.fragment_container, fragment, RequestedFriendsFragment.class.getName()).commit();
 
         setTitle(R.string.friend_requests);
+    }
+
+    private void commitFindPartnerFragment() {
+        Fragment fragment = SearchPartnersFragment.newInstance();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment, SearchPartnersFragment.class.getName()).commit();
+
+        setTitle(R.string.find_partner);
     }
 
     @Override
@@ -144,6 +153,9 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_requested_friends) {
             commitRequestedFriendsFragment();
+
+        } else if (id == R.id.nav_find_partner) {
+            commitFindPartnerFragment();
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -151,17 +163,17 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void openUserInfo(View view) {
-        commitUserInfoFragment(user, UserActionType.VIEW_AND_EDIT);
+        commitUserInfoFragment(player, UserActionType.VIEW_AND_EDIT);
         drawer.closeDrawer(GravityCompat.START);
     }
 
     @Override
-    public void setNavigationUserInfo(User user) {
-        navigationName.setText(user.getFullName());
-        navigationEmail.setText(user.getEmail());
+    public void setNavigationUserInfo(Player player) {
+        navigationName.setText(player.getFullName());
+        navigationEmail.setText(player.getEmail());
 
-        this.user = user;
-        commitUserInfoFragment(user, UserActionType.VIEW_AND_EDIT);
+        this.player = player;
+        commitUserInfoFragment(player, UserActionType.VIEW_AND_EDIT);
     }
 
     @Override
@@ -170,7 +182,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction(User item, UserActionType actionType) {
+    public void onListFragmentInteraction(Player item, UserActionType actionType) {
         commitUserInfoFragment(item, actionType);
     }
 

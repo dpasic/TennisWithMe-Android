@@ -1,7 +1,7 @@
 package hr.vspr.dpasic.tenniswithme.activity.main_mvp;
 
 import hr.vspr.dpasic.tenniswithme.common.RestView;
-import hr.vspr.dpasic.tenniswithme.model.User;
+import hr.vspr.dpasic.tenniswithme.model.Player;
 
 /**
  * Created by edjapas on 3.1.2017..
@@ -9,5 +9,5 @@ import hr.vspr.dpasic.tenniswithme.model.User;
 
 public interface MainView extends RestView {
 
-    void setNavigationUserInfo(User user);
+    void setNavigationUserInfo(Player player);
 }

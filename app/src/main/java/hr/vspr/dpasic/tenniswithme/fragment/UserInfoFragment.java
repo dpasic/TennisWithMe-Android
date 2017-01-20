@@ -25,7 +25,7 @@ import hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp.UserInfoSubscribe
 import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoPresenter;
 import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoView;
-import hr.vspr.dpasic.tenniswithme.model.User;
+import hr.vspr.dpasic.tenniswithme.model.Player;
 import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 
 /**
@@ -38,10 +38,10 @@ import hr.vspr.dpasic.tenniswithme.model.UserActionType;
  */
 public class UserInfoFragment extends Fragment implements UserInfoView, UserInfoSubscriber {
 
-    private static final String USER = "user";
+    private static final String USER = "player";
     private static final String ACTION_TYPE = "actionType";
 
-    private User user;
+    private Player player;
     private UserActionType actionType;
     private OnFragmentInteractionListener mListener;
     private UserInfoPresenter userInfoPresenter;
@@ -79,10 +79,10 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
      *
      * @return A new instance of fragment UserInfoFragment.
      */
-    public static UserInfoFragment newInstance(User user, UserActionType actionType) {
+    public static UserInfoFragment newInstance(Player player, UserActionType actionType) {
         UserInfoFragment fragment = new UserInfoFragment();
         Bundle args = new Bundle();
-        args.putParcelable(USER, user);
+        args.putParcelable(USER, player);
         args.putSerializable(ACTION_TYPE, actionType);
         fragment.setArguments(args);
         return fragment;
@@ -92,7 +92,7 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            user = getArguments().getParcelable(USER);
+            player = getArguments().getParcelable(USER);
             actionType = (UserActionType) getArguments().getSerializable(ACTION_TYPE);
         }
     }
@@ -123,7 +123,7 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
             case CONFIRM_FRIENDSHIP:
                 fabEdit.setVisibility(View.GONE);
                 btnConfirmFriendship.setVisibility(View.VISIBLE);
-                btnRequestMatch.setVisibility(View.GONE);
+                btnRequestMatch.setVisibility(View.VISIBLE);
                 btnRequestFriendship.setVisibility(View.GONE);
                 break;
             case REQUEST_MATCH:
@@ -135,7 +135,7 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
             case REQUEST_FRIENDSHIP:
                 fabEdit.setVisibility(View.GONE);
                 btnConfirmFriendship.setVisibility(View.GONE);
-                btnRequestMatch.setVisibility(View.GONE);
+                btnRequestMatch.setVisibility(View.VISIBLE);
                 btnRequestFriendship.setVisibility(View.VISIBLE);
                 break;
         }
@@ -144,21 +144,21 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     @Override
     public void onResume() {
         super.onResume();
-        //TODO: read user info from REST
+        //TODO: read player info from REST
     }
 
     private void updateUserInfo() {
-        tvFullName.setText(user.getFullName());
-        tvEmail.setText(user.getEmail());
-        tvAge.setText(user.getAge());
-        tvSex.setText(user.getSex());
-        tvSummary.setText(user.getSummary());
+        tvFullName.setText(player.getFullName());
+        tvEmail.setText(player.getEmail());
+        tvAge.setText(player.getAge());
+        tvSex.setText(player.getGender());
+        tvSummary.setText(player.getSummary());
     }
 
     @OnClick(R.id.fab_edit)
     public void editUserInfoClick() {
         Intent editUserInfoActivity = new Intent(getContext(), EditUserInfoActivity.class);
-        editUserInfoActivity.putExtra(USER, user);
+        editUserInfoActivity.putExtra(USER, player);
 
         startActivity(editUserInfoActivity);
     }
@@ -166,7 +166,7 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     @OnClick(R.id.btn_confirm_friendship)
     public void confirmFriendshipClick() {
         loadingProgress.setVisibility(View.VISIBLE);
-        userInfoPresenter.confirmFriendship(user);
+        userInfoPresenter.confirmFriendship(player);
     }
 
     @OnClick(R.id.btn_request_friendship)
@@ -190,8 +190,8 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     }
 
     @Override
-    public void update(UserInfoPublisher publisher, User user) {
-        this.user = user;
+    public void update(UserInfoPublisher publisher, Player player) {
+        this.player = player;
         updateUserInfo();
     }
 

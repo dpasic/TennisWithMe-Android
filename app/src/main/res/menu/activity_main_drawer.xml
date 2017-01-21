@@ -5,7 +5,7 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_find_partner"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@mipmap/find_user"
             android:title="@string/find_partner" />
     </group>
 
@@ -13,11 +13,11 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_active_friends"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@mipmap/user_groups"
             android:title="@string/friends" />
         <item
             android:id="@+id/nav_requested_friends"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@mipmap/add_user_group"
             android:title="@string/friend_requests" />
     </group>
 
@@ -25,11 +25,11 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_active_matches"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@mipmap/tennis"
             android:title="@string/matches" />
         <item
             android:id="@+id/nav_requested_matches"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@mipmap/invite"
             android:title="@string/match_requests" />
     </group>
 

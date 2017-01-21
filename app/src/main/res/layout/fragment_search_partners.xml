@@ -22,6 +22,7 @@
 
             <EditText
                 android:id="@+id/et_city"
+                android:hint="@string/zagreb"
                 style="@style/FormEditContent"
                 tools:text="Zagreb" />
         </LinearLayout>

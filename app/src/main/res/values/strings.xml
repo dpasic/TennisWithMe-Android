@@ -54,6 +54,12 @@
     <string name="search_partners">Search partners</string>
 
     <string name="all">All</string>
+    <string name="zagreb">Zagreb</string>
+    <string name="player1_lbl">Player one</string>
+    <string name="player2_lbl">Player two</string>
+    <string name="result_lbl">Result</string>
+    <string name="rating_lbl">Rating</string>
+    <string name="comment_lbl">Comment</string>
 
     <string-array name="array_genders">
         <item>@string/all</item>

@@ -1,5 +1,6 @@
 package hr.vspr.dpasic.tenniswithme.activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -32,6 +33,9 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainView,
         UserInfoFragment.OnFragmentInteractionListener,
         OnPeopleListFragmentInteractionListener {
+
+    private static final String USER = "player";
+    private static final String ACTION_TYPE = "actionType";
 
     private MainPresenterImpl mainPresenter;
     private Player player;
@@ -183,7 +187,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListFragmentInteraction(Player item, UserActionType actionType) {
-        commitUserInfoFragment(item, actionType);
+        //commitUserInfoFragment(item, actionType);
+        Intent userInfoActivity = new Intent(this, UserInfoActivity.class);
+        userInfoActivity.putExtra(USER, item);
+        userInfoActivity.putExtra(ACTION_TYPE, actionType);
+
+        startActivity(userInfoActivity);
     }
 
     @Override

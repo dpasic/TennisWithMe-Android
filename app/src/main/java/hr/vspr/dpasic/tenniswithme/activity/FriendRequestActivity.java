@@ -3,6 +3,7 @@ package hr.vspr.dpasic.tenniswithme.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -46,7 +47,10 @@ public class FriendRequestActivity extends AppCompatActivity implements SearchVi
         friendRequestPresenter = new FriendRequestPresenterImpl(this);
 
         searchPeople.setOnQueryTextListener(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, layoutManager.getOrientation()));
     }
 
     @Override

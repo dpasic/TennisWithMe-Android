@@ -1,7 +1,6 @@
 package hr.vspr.dpasic.tenniswithme.fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -21,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
-import hr.vspr.dpasic.tenniswithme.adapter.PeopleRecyclerViewAdapter;
+import hr.vspr.dpasic.tenniswithme.adapter.PlayerRecyclerViewAdapter;
 import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnPeopleListFragmentInteractionListener;
 import hr.vspr.dpasic.tenniswithme.fragment.search_partners_mvp.SearchPartnersPresenter;
 import hr.vspr.dpasic.tenniswithme.fragment.search_partners_mvp.SearchPartnersPresenterImpl;
@@ -108,7 +107,7 @@ public class SearchPartnersFragment extends Fragment implements SearchPartnersVi
     @Override
     public void updateListViewAdapter(List<Player> players) {
         loadingProgress.setVisibility(View.GONE);
-        recyclerView.setAdapter(new PeopleRecyclerViewAdapter(players, UserActionType.REQUEST_MATCH, mListener));
+        recyclerView.setAdapter(new PlayerRecyclerViewAdapter(players, UserActionType.REQUEST_MATCH, mListener));
     }
 
     @Override

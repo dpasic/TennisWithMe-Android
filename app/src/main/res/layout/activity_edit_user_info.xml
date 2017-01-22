@@ -64,10 +64,10 @@
 
         <TextView
             style="@style/FormLabel"
-            android:text="@string/sex_lbl" />
+            android:text="@string/gender_lbl" />
 
         <EditText
-            android:id="@+id/et_sex"
+            android:id="@+id/et_gender"
             style="@style/FormEditContent"
             tools:text="Male" />
     </LinearLayout>

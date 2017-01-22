@@ -30,7 +30,7 @@ public class EditUserInfoActivity extends AppCompatActivity implements EditUserI
     EditText etSurname;
     @BindView(R.id.et_email)
     EditText etEmail;
-    @BindView(R.id.et_sex)
+    @BindView(R.id.et_gender)
     EditText etSex;
     @BindView(R.id.et_age)
     EditText etAge;

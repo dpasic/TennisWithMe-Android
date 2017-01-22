@@ -16,7 +16,7 @@ import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.activity.friend_request_mvp.FriendRequestPresenter;
 import hr.vspr.dpasic.tenniswithme.activity.friend_request_mvp.FriendRequestPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.activity.friend_request_mvp.FriendRequestView;
-import hr.vspr.dpasic.tenniswithme.adapter.PeopleRecyclerViewAdapter;
+import hr.vspr.dpasic.tenniswithme.adapter.PlayerRecyclerViewAdapter;
 import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnPeopleListFragmentInteractionListener;
 import hr.vspr.dpasic.tenniswithme.model.Player;
 import hr.vspr.dpasic.tenniswithme.model.UserActionType;
@@ -62,7 +62,7 @@ public class FriendRequestActivity extends AppCompatActivity implements SearchVi
 
     @Override
     public void updateListViewAdapter(List<Player> players) {
-        recyclerView.setAdapter(new PeopleRecyclerViewAdapter(players, UserActionType.REQUEST_FRIENDSHIP, this));
+        recyclerView.setAdapter(new PlayerRecyclerViewAdapter(players, UserActionType.REQUEST_FRIENDSHIP, this));
     }
 
     @Override

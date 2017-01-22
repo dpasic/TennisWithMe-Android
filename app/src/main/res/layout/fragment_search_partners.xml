@@ -77,8 +77,7 @@
             android:name="hr.vspr.dpasic.tenniswithme.fragment.SearchPartnersFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             app:layoutManager="LinearLayoutManager"
             tools:context="hr.vspr.dpasic.tenniswithme.fragment.SearchPartnersFragment"
             tools:listitem="@layout/friend_item" />

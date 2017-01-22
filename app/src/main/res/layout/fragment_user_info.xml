@@ -53,10 +53,10 @@
 
                 <TextView
                     style="@style/FormLabel"
-                    android:text="@string/sex_lbl" />
+                    android:text="@string/gender_lbl" />
 
                 <TextView
-                    android:id="@+id/tv_sex"
+                    android:id="@+id/tv_gender"
                     style="@style/FormViewContent"
                     tools:text="Male" />
             </LinearLayout>

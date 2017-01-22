@@ -26,6 +26,9 @@ public class Player implements Parcelable {
     @SerializedName("City")
     public String city;
 
+    @SerializedName("Skill")
+    public String skill;
+
     @SerializedName("Gender")
     public String gender;
 
@@ -90,6 +93,14 @@ public class Player implements Parcelable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getSkill() {
+        return skill;
+    }
+
+    public void setSkill(String skill) {
+        this.skill = skill;
     }
 
     public String getGender() {

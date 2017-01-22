@@ -18,13 +18,13 @@ import hr.vspr.dpasic.tenniswithme.model.UserActionType;
  * specified {@link OnPeopleListFragmentInteractionListener}.
  *
  */
-public class PeopleRecyclerViewAdapter extends RecyclerView.Adapter<PeopleRecyclerViewAdapter.ViewHolder> {
+public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecyclerViewAdapter.ViewHolder> {
 
     private final List<Player> mValues;
     private final UserActionType mActionType;
     private final OnPeopleListFragmentInteractionListener mListener;
 
-    public PeopleRecyclerViewAdapter(List<Player> items, UserActionType actionType, OnPeopleListFragmentInteractionListener listener) {
+    public PlayerRecyclerViewAdapter(List<Player> items, UserActionType actionType, OnPeopleListFragmentInteractionListener listener) {
         mValues = items;
         mActionType = actionType;
         mListener = listener;
@@ -40,7 +40,11 @@ public class PeopleRecyclerViewAdapter extends RecyclerView.Adapter<PeopleRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mContentView.setText(mValues.get(position).getFullName());
+
+        holder.mFullName.setText(mValues.get(position).getFullName());
+        holder.mSkill.setText(mValues.get(position).getSkill());
+        holder.mGender.setText(mValues.get(position).getGender());
+        holder.mSummary.setText(mValues.get(position).getSummary());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,19 +66,26 @@ public class PeopleRecyclerViewAdapter extends RecyclerView.Adapter<PeopleRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public final View mView;
-        public final TextView mContentView;
         public Player mItem;
+
+        public final View mView;
+        public final TextView mFullName;
+        public final TextView mSkill;
+        public final TextView mGender;
+        public final TextView mSummary;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mFullName = (TextView) view.findViewById(R.id.tv_full_name);
+            mSkill = (TextView) view.findViewById(R.id.tv_skill);
+            mGender = (TextView) view.findViewById(R.id.tv_gender);
+            mSummary = (TextView) view.findViewById(R.id.tv_summary);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mFullName.getText() + "'";
         }
     }
 }

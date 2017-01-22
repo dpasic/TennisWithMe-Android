@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.activity.FriendRequestActivity;
-import hr.vspr.dpasic.tenniswithme.adapter.PeopleRecyclerViewAdapter;
+import hr.vspr.dpasic.tenniswithme.adapter.PlayerRecyclerViewAdapter;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsPresenter;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsView;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.RequestedFriendsPresenterImpl;
@@ -83,7 +83,7 @@ public class RequestedFriendsFragment extends Fragment implements FriendsView,
 
     @Override
     public void updateListViewAdapter(List<Player> players) {
-        recyclerView.setAdapter(new PeopleRecyclerViewAdapter(players, UserActionType.CONFIRM_FRIENDSHIP, mListener));
+        recyclerView.setAdapter(new PlayerRecyclerViewAdapter(players, UserActionType.CONFIRM_FRIENDSHIP, mListener));
         swipeRefreshLayout.setRefreshing(false);
     }
 

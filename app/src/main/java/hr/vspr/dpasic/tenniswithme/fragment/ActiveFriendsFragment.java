@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.vspr.dpasic.tenniswithme.R;
-import hr.vspr.dpasic.tenniswithme.adapter.PeopleRecyclerViewAdapter;
+import hr.vspr.dpasic.tenniswithme.adapter.PlayerRecyclerViewAdapter;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsPresenter;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.ActiveFriendsPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsView;
@@ -94,7 +94,7 @@ public class ActiveFriendsFragment extends Fragment implements FriendsView,
 
     @Override
     public void updateListViewAdapter(List<Player> players) {
-        recyclerView.setAdapter(new PeopleRecyclerViewAdapter(players, UserActionType.REQUEST_MATCH, mListener));
+        recyclerView.setAdapter(new PlayerRecyclerViewAdapter(players, UserActionType.REQUEST_MATCH, mListener));
         swipeRefreshLayout.setRefreshing(false);
     }
 

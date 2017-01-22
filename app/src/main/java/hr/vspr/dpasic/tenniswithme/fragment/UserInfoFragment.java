@@ -50,7 +50,7 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     TextView tvFullName;
     @BindView(R.id.tv_email)
     TextView tvEmail;
-    @BindView(R.id.tv_sex)
+    @BindView(R.id.tv_gender)
     TextView tvSex;
     @BindView(R.id.tv_age)
     TextView tvAge;

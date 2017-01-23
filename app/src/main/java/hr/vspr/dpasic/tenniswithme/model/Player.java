@@ -4,52 +4,84 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 /**
  * Created by edjapas on 3.1.2017..
  */
 
-public class Player implements Parcelable {
+@Table(database = LocalDb.class)
+public class Player extends BaseModel implements Parcelable {
 
+    @Column
+    @PrimaryKey(autoincrement = true)
+    private int dbId;
+
+    @Column
     @SerializedName("Id")
     private String id;
 
+    @Column
     @SerializedName("FirstName")
-    public String firstName;
+    private String firstName;
 
+    @Column
     @SerializedName("LastName")
-    public String lastName;
+    private String lastName;
 
+    @Column
     @SerializedName("Age")
-    public String age;
+    private String age;
 
+    @Column
     @SerializedName("City")
-    public String city;
+    private String city;
 
+    @Column
     @SerializedName("Skill")
-    public String skill;
+    private String skill;
 
+    @Column
     @SerializedName("Gender")
-    public String gender;
+    private String gender;
 
+    @Column
     @SerializedName("MobileNumber")
-    public String mobileNumber;
+    private String mobileNumber;
 
+    @Column
     @SerializedName("Club")
-    public String club;
+    private String club;
 
+    @Column
     @SerializedName("Summary")
-    public String summary;
+    private String summary;
 
+    @Column
     @SerializedName("Email")
-    public String email;
+    private String email;
 
+    @Column
     @SerializedName("UserName")
-    public String userName;
+    private String userName;
 
-    //public Skill Skill;
+    @Column
     @SerializedName("Rating")
-    public String rating;
+    private String rating;
+
+    public Player() {
+    }
+
+    public int getDbId() {
+        return dbId;
+    }
+
+    public void setDbId(int dbId) {
+        this.dbId = dbId;
+    }
 
     public String getId() {
         return id;

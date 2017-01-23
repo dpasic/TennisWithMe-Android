@@ -1,5 +1,7 @@
 package hr.vspr.dpasic.tenniswithme.activity.main_mvp;
 
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
 import hr.vspr.dpasic.tenniswithme.common.AccessTokenRefresher;
 import hr.vspr.dpasic.tenniswithme.common.RestPublisher;
 import hr.vspr.dpasic.tenniswithme.common.RestSubscriber;
@@ -45,7 +47,17 @@ public class MainPresenterImpl implements MainPresenter {
             @Override
             public void onResponse(Call<Player> call, Response<Player> response) {
                 if (response.isSuccessful()) {
-                    mainView.setNavigationUserInfo(response.body());
+                    //delete old player from LocalDB
+                    Player playerToDelete = SQLite.select().from(Player.class).querySingle();
+                    if (playerToDelete != null) {
+                        playerToDelete.delete();
+                    }
+
+                    //save player to LocalDB
+                    Player player = response.body();
+                    player.save();
+
+                    mainView.setNavigationUserInfo(player);
 
                 } else {
                     mainView.notifyRequestError(response.message());

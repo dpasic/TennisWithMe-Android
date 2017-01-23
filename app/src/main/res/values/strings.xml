@@ -60,6 +60,9 @@
     <string name="result_lbl">Result</string>
     <string name="rating_lbl">Rating</string>
     <string name="comment_lbl">Comment</string>
+    <string name="time_lbl">Time</string>
+    <string name="date_lbl">Date</string>
+    <string name="send_request">Send Request</string>
 
     <string-array name="array_genders">
         <item>@string/all</item>

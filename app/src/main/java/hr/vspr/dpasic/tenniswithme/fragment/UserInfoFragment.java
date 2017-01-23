@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.activity.EditUserInfoActivity;
+import hr.vspr.dpasic.tenniswithme.activity.RequestMatchActivity;
 import hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp.UserInfoPublisher;
 import hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp.UserInfoSubscriber;
 import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoPresenter;
@@ -176,7 +177,10 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
 
     @OnClick(R.id.btn_request_match)
     public void requestMatchClick() {
+        Intent requestMatchActivity = new Intent(getContext(), RequestMatchActivity.class);
+        requestMatchActivity.putExtra(USER, player);
 
+        startActivity(requestMatchActivity);
     }
 
     @Override

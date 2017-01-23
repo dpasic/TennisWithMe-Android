@@ -23,7 +23,7 @@ public class AccessToken extends BaseModel implements Parcelable {
 
     @Column
     @PrimaryKey(autoincrement = true)
-    int id;
+    private int id;
 
     @Column
     @SerializedName("access_token")

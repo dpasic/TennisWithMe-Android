@@ -32,7 +32,9 @@
         <activity android:name=".activity.EditUserInfoActivity" />
         <activity android:name=".activity.FriendRequestActivity" />
         <activity android:name=".activity.UserInfoActivity" />
-        <activity android:name=".activity.MatchInfoActivity"></activity>
+        <activity android:name=".activity.MatchInfoActivity" />
+        <activity android:name=".activity.EditMatchInfoActivity" />
+        <activity android:name=".activity.RequestMatchActivity"></activity>
     </application>
 
 </manifest>

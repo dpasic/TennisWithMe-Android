@@ -63,6 +63,8 @@
     <string name="time_lbl">Time</string>
     <string name="date_lbl">Date</string>
     <string name="send_request">Send Request</string>
+    <string name="match_requested">Match requested</string>
+    <string name="vs">vs.</string>
 
     <string-array name="array_genders">
         <item>@string/all</item>

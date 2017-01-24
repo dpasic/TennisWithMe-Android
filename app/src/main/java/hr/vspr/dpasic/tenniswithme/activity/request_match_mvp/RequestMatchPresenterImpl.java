@@ -1,4 +1,4 @@
-package hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp;
+package hr.vspr.dpasic.tenniswithme.activity.request_match_mvp;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
@@ -6,62 +6,60 @@ import hr.vspr.dpasic.tenniswithme.common.AccessTokenRefresher;
 import hr.vspr.dpasic.tenniswithme.common.RestPublisher;
 import hr.vspr.dpasic.tenniswithme.common.RestSubscriber;
 import hr.vspr.dpasic.tenniswithme.model.AccessToken;
-import hr.vspr.dpasic.tenniswithme.model.PlayersFriendship;
+import hr.vspr.dpasic.tenniswithme.model.Match;
 import hr.vspr.dpasic.tenniswithme.model.Player;
 import hr.vspr.dpasic.tenniswithme.rest.ServiceGenerator;
-import hr.vspr.dpasic.tenniswithme.rest.api_interface.FriendsRestInterface;
+import hr.vspr.dpasic.tenniswithme.rest.api_interface.IdentityPlayerRestInterface;
+import hr.vspr.dpasic.tenniswithme.rest.api_interface.MatchesRestInterface;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by edjapas on 16.1.2017..
+ * Created by edjapas on 24.1.2017..
  */
 
-public class UserInfoPresenterImpl implements UserInfoPresenter {
+public class RequestMatchPresenterImpl implements RequestMatchPresenter {
 
-    private UserInfoView userInfoView;
+    private RequestMatchView requestMatchView;
 
-    public UserInfoPresenterImpl(UserInfoView userInfoView) {
-        this.userInfoView = userInfoView;
+    public RequestMatchPresenterImpl(RequestMatchView requestMatchView) {
+        this.requestMatchView = requestMatchView;
     }
 
     @Override
-    public void confirmFriendship(final Player player) {
+    public void requestMatch(final Match match) {
         AccessTokenRefresher refresher = new AccessTokenRefresher();
 
         refresher.registerSubscriber(new RestSubscriber() {
             @Override
             public void doRequest(RestPublisher publisher, AccessToken token) {
-                confirmFriendshipRequest(token, player);
+                requestMatchRequest(token, match);
             }
         });
 
         refresher.refreshTokenIfNecessary();
     }
 
-    private void confirmFriendshipRequest(AccessToken token, Player player) {
-        final FriendsRestInterface friendsRestInterface = ServiceGenerator.createService(FriendsRestInterface.class, token);
+    private void requestMatchRequest(AccessToken token, final Match match) {
+        final MatchesRestInterface matchesRestInterface = ServiceGenerator.createService(MatchesRestInterface.class, token);
 
-        PlayersFriendship friendship = new PlayersFriendship();
-        friendship.playerTwoId = player.getId();
-
-        Call<ResponseBody> call = friendsRestInterface.confirmFriendship(friendship);
+        Call<ResponseBody> call = matchesRestInterface.requestMatch(match);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    userInfoView.acceptFriendship();
+                    requestMatchView.requestCompleted(match);
 
                 } else {
-                    userInfoView.notifyRequestError(response.message());
+                    requestMatchView.notifyRequestError(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                userInfoView.notifyRequestError(t.getMessage());
+                requestMatchView.notifyRequestError(t.getMessage());
             }
         });
     }

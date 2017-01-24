@@ -27,7 +27,7 @@ import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoPresenter;
 import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoView;
 import hr.vspr.dpasic.tenniswithme.model.Player;
-import hr.vspr.dpasic.tenniswithme.model.UserActionType;
+import hr.vspr.dpasic.tenniswithme.model.ActionType;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,7 +43,7 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     private static final String ACTION_TYPE = "actionType";
 
     private Player player;
-    private UserActionType actionType;
+    private ActionType actionType;
     private OnFragmentInteractionListener mListener;
     private UserInfoPresenter userInfoPresenter;
 
@@ -80,7 +80,7 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
      *
      * @return A new instance of fragment UserInfoFragment.
      */
-    public static UserInfoFragment newInstance(Player player, UserActionType actionType) {
+    public static UserInfoFragment newInstance(Player player, ActionType actionType) {
         UserInfoFragment fragment = new UserInfoFragment();
         Bundle args = new Bundle();
         args.putParcelable(USER, player);
@@ -94,7 +94,7 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             player = getArguments().getParcelable(USER);
-            actionType = (UserActionType) getArguments().getSerializable(ACTION_TYPE);
+            actionType = (ActionType) getArguments().getSerializable(ACTION_TYPE);
         }
     }
 

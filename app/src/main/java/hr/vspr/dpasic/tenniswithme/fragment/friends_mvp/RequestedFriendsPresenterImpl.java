@@ -4,6 +4,9 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.util.List;
 
+import hr.vspr.dpasic.tenniswithme.common.AccessTokenRefresher;
+import hr.vspr.dpasic.tenniswithme.common.RestPublisher;
+import hr.vspr.dpasic.tenniswithme.common.RestSubscriber;
 import hr.vspr.dpasic.tenniswithme.model.AccessToken;
 import hr.vspr.dpasic.tenniswithme.model.Player;
 import hr.vspr.dpasic.tenniswithme.rest.ServiceGenerator;
@@ -26,7 +29,19 @@ public class RequestedFriendsPresenterImpl implements FriendsPresenter {
 
     @Override
     public void prepareListView() {
-        AccessToken token = SQLite.select().from(AccessToken.class).querySingle();
+        AccessTokenRefresher refresher = new AccessTokenRefresher();
+
+        refresher.registerSubscriber(new RestSubscriber() {
+            @Override
+            public void doRequest(RestPublisher publisher, AccessToken token) {
+                prepareListViewRequest(token);
+            }
+        });
+
+        refresher.refreshTokenIfNecessary();
+    }
+
+    private void prepareListViewRequest(AccessToken token) {
         final FriendsRestInterface friendsRestInterface = ServiceGenerator.createService(FriendsRestInterface.class, token);
 
         Call<List<Player>> call = friendsRestInterface.getRequestedFriends();

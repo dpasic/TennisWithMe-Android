@@ -27,7 +27,7 @@ import hr.vspr.dpasic.tenniswithme.fragment.search_partners_mvp.SearchPartnersPr
 import hr.vspr.dpasic.tenniswithme.fragment.search_partners_mvp.SearchPartnersPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.search_partners_mvp.SearchPartnersView;
 import hr.vspr.dpasic.tenniswithme.model.Player;
-import hr.vspr.dpasic.tenniswithme.model.UserActionType;
+import hr.vspr.dpasic.tenniswithme.model.ActionType;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -110,7 +110,7 @@ public class SearchPartnersFragment extends Fragment implements SearchPartnersVi
     @Override
     public void updateListViewAdapter(List<Player> players) {
         loadingProgress.setVisibility(View.GONE);
-        recyclerView.setAdapter(new PlayerRecyclerViewAdapter(players, UserActionType.REQUEST_MATCH, mListener));
+        recyclerView.setAdapter(new PlayerRecyclerViewAdapter(players, ActionType.REQUEST_MATCH, mListener));
     }
 
     @Override

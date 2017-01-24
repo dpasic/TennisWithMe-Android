@@ -20,19 +20,24 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.fragment.ActiveFriendsFragment;
+import hr.vspr.dpasic.tenniswithme.fragment.ActiveMatchesFragment;
+import hr.vspr.dpasic.tenniswithme.fragment.RequestedMatchesFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.SearchPartnersFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.RequestedFriendsFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.UserInfoFragment;
 import hr.vspr.dpasic.tenniswithme.activity.main_mvp.MainPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.activity.main_mvp.MainView;
+import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnMatchListFragmentInteractionListener;
 import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnPeopleListFragmentInteractionListener;
+import hr.vspr.dpasic.tenniswithme.model.Match;
 import hr.vspr.dpasic.tenniswithme.model.Player;
-import hr.vspr.dpasic.tenniswithme.model.UserActionType;
+import hr.vspr.dpasic.tenniswithme.model.ActionType;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainView,
         UserInfoFragment.OnFragmentInteractionListener,
-        OnPeopleListFragmentInteractionListener {
+        OnPeopleListFragmentInteractionListener,
+        OnMatchListFragmentInteractionListener {
 
     private static final String USER = "player";
     private static final String ACTION_TYPE = "actionType";
@@ -81,12 +86,20 @@ public class MainActivity extends AppCompatActivity
         mainPresenter.setUserInfo();
     }
 
-    private void commitUserInfoFragment(Player player, UserActionType actionType) {
+    private void commitUserInfoFragment(Player player, ActionType actionType) {
         Fragment fragment = UserInfoFragment.newInstance(player, actionType);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, UserInfoFragment.class.getName()).commit();
 
         setTitle(R.string.user_info);
+    }
+
+    private void commitFindPartnerFragment() {
+        Fragment fragment = SearchPartnersFragment.newInstance();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment, SearchPartnersFragment.class.getName()).commit();
+
+        setTitle(R.string.find_partner);
     }
 
     private void commitActiveFriendsFragment() {
@@ -105,22 +118,28 @@ public class MainActivity extends AppCompatActivity
         setTitle(R.string.friend_requests);
     }
 
-    private void commitFindPartnerFragment() {
-        Fragment fragment = SearchPartnersFragment.newInstance();
+    private void commitActiveMatchesFragment() {
+        Fragment fragment = ActiveMatchesFragment.newInstance();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment, SearchPartnersFragment.class.getName()).commit();
+                .replace(R.id.fragment_container, fragment, ActiveFriendsFragment.class.getName()).commit();
 
-        setTitle(R.string.find_partner);
+        setTitle(R.string.matches);
+    }
+
+    private void commitRequestedMatchesFragment() {
+        Fragment fragment = RequestedMatchesFragment.newInstance();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment, ActiveFriendsFragment.class.getName()).commit();
+
+        setTitle(R.string.match_requests);
     }
 
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
-            /*drawer.closeDrawer(GravityCompat.START);*/
-            super.onBackPressed();
+            drawer.closeDrawer(GravityCompat.START);
         } else {
-            /*super.onBackPressed();*/
-            drawer.openDrawer(GravityCompat.START);
+            super.onBackPressed();
         }
     }
 
@@ -152,14 +171,21 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_active_friends) {
+        if (id == R.id.nav_find_partner) {
+            commitFindPartnerFragment();
+
+        } else if (id == R.id.nav_active_friends) {
             commitActiveFriendsFragment();
 
         } else if (id == R.id.nav_requested_friends) {
             commitRequestedFriendsFragment();
 
-        } else if (id == R.id.nav_find_partner) {
-            commitFindPartnerFragment();
+        } else if (id == R.id.nav_active_matches) {
+            commitActiveMatchesFragment();
+
+        } else if (id == R.id.nav_requested_matches) {
+            commitRequestedMatchesFragment();
+
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -167,7 +193,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void openUserInfo(View view) {
-        commitUserInfoFragment(player, UserActionType.VIEW_AND_EDIT);
+        commitUserInfoFragment(player, ActionType.VIEW_AND_EDIT);
         drawer.closeDrawer(GravityCompat.START);
     }
 
@@ -177,7 +203,7 @@ public class MainActivity extends AppCompatActivity
         navigationEmail.setText(player.getEmail());
 
         this.player = player;
-        commitUserInfoFragment(player, UserActionType.VIEW_AND_EDIT);
+        commitUserInfoFragment(player, ActionType.VIEW_AND_EDIT);
     }
 
     @Override
@@ -186,13 +212,18 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction(Player item, UserActionType actionType) {
+    public void onListFragmentInteraction(Player item, ActionType actionType) {
         //commitUserInfoFragment(item, actionType);
         Intent userInfoActivity = new Intent(this, UserInfoActivity.class);
         userInfoActivity.putExtra(USER, item);
         userInfoActivity.putExtra(ACTION_TYPE, actionType);
 
         startActivity(userInfoActivity);
+    }
+
+    @Override
+    public void onListFragmentInteraction(Match item, ActionType actionType) {
+
     }
 
     @Override

@@ -54,11 +54,14 @@ public class Match implements Parcelable {
     @SerializedName("PlayerTwoComment")
     private String playerTwoComment;
 
-    @SerializedName("DatePlayed")
-    private Date datePlayed;
+    @SerializedName("TimestampPlayed")
+    private long timestampPlayed;
 
     @SerializedName("CityPlayed")
     private String cityPlayed;
+
+    public Match() {
+    }
 
     public int getId() {
         return id;
@@ -157,11 +160,11 @@ public class Match implements Parcelable {
     }
 
     public Date getDatePlayed() {
-        return datePlayed;
+        return new Date(timestampPlayed);
     }
 
     public void setDatePlayed(Date datePlayed) {
-        this.datePlayed = datePlayed;
+        this.timestampPlayed = datePlayed.getTime();
     }
 
     public String getCityPlayed() {
@@ -171,8 +174,6 @@ public class Match implements Parcelable {
     public void setCityPlayed(String cityPlayed) {
         this.cityPlayed = cityPlayed;
     }
-
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy. HH:mm:ss", Locale.getDefault());
 
     @Override
     public void writeToParcel(Parcel dest, int i) {
@@ -186,7 +187,7 @@ public class Match implements Parcelable {
         dest.writeString(this.playerTwoName);
         dest.writeString(this.rating);
         dest.writeString(this.result);
-        dest.writeString(sdf.format(this.datePlayed));
+        dest.writeString(Long.toString(this.timestampPlayed));
         dest.writeString(Boolean.toString(isConfirmed));
         dest.writeString(Boolean.toString(isPlayed));
     }
@@ -202,11 +203,7 @@ public class Match implements Parcelable {
         this.playerTwoName = in.readString();
         this.rating = in.readString();
         this.result = in.readString();
-        try {
-            this.datePlayed = sdf.parse(in.readString());
-        } catch (ParseException e) {
-            Log.d("PARSE", e.getMessage());
-        }
+        this.timestampPlayed = Long.valueOf(in.readString());
         this.isConfirmed = Boolean.valueOf(in.readString());
         this.isPlayed = Boolean.valueOf(in.readString());
     }

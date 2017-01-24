@@ -18,7 +18,7 @@ public class Player extends BaseModel implements Parcelable {
 
     @Column
     @PrimaryKey(autoincrement = true)
-    private int dbId;
+    private transient int dbId;
 
     @Column
     @SerializedName("Id")

@@ -1,9 +1,8 @@
 package hr.vspr.dpasic.tenniswithme.fragment;
 
 import android.content.Context;
-import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,47 +17,33 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
-import hr.vspr.dpasic.tenniswithme.activity.FriendRequestActivity;
+import hr.vspr.dpasic.tenniswithme.adapter.MatchRecyclerViewAdapter;
 import hr.vspr.dpasic.tenniswithme.adapter.PlayerRecyclerViewAdapter;
+import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.ActiveFriendsPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsPresenter;
-import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsView;
-import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.RequestedFriendsPresenterImpl;
+import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnMatchListFragmentInteractionListener;
 import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnPeopleListFragmentInteractionListener;
-import hr.vspr.dpasic.tenniswithme.model.Player;
+import hr.vspr.dpasic.tenniswithme.fragment.matches_mvp.MatchesPresenter;
+import hr.vspr.dpasic.tenniswithme.fragment.matches_mvp.MatchesPresenterImpl;
+import hr.vspr.dpasic.tenniswithme.fragment.matches_mvp.MatchesView;
 import hr.vspr.dpasic.tenniswithme.model.ActionType;
+import hr.vspr.dpasic.tenniswithme.model.Match;
 
 /**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnPeopleListFragmentInteractionListener}
- * interface.
+ * Created by edjapas on 24.1.2017..
  */
-public class RequestedFriendsFragment extends Fragment implements FriendsView,
-        SwipeRefreshLayout.OnRefreshListener {
 
-    private FriendsPresenter friendsPresenter;
-    private OnPeopleListFragmentInteractionListener mListener;
+public abstract class AbstractMatchesFragment extends Fragment implements MatchesView,
+    SwipeRefreshLayout.OnRefreshListener {
+
+    protected MatchesPresenter matchesPresenter;
+    protected OnMatchListFragmentInteractionListener mListener;
 
     @BindView(R.id.list)
     RecyclerView recyclerView;
-    @BindView(R.id.swipeRefreshLayout)
+    @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.fab_add)
-    FloatingActionButton fabAdd;
-
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public RequestedFriendsFragment() {
-    }
-
-    public static RequestedFriendsFragment newInstance() {
-        RequestedFriendsFragment fragment = new RequestedFriendsFragment();
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +53,8 @@ public class RequestedFriendsFragment extends Fragment implements FriendsView,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_requested_friends_list, container, false);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_matches_list, container, false);
         ButterKnife.bind(this, view);
 
         Context context = view.getContext();
@@ -78,21 +64,19 @@ public class RequestedFriendsFragment extends Fragment implements FriendsView,
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        friendsPresenter = new RequestedFriendsPresenterImpl(this);
-        friendsPresenter.prepareListView();
+        matchesPresenter = new MatchesPresenterImpl(this);
+        prepareListView();
 
         return view;
     }
 
-    @Override
-    public void updateListViewAdapter(List<Player> players) {
-        recyclerView.setAdapter(new PlayerRecyclerViewAdapter(players, ActionType.CONFIRM_FRIENDSHIP, mListener));
-        swipeRefreshLayout.setRefreshing(false);
-    }
+    public abstract void prepareListView();
+    public abstract void updateListViewAdapter(List<Match> matches);
 
     @Override
-    public void onRefresh() {
-        friendsPresenter.prepareListView();
+    public void updateListView(List<Match> matches) {
+        updateListViewAdapter(matches);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -101,17 +85,16 @@ public class RequestedFriendsFragment extends Fragment implements FriendsView,
         Snackbar.make(swipeRefreshLayout, msg, Snackbar.LENGTH_LONG);
     }
 
-    @OnClick(R.id.fab_add)
-    public void editUserInfoClick() {
-        Intent friendRequestActivity = new Intent(getContext(), FriendRequestActivity.class);
-        startActivity(friendRequestActivity);
+    @Override
+    public void onRefresh() {
+        prepareListView();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnPeopleListFragmentInteractionListener) {
-            mListener = (OnPeopleListFragmentInteractionListener) context;
+        if (context instanceof OnMatchListFragmentInteractionListener) {
+            mListener = (OnMatchListFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnPeopleListFragmentInteractionListener");

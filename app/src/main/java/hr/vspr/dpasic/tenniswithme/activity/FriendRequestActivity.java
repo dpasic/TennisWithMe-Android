@@ -20,7 +20,7 @@ import hr.vspr.dpasic.tenniswithme.activity.friend_request_mvp.FriendRequestView
 import hr.vspr.dpasic.tenniswithme.adapter.PlayerRecyclerViewAdapter;
 import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnPeopleListFragmentInteractionListener;
 import hr.vspr.dpasic.tenniswithme.model.Player;
-import hr.vspr.dpasic.tenniswithme.model.UserActionType;
+import hr.vspr.dpasic.tenniswithme.model.ActionType;
 
 public class FriendRequestActivity extends AppCompatActivity implements SearchView.OnQueryTextListener,
         FriendRequestView, OnPeopleListFragmentInteractionListener {
@@ -66,7 +66,7 @@ public class FriendRequestActivity extends AppCompatActivity implements SearchVi
 
     @Override
     public void updateListViewAdapter(List<Player> players) {
-        recyclerView.setAdapter(new PlayerRecyclerViewAdapter(players, UserActionType.REQUEST_FRIENDSHIP, this));
+        recyclerView.setAdapter(new PlayerRecyclerViewAdapter(players, ActionType.REQUEST_FRIENDSHIP, this));
     }
 
     @Override
@@ -75,7 +75,7 @@ public class FriendRequestActivity extends AppCompatActivity implements SearchVi
     }
 
     @Override
-    public void onListFragmentInteraction(Player item, UserActionType actionType) {
+    public void onListFragmentInteraction(Player item, ActionType actionType) {
         Intent userInfoActivity = new Intent(this, UserInfoActivity.class);
         userInfoActivity.putExtra(USER, item);
         userInfoActivity.putExtra(ACTION_TYPE, actionType);

@@ -11,7 +11,7 @@ import java.util.List;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnPeopleListFragmentInteractionListener;
 import hr.vspr.dpasic.tenniswithme.model.Player;
-import hr.vspr.dpasic.tenniswithme.model.UserActionType;
+import hr.vspr.dpasic.tenniswithme.model.ActionType;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Player} and makes a call to the
@@ -21,10 +21,10 @@ import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecyclerViewAdapter.ViewHolder> {
 
     private final List<Player> mValues;
-    private final UserActionType mActionType;
+    private final ActionType mActionType;
     private final OnPeopleListFragmentInteractionListener mListener;
 
-    public PlayerRecyclerViewAdapter(List<Player> items, UserActionType actionType, OnPeopleListFragmentInteractionListener listener) {
+    public PlayerRecyclerViewAdapter(List<Player> items, ActionType actionType, OnPeopleListFragmentInteractionListener listener) {
         mValues = items;
         mActionType = actionType;
         mListener = listener;

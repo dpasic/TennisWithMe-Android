@@ -2,12 +2,16 @@ package hr.vspr.dpasic.tenniswithme.activity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -23,17 +27,24 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
+import hr.vspr.dpasic.tenniswithme.activity.request_match_mvp.RequestMatchPresenter;
+import hr.vspr.dpasic.tenniswithme.activity.request_match_mvp.RequestMatchPresenterImpl;
+import hr.vspr.dpasic.tenniswithme.activity.request_match_mvp.RequestMatchView;
+import hr.vspr.dpasic.tenniswithme.model.Match;
 import hr.vspr.dpasic.tenniswithme.model.Player;
 
-public class RequestMatchActivity extends AppCompatActivity {
+public class RequestMatchActivity extends AppCompatActivity implements RequestMatchView {
 
     private static final String USER = "player";
+
+    private RequestMatchPresenter requestMatchPresenter;
 
     private Player loginPlayer;
     private Player otherPlayer;
     private Calendar calendar = Calendar.getInstance();
     private SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy.", Locale.getDefault());
     private SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    private SimpleDateFormat sdfFullDate = new SimpleDateFormat("dd.MM.yyyy. HH:mm", Locale.getDefault());
 
     @BindView(R.id.tv_player1)
     TextView tvPlayer1;
@@ -47,6 +58,10 @@ public class RequestMatchActivity extends AppCompatActivity {
     Button btnChooseDate;
     @BindView(R.id.btn_choose_time)
     Button btnChooseTime;
+    @BindView(R.id.loading_progress)
+    ProgressBar loadingProgress;
+    @BindView(R.id.activity_request)
+    LinearLayout activityRequestView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +69,8 @@ public class RequestMatchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_match_request);
 
         ButterKnife.bind(this);
+
+        requestMatchPresenter = new RequestMatchPresenterImpl(this);
 
         loginPlayer = SQLite.select().from(Player.class).querySingle();
         otherPlayer = getIntent().getParcelableExtra(USER);
@@ -64,6 +81,27 @@ public class RequestMatchActivity extends AppCompatActivity {
         Date currentDate = new Date();
         btnChooseDate.setText(sdfDate.format(currentDate));
         btnChooseTime.setText(sdfTime.format(currentDate));
+    }
+
+    @OnClick(R.id.btn_send_request)
+    public void sendRequestClick() {
+        Match requestMatch = new Match();
+        requestMatch.setCityPlayed(etCity.getText().toString());
+        requestMatch.setComment(etComment.getText().toString());
+
+        try {
+            requestMatch.setDatePlayed(sdfFullDate.parse(btnChooseDate.getText().toString() + " " + btnChooseTime.getText().toString()));
+        } catch (ParseException e) {
+            Log.d("DATE", e.getMessage());
+        }
+
+        requestMatch.setPlayerOneId(loginPlayer.getId());
+        requestMatch.setPlayerOneName(loginPlayer.getFullName());
+        requestMatch.setPlayerTwoId(otherPlayer.getId());
+        requestMatch.setPlayerTwoName(otherPlayer.getFullName());
+
+        loadingProgress.setVisibility(View.VISIBLE);
+        requestMatchPresenter.requestMatch(requestMatch);
     }
 
     @OnClick(R.id.btn_choose_date)
@@ -103,5 +141,18 @@ public class RequestMatchActivity extends AppCompatActivity {
             return String.format("0%s", num);
         }
         return Integer.toString(num);
+    }
+
+    @Override
+    public void requestCompleted(Match match) {
+        loadingProgress.setVisibility(View.GONE);
+        Snackbar.make(activityRequestView, R.string.match_requested, Snackbar.LENGTH_LONG);
+        finish();
+    }
+
+    @Override
+    public void notifyRequestError(String msg) {
+        loadingProgress.setVisibility(View.GONE);
+        Snackbar.make(activityRequestView, msg, Snackbar.LENGTH_LONG);
     }
 }

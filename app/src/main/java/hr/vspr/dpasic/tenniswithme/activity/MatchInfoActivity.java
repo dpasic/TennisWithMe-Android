@@ -6,7 +6,6 @@ import android.os.Bundle;
 import butterknife.ButterKnife;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.model.Match;
-import hr.vspr.dpasic.tenniswithme.model.UserActionType;
 
 public class MatchInfoActivity extends AppCompatActivity {
 

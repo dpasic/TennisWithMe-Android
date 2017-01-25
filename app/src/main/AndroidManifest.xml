@@ -29,12 +29,24 @@
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.EditUserInfoActivity" />
-        <activity android:name=".activity.FriendRequestActivity" />
-        <activity android:name=".activity.UserInfoActivity" />
-        <activity android:name=".activity.MatchInfoActivity" />
-        <activity android:name=".activity.EditMatchInfoActivity" />
-        <activity android:name=".activity.RequestMatchActivity"></activity>
+        <activity
+            android:name=".activity.EditUserInfoActivity"
+            android:label="@string/title_edit_user_info" />
+        <activity
+            android:name=".activity.FriendRequestActivity"
+            android:label="@string/title_request_friendship" />
+        <activity
+            android:name=".activity.UserInfoActivity"
+            android:label="@string/title_user_info" />
+        <activity
+            android:name=".activity.MatchInfoActivity"
+            android:label="@string/title_match_info" />
+        <activity
+            android:name=".activity.EditMatchInfoActivity"
+            android:label="@string/title_edit_match_info" />
+        <activity
+            android:name=".activity.RequestMatchActivity"
+            android:label="@string/title_request_match" />
     </application>
 
 </manifest>

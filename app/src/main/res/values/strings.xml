@@ -2,7 +2,7 @@
     <string name="app_name">Tennis With Me</string>
 
     <string name="active_friends">Active Friends</string>
-    <string name="user_info">User Info</string>
+    <string name="title_user_info">User Info</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -20,7 +20,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Main</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -66,6 +66,14 @@
     <string name="match_requested">Match requested</string>
     <string name="vs">vs.</string>
     <string name="confirm_match">Confirm match</string>
+    <string name="title_edit_user_info">Edit User Info</string>
+    <string name="title_match_info">Match Info</string>
+    <string name="title_edit_match_info">Edit Match Info</string>
+    <string name="title_request_friendship">Request Friendship</string>
+    <string name="title_request_match">Request Match</string>
+    <string name="title_find_partner">Find Partner</string>
+    <string name="title_friend_requests">Friend Requests</string>
+    <string name="title_match_requests">Match Requests</string>
 
     <string-array name="array_genders">
         <item>@string/all</item>

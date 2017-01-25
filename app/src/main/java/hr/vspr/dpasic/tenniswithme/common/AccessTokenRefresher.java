@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import hr.vspr.dpasic.tenniswithme.model.AccessToken;
+import hr.vspr.dpasic.tenniswithme.model.Credentials;
 import hr.vspr.dpasic.tenniswithme.rest.ServiceGenerator;
 import hr.vspr.dpasic.tenniswithme.rest.api_interface.AccountRestInterface;
 import retrofit2.Call;
@@ -21,6 +22,7 @@ public class AccessTokenRefresher implements RestPublisher {
 
     private List<RestSubscriber> subscribers;
     private AccessToken token;
+    private Credentials credentials;
 
     public AccessTokenRefresher() {
         this.subscribers = new ArrayList<>();
@@ -28,12 +30,12 @@ public class AccessTokenRefresher implements RestPublisher {
 
     public void refreshTokenIfNecessary() {
         token = SQLite.select().from(AccessToken.class).querySingle();
+        credentials = SQLite.select().from(Credentials.class).querySingle();
 
         long expirationTime = token.getExpiresDate().getTime();
         expirationTime = expirationTime - (1000 * 60); //1 minute before expiration
         long nowTime = new Date().getTime();
 
-        //TODO: check if refresh token request works ok after access token expiration, otherwise use credentials to log in
         if (nowTime < expirationTime) {
             notifySubscriber(token);
             return;
@@ -41,16 +43,13 @@ public class AccessTokenRefresher implements RestPublisher {
 
         final AccountRestInterface accountRestInterface = ServiceGenerator.createService(AccountRestInterface.class);
 
-        Call<AccessToken> call = accountRestInterface.getRefreshedAccessToken(token.getRefreshToken(), "refresh_token");
+        Call<AccessToken> call = accountRestInterface.getAccessToken(credentials.getEmail(), credentials.getPassword(), "password");
         call.enqueue(new Callback<AccessToken>() {
             @Override
             public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
                 if (response.isSuccessful()) {
                     //delete old access token from LocalDB
-                    AccessToken tokenToDelete = SQLite.select().from(AccessToken.class).querySingle();
-                    if (tokenToDelete != null) {
-                        tokenToDelete.delete();
-                    }
+                    token.delete();
 
                     //save access token to LocalDB
                     AccessToken accessToken = response.body();

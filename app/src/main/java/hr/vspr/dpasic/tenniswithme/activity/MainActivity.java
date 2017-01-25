@@ -83,6 +83,9 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
+        commitFindPartnerFragment();
+        navigationView.setCheckedItem(R.id.nav_find_partner);
+
         mainPresenter = new MainPresenterImpl(this);
         mainPresenter.setUserInfo();
     }
@@ -92,7 +95,7 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, UserInfoFragment.class.getName()).commit();
 
-        setTitle(R.string.user_info);
+        setTitle(R.string.title_user_info);
     }
 
     private void commitFindPartnerFragment() {
@@ -100,7 +103,7 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, SearchPartnersFragment.class.getName()).commit();
 
-        setTitle(R.string.find_partner);
+        setTitle(R.string.title_find_partner);
     }
 
     private void commitActiveFriendsFragment() {
@@ -116,7 +119,7 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, RequestedFriendsFragment.class.getName()).commit();
 
-        setTitle(R.string.friend_requests);
+        setTitle(R.string.title_friend_requests);
     }
 
     private void commitActiveMatchesFragment() {
@@ -132,7 +135,7 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, ActiveFriendsFragment.class.getName()).commit();
 
-        setTitle(R.string.match_requests);
+        setTitle(R.string.title_match_requests);
     }
 
     @Override
@@ -196,6 +199,12 @@ public class MainActivity extends AppCompatActivity
     private void openUserInfo(View view) {
         commitUserInfoFragment(player, ActionType.VIEW_AND_EDIT);
         drawer.closeDrawer(GravityCompat.START);
+
+        // Uncheck all items in navigation
+        int size = navigationView.getMenu().size();
+        for (int i = 0; i < size; i++) {
+            navigationView.getMenu().getItem(i).setChecked(false);
+        }
     }
 
     @Override
@@ -204,7 +213,6 @@ public class MainActivity extends AppCompatActivity
         navigationEmail.setText(player.getEmail());
 
         this.player = player;
-        commitUserInfoFragment(player, ActionType.VIEW_AND_EDIT);
     }
 
     @Override

@@ -84,7 +84,7 @@
 
             <Button
                 android:id="@+id/email_register_button"
-                style="?android:textAppearanceSmall"
+                style="@style/SubmitButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -93,7 +93,7 @@
 
             <Button
                 android:id="@+id/goto_login_button"
-                style="?android:textAppearanceSmall"
+                style="@style/ActionButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

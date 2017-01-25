@@ -32,7 +32,7 @@
         <item name="android:layout_margin">5dp</item>
     </style>
 
-    <style name="FormEditContent" parent="android:Widget.EditText">
+    <style name="FormEditContent" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:textSize">16sp</item>
@@ -40,12 +40,29 @@
         <item name="android:layout_margin">5dp</item>
     </style>
 
-    <style name="FormSpinner" parent="android:Widget.Spinner">
+    <style name="FormSpinner" parent="Widget.AppCompat.Spinner">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_margin">5dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:backgroundTint">@color/colorAccent</item>
+    </style>
+
+    <style name="SubmitButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:backgroundTint">@android:color/holo_green_dark</item>
+    </style>
+
+    <style name="ActionButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:backgroundTint">@android:color/holo_blue_dark</item>
+    </style>
+
+    <style name="FormButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:backgroundTint">@color/colorAccent</item>
     </style>
 
 </resources>

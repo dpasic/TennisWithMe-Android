@@ -1,5 +1,6 @@
 package hr.vspr.dpasic.tenniswithme.activity;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -63,7 +64,7 @@ public class MatchInfoActivity extends AppCompatActivity {
                 fabEdit.setVisibility(View.VISIBLE);
                 btnConfirmMatch.setVisibility(View.GONE);
                 break;
-            case CONFIRM_FRIENDSHIP:
+            case CONFIRM_MATCH:
                 fabEdit.setVisibility(View.GONE);
                 btnConfirmMatch.setVisibility(View.VISIBLE);
                 break;
@@ -83,5 +84,13 @@ public class MatchInfoActivity extends AppCompatActivity {
     @OnClick(R.id.btn_confirm_match)
     public void confirmMatchClick() {
         //TODO: complete action
+    }
+
+    @OnClick(R.id.fab_edit)
+    public void editMatchInfoClick() {
+        Intent editMatchInfoActivity = new Intent(this, EditMatchInfoActivity.class);
+        editMatchInfoActivity.putExtra(MainActivity.MATCH, match);
+
+        startActivity(editMatchInfoActivity);
     }
 }

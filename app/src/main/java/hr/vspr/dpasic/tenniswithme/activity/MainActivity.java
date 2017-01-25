@@ -39,8 +39,9 @@ public class MainActivity extends AppCompatActivity
         OnPeopleListFragmentInteractionListener,
         OnMatchListFragmentInteractionListener {
 
-    private static final String USER = "player";
-    private static final String ACTION_TYPE = "actionType";
+    public static final String PLAYER = "player";
+    public static final String MATCH = "match";
+    public static final String ACTION_TYPE = "actionType";
 
     private MainPresenterImpl mainPresenter;
     private Player player;
@@ -213,9 +214,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListFragmentInteraction(Player item, ActionType actionType) {
-        //commitUserInfoFragment(item, actionType);
         Intent userInfoActivity = new Intent(this, UserInfoActivity.class);
-        userInfoActivity.putExtra(USER, item);
+        userInfoActivity.putExtra(PLAYER, item);
         userInfoActivity.putExtra(ACTION_TYPE, actionType);
 
         startActivity(userInfoActivity);
@@ -223,7 +223,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListFragmentInteraction(Match item, ActionType actionType) {
+        Intent matchInfoActivity = new Intent(this, MatchInfoActivity.class);
+        matchInfoActivity.putExtra(MATCH, item);
+        matchInfoActivity.putExtra(ACTION_TYPE, actionType);
 
+        startActivity(matchInfoActivity);
     }
 
     @Override

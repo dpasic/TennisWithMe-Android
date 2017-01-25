@@ -35,16 +35,15 @@ import hr.vspr.dpasic.tenniswithme.model.Player;
 
 public class RequestMatchActivity extends AppCompatActivity implements RequestMatchView {
 
-    private static final String USER = "player";
+    private final SimpleDateFormat SDF_DATE = new SimpleDateFormat("dd.MM.yyyy.", Locale.getDefault());
+    private final SimpleDateFormat SDF_TIME = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    private final SimpleDateFormat SDF_FULL_TIME = new SimpleDateFormat("dd.MM.yyyy. HH:mm", Locale.getDefault());
 
     private RequestMatchPresenter requestMatchPresenter;
 
     private Player loginPlayer;
     private Player otherPlayer;
     private Calendar calendar = Calendar.getInstance();
-    private SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy.", Locale.getDefault());
-    private SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm", Locale.getDefault());
-    private SimpleDateFormat sdfFullDate = new SimpleDateFormat("dd.MM.yyyy. HH:mm", Locale.getDefault());
 
     @BindView(R.id.tv_player1)
     TextView tvPlayer1;
@@ -73,14 +72,14 @@ public class RequestMatchActivity extends AppCompatActivity implements RequestMa
         requestMatchPresenter = new RequestMatchPresenterImpl(this);
 
         loginPlayer = SQLite.select().from(Player.class).querySingle();
-        otherPlayer = getIntent().getParcelableExtra(USER);
+        otherPlayer = getIntent().getParcelableExtra(MainActivity.PLAYER);
 
         tvPlayer1.setText(loginPlayer.getFullName());
         tvPlayer2.setText(otherPlayer.getFullName());
 
         Date currentDate = new Date();
-        btnChooseDate.setText(sdfDate.format(currentDate));
-        btnChooseTime.setText(sdfTime.format(currentDate));
+        btnChooseDate.setText(SDF_DATE.format(currentDate));
+        btnChooseTime.setText(SDF_TIME.format(currentDate));
     }
 
     @OnClick(R.id.btn_send_request)
@@ -90,7 +89,7 @@ public class RequestMatchActivity extends AppCompatActivity implements RequestMa
         requestMatch.setComment(etComment.getText().toString());
 
         try {
-            requestMatch.setDatePlayed(sdfFullDate.parse(btnChooseDate.getText().toString() + " " + btnChooseTime.getText().toString()));
+            requestMatch.setDatePlayed(SDF_FULL_TIME.parse(btnChooseDate.getText().toString() + " " + btnChooseTime.getText().toString()));
         } catch (ParseException e) {
             Log.d("DATE", e.getMessage());
         }
@@ -107,7 +106,7 @@ public class RequestMatchActivity extends AppCompatActivity implements RequestMa
     @OnClick(R.id.btn_choose_date)
     public void chooseDateClick() {
         try {
-            calendar.setTime(sdfDate.parse(btnChooseDate.getText().toString()));
+            calendar.setTime(SDF_DATE.parse(btnChooseDate.getText().toString()));
         } catch (ParseException e) {
             Log.d("CALENDAR", e.getMessage());
         }
@@ -123,7 +122,7 @@ public class RequestMatchActivity extends AppCompatActivity implements RequestMa
     @OnClick(R.id.btn_choose_time)
     public void chooseTimeClick() {
         try {
-            calendar.setTime(sdfTime.parse(btnChooseTime.getText().toString()));
+            calendar.setTime(SDF_TIME.parse(btnChooseTime.getText().toString()));
         } catch (ParseException e) {
             Log.d("CALENDAR", e.getMessage());
         }

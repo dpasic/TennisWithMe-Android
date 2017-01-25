@@ -13,9 +13,6 @@ import hr.vspr.dpasic.tenniswithme.model.ActionType;
 
 public class UserInfoActivity extends AppCompatActivity implements UserInfoFragment.OnFragmentInteractionListener {
 
-    private static final String USER = "player";
-    private static final String ACTION_TYPE = "actionType";
-
     private Player player;
     private ActionType actionType;
 
@@ -26,8 +23,8 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoFragm
 
         ButterKnife.bind(this);
 
-        player = getIntent().getParcelableExtra(USER);
-        actionType = (ActionType) getIntent().getSerializableExtra(ACTION_TYPE);
+        player = getIntent().getParcelableExtra(MainActivity.PLAYER);
+        actionType = (ActionType) getIntent().getSerializableExtra(MainActivity.ACTION_TYPE);
 
         Fragment fragment = UserInfoFragment.newInstance(player, actionType);
         getSupportFragmentManager().beginTransaction()

@@ -19,8 +19,6 @@ import hr.vspr.dpasic.tenniswithme.model.Player;
 
 public class EditUserInfoActivity extends AppCompatActivity implements EditUserInfoView, UserInfoPublisher {
 
-    private static final String USER = "player";
-
     private Player player;
     private List<UserInfoSubscriber> subscribers;
 
@@ -44,7 +42,7 @@ public class EditUserInfoActivity extends AppCompatActivity implements EditUserI
 
         ButterKnife.bind(this);
 
-        player = getIntent().getParcelableExtra(USER);
+        player = getIntent().getParcelableExtra(MainActivity.PLAYER);
         subscribers = new ArrayList<>();
 
         setUserInfo();

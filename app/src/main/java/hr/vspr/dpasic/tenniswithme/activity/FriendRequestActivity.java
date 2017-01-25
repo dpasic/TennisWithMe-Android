@@ -25,9 +25,6 @@ import hr.vspr.dpasic.tenniswithme.model.ActionType;
 public class FriendRequestActivity extends AppCompatActivity implements SearchView.OnQueryTextListener,
         FriendRequestView, OnPeopleListFragmentInteractionListener {
 
-    private static final String USER = "user";
-    private static final String ACTION_TYPE = "actionType";
-
     private FriendRequestPresenter friendRequestPresenter;
 
     @BindView(R.id.search_people)
@@ -77,8 +74,8 @@ public class FriendRequestActivity extends AppCompatActivity implements SearchVi
     @Override
     public void onListFragmentInteraction(Player item, ActionType actionType) {
         Intent userInfoActivity = new Intent(this, UserInfoActivity.class);
-        userInfoActivity.putExtra(USER, item);
-        userInfoActivity.putExtra(ACTION_TYPE, actionType);
+        userInfoActivity.putExtra(MainActivity.PLAYER, item);
+        userInfoActivity.putExtra(MainActivity.ACTION_TYPE, actionType);
 
         startActivity(userInfoActivity);
     }

@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.activity.EditUserInfoActivity;
+import hr.vspr.dpasic.tenniswithme.activity.MainActivity;
 import hr.vspr.dpasic.tenniswithme.activity.RequestMatchActivity;
 import hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp.UserInfoPublisher;
 import hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp.UserInfoSubscriber;
@@ -38,9 +39,6 @@ import hr.vspr.dpasic.tenniswithme.model.ActionType;
  * create an instance of this fragment.
  */
 public class UserInfoFragment extends Fragment implements UserInfoView, UserInfoSubscriber {
-
-    private static final String USER = "player";
-    private static final String ACTION_TYPE = "actionType";
 
     private Player player;
     private ActionType actionType;
@@ -83,8 +81,8 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     public static UserInfoFragment newInstance(Player player, ActionType actionType) {
         UserInfoFragment fragment = new UserInfoFragment();
         Bundle args = new Bundle();
-        args.putParcelable(USER, player);
-        args.putSerializable(ACTION_TYPE, actionType);
+        args.putParcelable(MainActivity.PLAYER, player);
+        args.putSerializable(MainActivity.ACTION_TYPE, actionType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -93,8 +91,8 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            player = getArguments().getParcelable(USER);
-            actionType = (ActionType) getArguments().getSerializable(ACTION_TYPE);
+            player = getArguments().getParcelable(MainActivity.PLAYER);
+            actionType = (ActionType) getArguments().getSerializable(MainActivity.ACTION_TYPE);
         }
     }
 
@@ -159,7 +157,7 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     @OnClick(R.id.fab_edit)
     public void editUserInfoClick() {
         Intent editUserInfoActivity = new Intent(getContext(), EditUserInfoActivity.class);
-        editUserInfoActivity.putExtra(USER, player);
+        editUserInfoActivity.putExtra(MainActivity.PLAYER, player);
 
         startActivity(editUserInfoActivity);
     }
@@ -178,7 +176,7 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     @OnClick(R.id.btn_request_match)
     public void requestMatchClick() {
         Intent requestMatchActivity = new Intent(getContext(), RequestMatchActivity.class);
-        requestMatchActivity.putExtra(USER, player);
+        requestMatchActivity.putExtra(MainActivity.PLAYER, player);
 
         startActivity(requestMatchActivity);
     }

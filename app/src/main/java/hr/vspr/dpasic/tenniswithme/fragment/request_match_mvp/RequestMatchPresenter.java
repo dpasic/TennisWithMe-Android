@@ -1,4 +1,4 @@
-package hr.vspr.dpasic.tenniswithme.activity.request_match_mvp;
+package hr.vspr.dpasic.tenniswithme.fragment.request_match_mvp;
 
 import hr.vspr.dpasic.tenniswithme.model.Match;
 

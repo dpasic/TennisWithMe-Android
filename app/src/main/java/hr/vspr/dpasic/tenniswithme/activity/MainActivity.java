@@ -1,10 +1,10 @@
 package hr.vspr.dpasic.tenniswithme.activity;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.fragment.ActiveFriendsFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.ActiveMatchesFragment;
+import hr.vspr.dpasic.tenniswithme.fragment.MatchInfoFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.RequestedMatchesFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.SearchPartnersFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.RequestedFriendsFragment;
@@ -92,50 +93,69 @@ public class MainActivity extends AppCompatActivity
 
     private void commitUserInfoFragment(Player player, ActionType actionType) {
         Fragment fragment = UserInfoFragment.newInstance(player, actionType);
+
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment, UserInfoFragment.class.getName()).commit();
+                .replace(R.id.fragment_container, fragment, UserInfoFragment.class.getName())
+                .addToBackStack(UserInfoFragment.class.getName()).commit();
 
         setTitle(R.string.title_user_info);
     }
 
     private void commitFindPartnerFragment() {
         Fragment fragment = SearchPartnersFragment.newInstance();
+
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment, SearchPartnersFragment.class.getName()).commit();
+                .replace(R.id.fragment_container, fragment, SearchPartnersFragment.class.getName())
+                .addToBackStack(SearchPartnersFragment.class.getName()).commit();
 
         setTitle(R.string.title_find_partner);
     }
 
     private void commitActiveFriendsFragment() {
         Fragment fragment = ActiveFriendsFragment.newInstance();
+
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment, ActiveFriendsFragment.class.getName()).commit();
+                .replace(R.id.fragment_container, fragment, ActiveFriendsFragment.class.getName())
+                .addToBackStack(ActiveFriendsFragment.class.getName()).commit();
 
         setTitle(R.string.friends);
     }
 
     private void commitRequestedFriendsFragment() {
         Fragment fragment = RequestedFriendsFragment.newInstance();
+
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment, RequestedFriendsFragment.class.getName()).commit();
+                .replace(R.id.fragment_container, fragment, RequestedFriendsFragment.class.getName())
+                .addToBackStack(RequestedFriendsFragment.class.getName()).commit();
 
         setTitle(R.string.title_friend_requests);
     }
 
     private void commitActiveMatchesFragment() {
         Fragment fragment = ActiveMatchesFragment.newInstance();
+
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment, ActiveFriendsFragment.class.getName()).commit();
+                .replace(R.id.fragment_container, fragment, ActiveMatchesFragment.class.getName())
+                .addToBackStack(ActiveMatchesFragment.class.getName()).commit();
 
         setTitle(R.string.matches);
     }
 
     private void commitRequestedMatchesFragment() {
         Fragment fragment = RequestedMatchesFragment.newInstance();
+
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment, ActiveFriendsFragment.class.getName()).commit();
+                .replace(R.id.fragment_container, fragment, RequestedMatchesFragment.class.getName())
+                .addToBackStack(RequestedMatchesFragment.class.getName()).commit();
 
         setTitle(R.string.title_match_requests);
+    }
+
+    private void clearFragmentManagerStack() {
+        FragmentManager fm = getSupportFragmentManager();
+        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+            fm.popBackStackImmediate();
+        }
     }
 
     @Override
@@ -143,7 +163,12 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            FragmentManager fm = getSupportFragmentManager();
+            if (fm.getBackStackEntryCount() > 1) {
+                fm.popBackStack();
+            } else {
+                finish();
+            }
         }
     }
 
@@ -176,18 +201,23 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_find_partner) {
+            clearFragmentManagerStack();
             commitFindPartnerFragment();
 
         } else if (id == R.id.nav_active_friends) {
+            clearFragmentManagerStack();
             commitActiveFriendsFragment();
 
         } else if (id == R.id.nav_requested_friends) {
+            clearFragmentManagerStack();
             commitRequestedFriendsFragment();
 
         } else if (id == R.id.nav_active_matches) {
+            clearFragmentManagerStack();
             commitActiveMatchesFragment();
 
         } else if (id == R.id.nav_requested_matches) {
+            clearFragmentManagerStack();
             commitRequestedMatchesFragment();
 
         }
@@ -221,21 +251,19 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction(Player item, ActionType actionType) {
-        Intent userInfoActivity = new Intent(this, UserInfoActivity.class);
-        userInfoActivity.putExtra(PLAYER, item);
-        userInfoActivity.putExtra(ACTION_TYPE, actionType);
-
-        startActivity(userInfoActivity);
+    public void onListFragmentInteraction(Player player, ActionType actionType) {
+        commitUserInfoFragment(player, actionType);
     }
 
     @Override
-    public void onListFragmentInteraction(Match item, ActionType actionType) {
-        Intent matchInfoActivity = new Intent(this, MatchInfoActivity.class);
-        matchInfoActivity.putExtra(MATCH, item);
-        matchInfoActivity.putExtra(ACTION_TYPE, actionType);
+    public void onListFragmentInteraction(Match match, ActionType actionType) {
+        Fragment fragment = MatchInfoFragment.newInstance(match, actionType);
 
-        startActivity(matchInfoActivity);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment, MatchInfoFragment.class.getName())
+                .addToBackStack(MatchInfoFragment.class.getName()).commit();
+
+        setTitle(R.string.title_match_info);
     }
 
     @Override

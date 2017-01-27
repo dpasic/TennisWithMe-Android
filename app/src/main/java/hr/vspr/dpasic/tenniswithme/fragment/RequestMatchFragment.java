@@ -1,12 +1,14 @@
-package hr.vspr.dpasic.tenniswithme.activity;
+package hr.vspr.dpasic.tenniswithme.fragment;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -27,13 +29,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
-import hr.vspr.dpasic.tenniswithme.activity.request_match_mvp.RequestMatchPresenter;
-import hr.vspr.dpasic.tenniswithme.activity.request_match_mvp.RequestMatchPresenterImpl;
-import hr.vspr.dpasic.tenniswithme.activity.request_match_mvp.RequestMatchView;
+import hr.vspr.dpasic.tenniswithme.activity.MainActivity;
+import hr.vspr.dpasic.tenniswithme.fragment.request_match_mvp.RequestMatchPresenter;
+import hr.vspr.dpasic.tenniswithme.fragment.request_match_mvp.RequestMatchPresenterImpl;
+import hr.vspr.dpasic.tenniswithme.fragment.request_match_mvp.RequestMatchView;
 import hr.vspr.dpasic.tenniswithme.model.Match;
 import hr.vspr.dpasic.tenniswithme.model.Player;
 
-public class RequestMatchActivity extends AppCompatActivity implements RequestMatchView {
+public class RequestMatchFragment extends Fragment implements RequestMatchView {
 
     private final SimpleDateFormat SDF_DATE = new SimpleDateFormat("dd.MM.yyyy.", Locale.getDefault());
     private final SimpleDateFormat SDF_TIME = new SimpleDateFormat("HH:mm", Locale.getDefault());
@@ -62,17 +65,42 @@ public class RequestMatchActivity extends AppCompatActivity implements RequestMa
     @BindView(R.id.activity_request)
     LinearLayout activityRequestView;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_match_request);
+    public RequestMatchFragment() {
+        // Required empty public constructor
+    }
 
-        ButterKnife.bind(this);
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @return A new instance of fragment UserInfoFragment.
+     */
+    public static RequestMatchFragment newInstance(Player player) {
+        RequestMatchFragment fragment = new RequestMatchFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(MainActivity.PLAYER, player);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            otherPlayer = getArguments().getParcelable(MainActivity.PLAYER);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_match_request, container, false);
+        ButterKnife.bind(this, view);
 
         requestMatchPresenter = new RequestMatchPresenterImpl(this);
 
         loginPlayer = SQLite.select().from(Player.class).querySingle();
-        otherPlayer = getIntent().getParcelableExtra(MainActivity.PLAYER);
 
         tvPlayer1.setText(loginPlayer.getFullName());
         tvPlayer2.setText(otherPlayer.getFullName());
@@ -80,6 +108,8 @@ public class RequestMatchActivity extends AppCompatActivity implements RequestMa
         Date currentDate = new Date();
         btnChooseDate.setText(SDF_DATE.format(currentDate));
         btnChooseTime.setText(SDF_TIME.format(currentDate));
+
+        return view;
     }
 
     @OnClick(R.id.btn_send_request)
@@ -111,7 +141,7 @@ public class RequestMatchActivity extends AppCompatActivity implements RequestMa
             Log.d("CALENDAR", e.getMessage());
         }
 
-        new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                 btnChooseDate.setText(String.format("%s.%s.%s.", get2NumFormat(dayOfMonth), get2NumFormat(++monthOfYear), year));
@@ -127,7 +157,7 @@ public class RequestMatchActivity extends AppCompatActivity implements RequestMa
             Log.d("CALENDAR", e.getMessage());
         }
 
-        new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+        new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                 btnChooseTime.setText(String.format("%s:%s", get2NumFormat(hour), get2NumFormat(minute)));
@@ -146,7 +176,8 @@ public class RequestMatchActivity extends AppCompatActivity implements RequestMa
     public void requestCompleted(Match match) {
         loadingProgress.setVisibility(View.GONE);
         Snackbar.make(activityRequestView, R.string.match_requested, Snackbar.LENGTH_LONG);
-        finish();
+
+        getActivity().getSupportFragmentManager().popBackStackImmediate();
     }
 
     @Override

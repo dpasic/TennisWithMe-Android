@@ -20,7 +20,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
-import hr.vspr.dpasic.tenniswithme.activity.FriendRequestActivity;
 import hr.vspr.dpasic.tenniswithme.adapter.PlayerRecyclerViewAdapter;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsPresenter;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsView;
@@ -103,8 +102,13 @@ public class RequestedFriendsFragment extends Fragment implements FriendsView,
 
     @OnClick(R.id.fab_add)
     public void editUserInfoClick() {
-        Intent friendRequestActivity = new Intent(getContext(), FriendRequestActivity.class);
-        startActivity(friendRequestActivity);
+        Fragment fragment = FriendRequestFragment.newInstance();
+
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment, FriendRequestFragment.class.getName())
+                .addToBackStack(FriendRequestFragment.class.getName()).commit();
+
+        getActivity().setTitle(R.string.title_request_friendship);
     }
 
     @Override

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_edit_match_info"
+    android:id="@+id/activity_edit_user_info"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,7 +9,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="hr.vspr.dpasic.tenniswithme.activity.EditMatchInfoActivity">
+    tools:context="hr.vspr.dpasic.tenniswithme.fragment.EditUserInfoFragment">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,12 +19,12 @@
 
         <TextView
             style="@style/FormLabel"
-            android:text="@string/player1_lbl" />
+            android:text="@string/name_lbl" />
 
-        <TextView
-            android:id="@+id/tv_player1"
-            style="@style/FormViewContent"
-            tools:text="Đani Pašić" />
+        <EditText
+            android:id="@+id/et_name"
+            style="@style/FormEditContent"
+            tools:text="Đani" />
     </LinearLayout>
 
     <LinearLayout
@@ -33,12 +34,12 @@
 
         <TextView
             style="@style/FormLabel"
-            android:text="@string/player2_lbl" />
+            android:text="@string/surname_lbl" />
 
-        <TextView
-            android:id="@+id/tv_player2"
-            style="@style/FormViewContent"
-            tools:text="Edi Pašić" />
+        <EditText
+            android:id="@+id/et_surname"
+            style="@style/FormEditContent"
+            tools:text="Pašić" />
     </LinearLayout>
 
     <LinearLayout
@@ -48,12 +49,12 @@
 
         <TextView
             style="@style/FormLabel"
-            android:text="@string/city_lbl" />
+            android:text="@string/email_lbl" />
 
-        <TextView
-            android:id="@+id/tv_city"
-            style="@style/FormViewContent"
-            tools:text="Umag" />
+        <EditText
+            android:id="@+id/et_email"
+            style="@style/FormEditContent"
+            tools:text="djani@mail.com" />
     </LinearLayout>
 
     <LinearLayout
@@ -63,12 +64,12 @@
 
         <TextView
             style="@style/FormLabel"
-            android:text="@string/time_lbl" />
+            android:text="@string/gender_lbl" />
 
-        <TextView
-            android:id="@+id/tv_time"
-            style="@style/FormViewContent"
-            tools:text="23.01.2017. 12:30" />
+        <EditText
+            android:id="@+id/et_gender"
+            style="@style/FormEditContent"
+            tools:text="Male" />
     </LinearLayout>
 
     <LinearLayout
@@ -78,12 +79,12 @@
 
         <TextView
             style="@style/FormLabel"
-            android:text="@string/result_lbl" />
+            android:text="@string/age_lbl" />
 
-        <TextView
-            android:id="@+id/tv_result"
-            style="@style/FormViewContent"
-            tools:text="6:4 6:4" />
+        <EditText
+            android:id="@+id/et_age"
+            style="@style/FormEditContent"
+            tools:text="23" />
     </LinearLayout>
 
     <LinearLayout
@@ -93,29 +94,20 @@
 
         <TextView
             style="@style/FormLabel"
-            android:text="@string/rating_lbl" />
+            android:text="@string/summary_lbl" />
 
-        <TextView
-            android:id="@+id/tv_rating"
-            style="@style/FormViewContent"
-            tools:text="5 stars" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/FormLabel"
-            android:text="@string/comment_lbl" />
-
-        <TextView
-            android:id="@+id/tv_comment"
-            style="@style/FormViewContent"
+        <EditText
+            android:id="@+id/et_summary"
+            style="@style/FormEditContent"
             android:ellipsize="end"
             android:lines="3"
-            tools:text="Great match!" />
+            tools:text="I'm former tennis player." />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_save_profile"
+        style="@style/SubmitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save_profile" />
 </LinearLayout>

@@ -1,10 +1,11 @@
-package hr.vspr.dpasic.tenniswithme.activity;
+package hr.vspr.dpasic.tenniswithme.fragment;
 
-import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -15,10 +16,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
+import hr.vspr.dpasic.tenniswithme.activity.MainActivity;
 import hr.vspr.dpasic.tenniswithme.model.ActionType;
 import hr.vspr.dpasic.tenniswithme.model.Match;
 
-public class MatchInfoActivity extends AppCompatActivity {
+public class MatchInfoFragment extends Fragment {
 
     private final SimpleDateFormat SDF = new SimpleDateFormat("dd.MM.yyyy. HH:mm", Locale.getDefault());
 
@@ -44,18 +46,45 @@ public class MatchInfoActivity extends AppCompatActivity {
     @BindView(R.id.btn_confirm_match)
     Button btnConfirmMatch;
 
+    public MatchInfoFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @return A new instance of fragment UserInfoFragment.
+     */
+    public static MatchInfoFragment newInstance(Match match, ActionType actionType) {
+        MatchInfoFragment fragment = new MatchInfoFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(MainActivity.MATCH, match);
+        args.putSerializable(MainActivity.ACTION_TYPE, actionType);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_match_info);
+        if (getArguments() != null) {
+            match = getArguments().getParcelable(MainActivity.MATCH);
+            actionType = (ActionType) getArguments().getSerializable(MainActivity.ACTION_TYPE);
+        }
+    }
 
-        ButterKnife.bind(this);
-
-        match = getIntent().getParcelableExtra(MainActivity.MATCH);
-        actionType = (ActionType) getIntent().getSerializableExtra(MainActivity.ACTION_TYPE);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_match_info, container, false);
+        ButterKnife.bind(this, view);
 
         prepareViewBasedOnActionType();
         setMatchInfo();
+
+        return view;
     }
 
     private void prepareViewBasedOnActionType() {
@@ -88,9 +117,12 @@ public class MatchInfoActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab_edit)
     public void editMatchInfoClick() {
-        Intent editMatchInfoActivity = new Intent(this, EditMatchInfoActivity.class);
-        editMatchInfoActivity.putExtra(MainActivity.MATCH, match);
+        Fragment fragment = EditMatchInfoFragment.newInstance(match);
 
-        startActivity(editMatchInfoActivity);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment, EditMatchInfoFragment.class.getName())
+                .addToBackStack(EditMatchInfoFragment.class.getName()).commit();
+
+        getActivity().setTitle(R.string.title_match_info);
     }
 }

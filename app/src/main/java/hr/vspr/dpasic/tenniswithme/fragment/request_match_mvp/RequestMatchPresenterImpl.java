@@ -1,15 +1,11 @@
-package hr.vspr.dpasic.tenniswithme.activity.request_match_mvp;
-
-import com.raizlabs.android.dbflow.sql.language.SQLite;
+package hr.vspr.dpasic.tenniswithme.fragment.request_match_mvp;
 
 import hr.vspr.dpasic.tenniswithme.common.AccessTokenRefresher;
 import hr.vspr.dpasic.tenniswithme.common.RestPublisher;
 import hr.vspr.dpasic.tenniswithme.common.RestSubscriber;
 import hr.vspr.dpasic.tenniswithme.model.AccessToken;
 import hr.vspr.dpasic.tenniswithme.model.Match;
-import hr.vspr.dpasic.tenniswithme.model.Player;
 import hr.vspr.dpasic.tenniswithme.rest.ServiceGenerator;
-import hr.vspr.dpasic.tenniswithme.rest.api_interface.IdentityPlayerRestInterface;
 import hr.vspr.dpasic.tenniswithme.rest.api_interface.MatchesRestInterface;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

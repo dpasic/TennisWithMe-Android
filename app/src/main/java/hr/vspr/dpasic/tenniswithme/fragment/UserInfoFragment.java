@@ -19,11 +19,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
-import hr.vspr.dpasic.tenniswithme.activity.EditUserInfoActivity;
 import hr.vspr.dpasic.tenniswithme.activity.MainActivity;
-import hr.vspr.dpasic.tenniswithme.activity.RequestMatchActivity;
-import hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp.UserInfoPublisher;
-import hr.vspr.dpasic.tenniswithme.activity.edit_user_info_mvp.UserInfoSubscriber;
+import hr.vspr.dpasic.tenniswithme.fragment.edit_user_info_mvp.UserInfoPublisher;
+import hr.vspr.dpasic.tenniswithme.fragment.edit_user_info_mvp.UserInfoSubscriber;
 import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoPresenter;
 import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoView;
@@ -156,10 +154,13 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
 
     @OnClick(R.id.fab_edit)
     public void editUserInfoClick() {
-        Intent editUserInfoActivity = new Intent(getContext(), EditUserInfoActivity.class);
-        editUserInfoActivity.putExtra(MainActivity.PLAYER, player);
+        Fragment fragment = EditUserInfoFragment.newInstance(player);
 
-        startActivity(editUserInfoActivity);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment, EditUserInfoFragment.class.getName())
+                .addToBackStack(EditUserInfoFragment.class.getName()).commit();
+
+        getActivity().setTitle(R.string.title_edit_user_info);
     }
 
     @OnClick(R.id.btn_confirm_friendship)
@@ -175,10 +176,13 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
 
     @OnClick(R.id.btn_request_match)
     public void requestMatchClick() {
-        Intent requestMatchActivity = new Intent(getContext(), RequestMatchActivity.class);
-        requestMatchActivity.putExtra(MainActivity.PLAYER, player);
+        Fragment fragment = RequestMatchFragment.newInstance(player);
 
-        startActivity(requestMatchActivity);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment, RequestMatchFragment.class.getName())
+                .addToBackStack(RequestMatchFragment.class.getName()).commit();
+
+        getActivity().setTitle(R.string.title_request_match);
     }
 
     @Override

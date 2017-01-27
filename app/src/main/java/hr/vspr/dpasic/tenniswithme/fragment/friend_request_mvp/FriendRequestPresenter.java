@@ -1,4 +1,4 @@
-package hr.vspr.dpasic.tenniswithme.activity.friend_request_mvp;
+package hr.vspr.dpasic.tenniswithme.fragment.friend_request_mvp;
 
 /**
  * Created by edjapas on 18.1.2017..

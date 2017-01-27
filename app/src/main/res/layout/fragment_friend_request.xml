@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="hr.vspr.dpasic.tenniswithme.activity.FriendRequestActivity">
+    tools:context="hr.vspr.dpasic.tenniswithme.fragment.FriendRequestFragment">
 
     <android.support.v7.widget.SearchView
         android:layout_width="match_parent"
@@ -29,12 +29,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
-        tools:context="hr.vspr.dpasic.tenniswithme.activity.FriendRequestActivity"
+        tools:context="hr.vspr.dpasic.tenniswithme.fragment.FriendRequestFragment"
         tools:listitem="@layout/friend_item" />
-
-    <FrameLayout
-        android:id="@+id/friend_request_fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"/>
 </LinearLayout>

@@ -1,4 +1,4 @@
-package hr.vspr.dpasic.tenniswithme.activity.friend_request_mvp;
+package hr.vspr.dpasic.tenniswithme.fragment.friend_request_mvp;
 
 import java.util.List;
 

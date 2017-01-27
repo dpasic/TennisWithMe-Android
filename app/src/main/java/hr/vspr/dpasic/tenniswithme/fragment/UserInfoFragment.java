@@ -171,7 +171,8 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
 
     @OnClick(R.id.btn_request_friendship)
     public void requestFriendshipClick() {
-
+        loadingProgress.setVisibility(View.VISIBLE);
+        userInfoPresenter.requestFriendship(player);
     }
 
     @OnClick(R.id.btn_request_match)
@@ -188,11 +189,17 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     @Override
     public void acceptFriendship() {
         loadingProgress.setVisibility(View.GONE);
-
         btnConfirmFriendship.setVisibility(View.GONE);
-        btnRequestMatch.setVisibility(View.VISIBLE);
 
         Snackbar.make(userInfoView, R.string.confirmed_friendship, Snackbar.LENGTH_LONG);
+    }
+
+    @Override
+    public void friendshipRequested() {
+        loadingProgress.setVisibility(View.GONE);
+        btnRequestFriendship.setVisibility(View.GONE);
+
+        Snackbar.make(userInfoView, R.string.requested_friendship, Snackbar.LENGTH_LONG);
     }
 
     @Override
@@ -205,13 +212,6 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     public void notifyRequestError(String msg) {
         loadingProgress.setVisibility(View.GONE);
         Snackbar.make(userInfoView, msg, Snackbar.LENGTH_LONG);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -242,7 +242,6 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

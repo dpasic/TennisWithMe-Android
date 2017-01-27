@@ -65,4 +65,43 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
             }
         });
     }
+
+    @Override
+    public void requestFriendship(final Player player) {
+        AccessTokenRefresher refresher = new AccessTokenRefresher();
+
+        refresher.registerSubscriber(new RestSubscriber() {
+            @Override
+            public void doRequest(RestPublisher publisher, AccessToken token) {
+                requestFriendshipRequest(token, player);
+            }
+        });
+
+        refresher.refreshTokenIfNecessary();
+    }
+
+    private void requestFriendshipRequest(AccessToken token, Player player) {
+        final FriendsRestInterface friendsRestInterface = ServiceGenerator.createService(FriendsRestInterface.class, token);
+
+        PlayersFriendship friendship = new PlayersFriendship();
+        friendship.playerTwoId = player.getId();
+
+        Call<ResponseBody> call = friendsRestInterface.requestFriendship(friendship);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    userInfoView.friendshipRequested();
+
+                } else {
+                    userInfoView.notifyRequestError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                userInfoView.notifyRequestError(t.getMessage());
+            }
+        });
+    }
 }

@@ -54,6 +54,7 @@
     <string name="search_partners">Search partners</string>
 
     <string name="all">All</string>
+    <string name="undefined">Undefined</string>
     <string name="zagreb">Zagreb</string>
     <string name="player1_lbl">Player one</string>
     <string name="player2_lbl">Player two</string>
@@ -74,15 +75,28 @@
     <string name="title_find_partner">Find Partner</string>
     <string name="title_friend_requests">Friend Requests</string>
     <string name="title_match_requests">Match Requests</string>
+    <string name="requested_friendship">Friendship request sent</string>
 
-    <string-array name="array_genders">
+    <string-array name="array_genders_all">
         <item>@string/all</item>
         <item>Male</item>
         <item>Female</item>
     </string-array>
+    <string-array name="array_genders_undef">
+        <item>@string/undefined</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
 
-    <string-array name="array_skills">
+    <string-array name="array_skills_all">
         <item>@string/all</item>
+        <item>Rookie</item>
+        <item>Amateur</item>
+        <item>Professional</item>
+        <item>Former Player</item>
+    </string-array>
+    <string-array name="array_skills_undef">
+        <item>@string/undefined</item>
         <item>Rookie</item>
         <item>Amateur</item>
         <item>Professional</item>

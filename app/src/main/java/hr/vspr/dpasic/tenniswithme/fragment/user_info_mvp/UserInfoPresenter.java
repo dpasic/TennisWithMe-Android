@@ -9,4 +9,6 @@ import hr.vspr.dpasic.tenniswithme.model.Player;
 public interface UserInfoPresenter {
 
     void confirmFriendship(Player player);
+
+    void requestFriendship(Player player);
 }

@@ -1,11 +1,15 @@
 package hr.vspr.dpasic.tenniswithme.fragment;
 
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +19,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.activity.MainActivity;
+import hr.vspr.dpasic.tenniswithme.fragment.edit_user_info_mvp.EditUserInfoPresenter;
+import hr.vspr.dpasic.tenniswithme.fragment.edit_user_info_mvp.EditUserInfoPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.edit_user_info_mvp.EditUserInfoView;
 import hr.vspr.dpasic.tenniswithme.fragment.edit_user_info_mvp.UserInfoPublisher;
 import hr.vspr.dpasic.tenniswithme.fragment.edit_user_info_mvp.UserInfoSubscriber;
@@ -22,6 +28,7 @@ import hr.vspr.dpasic.tenniswithme.model.Player;
 
 public class EditUserInfoFragment extends Fragment implements EditUserInfoView, UserInfoPublisher {
 
+    private EditUserInfoPresenter editUserInfoPresenter;
     private Player player;
     private List<UserInfoSubscriber> subscribers;
 
@@ -31,12 +38,18 @@ public class EditUserInfoFragment extends Fragment implements EditUserInfoView, 
     EditText etSurname;
     @BindView(R.id.et_email)
     EditText etEmail;
-    @BindView(R.id.et_gender)
-    EditText etSex;
+    @BindView(R.id.spinner_genders)
+    Spinner spinnerGenders;
+    @BindView(R.id.spinner_skills)
+    Spinner spinnerSkills;
     @BindView(R.id.et_age)
     EditText etAge;
     @BindView(R.id.et_summary)
     EditText etSummary;
+    @BindView(R.id.loading_progress)
+    ProgressBar loadingProgress;
+    @BindView(R.id.activity_edit_user_info)
+    LinearLayout editUserInfoView;
 
     public EditUserInfoFragment() {
         // Required empty public constructor
@@ -71,6 +84,7 @@ public class EditUserInfoFragment extends Fragment implements EditUserInfoView, 
         View view = inflater.inflate(R.layout.fragment_edit_user_info, container, false);
         ButterKnife.bind(this, view);
 
+        editUserInfoPresenter = new EditUserInfoPresenterImpl(this);
         subscribers = new ArrayList<>();
 
         setUserInfo();
@@ -83,15 +97,32 @@ public class EditUserInfoFragment extends Fragment implements EditUserInfoView, 
         etSurname.setText(player.getLastName());
         etEmail.setText(player.getEmail());
         etAge.setText(player.getAge());
-        etSex.setText(player.getGender());
+
+        String[] genders = getContext().getResources().getStringArray(R.array.array_genders_undef);
+        String[] skills = getContext().getResources().getStringArray(R.array.array_skills_undef);
+
+        spinnerGenders.setSelection(getIndexOfItemInArray(player.getGender(), genders));
+        spinnerSkills.setSelection(getIndexOfItemInArray(player.getSkill(), skills));
         etSummary.setText(player.getSummary());
+    }
+
+    private int getIndexOfItemInArray(String item, String[] items) {
+        int index = 0;
+        for (String str : items) {
+            if (str.equals(item)) {
+                return index;
+            }
+            index++;
+        }
+        return 0;
     }
 
     @OnClick(R.id.btn_save_profile)
     public void saveProfileClick(View view) {
-        notifySubscribers(player);
+        loadingProgress.setVisibility(View.VISIBLE);
 
-        getActivity().getSupportFragmentManager().popBackStackImmediate();
+        //TODO: get new data
+        editUserInfoPresenter.updateProfile(player);
     }
 
     @Override
@@ -108,6 +139,15 @@ public class EditUserInfoFragment extends Fragment implements EditUserInfoView, 
 
     @Override
     public void notifyRequestError(String msg) {
+        loadingProgress.setVisibility(View.GONE);
+        Snackbar.make(editUserInfoView, msg, Snackbar.LENGTH_LONG);
+    }
 
+    @Override
+    public void onUpdatedProfile(Player player) {
+        loadingProgress.setVisibility(View.GONE);
+
+        notifySubscribers(player);
+        getActivity().getSupportFragmentManager().popBackStackImmediate();
     }
 }

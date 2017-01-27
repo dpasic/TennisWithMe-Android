@@ -43,7 +43,7 @@
             <Spinner
                 android:id="@+id/spinner_genders"
                 style="@style/FormSpinner"
-                android:entries="@array/array_genders" />
+                android:entries="@array/array_genders_all" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,7 +58,7 @@
             <Spinner
                 android:id="@+id/spinner_skills"
                 style="@style/FormSpinner"
-                android:entries="@array/array_skills" />
+                android:entries="@array/array_skills_all" />
         </LinearLayout>
 
         <ProgressBar

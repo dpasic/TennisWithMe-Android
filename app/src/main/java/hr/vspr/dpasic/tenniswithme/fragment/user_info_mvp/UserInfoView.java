@@ -9,4 +9,5 @@ import hr.vspr.dpasic.tenniswithme.common.RestView;
 public interface UserInfoView extends RestView {
 
     void acceptFriendship();
+    void friendshipRequested();
 }

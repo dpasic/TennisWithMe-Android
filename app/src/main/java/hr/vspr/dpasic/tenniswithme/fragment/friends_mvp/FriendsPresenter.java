@@ -6,5 +6,6 @@ package hr.vspr.dpasic.tenniswithme.fragment.friends_mvp;
 
 public interface FriendsPresenter {
 
-    void prepareListView();
+    void prepareActiveListView();
+    void prepareRequestedListView();
 }

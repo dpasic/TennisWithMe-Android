@@ -11,5 +11,5 @@ import hr.vspr.dpasic.tenniswithme.model.Player;
 
 public interface FriendsView extends RestView {
 
-    void updateListViewAdapter(List<Player> players);
+    void updateViewAdapter(List<Player> players);
 }

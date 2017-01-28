@@ -42,7 +42,7 @@ public class MainPresenterImpl implements MainPresenter {
     private void setUserInfoRequest(AccessToken token) {
         final IdentityPlayerRestInterface identityPlayerRestInterface = ServiceGenerator.createService(IdentityPlayerRestInterface.class, token);
 
-        Call<Player> call = identityPlayerRestInterface.getUserInfo();
+        Call<Player> call = identityPlayerRestInterface.getPlayerInfo();
         call.enqueue(new Callback<Player>() {
             @Override
             public void onResponse(Call<Player> call, Response<Player> response) {

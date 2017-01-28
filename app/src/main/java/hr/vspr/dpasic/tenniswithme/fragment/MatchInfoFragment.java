@@ -54,7 +54,7 @@ public class MatchInfoFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment UserInfoFragment.
+     * @return A new instance of fragment PlayerInfoFragment.
      */
     public static MatchInfoFragment newInstance(Match match, ActionType actionType) {
         MatchInfoFragment fragment = new MatchInfoFragment();

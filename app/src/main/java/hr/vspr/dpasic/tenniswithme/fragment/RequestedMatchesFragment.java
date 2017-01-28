@@ -35,7 +35,7 @@ public class RequestedMatchesFragment extends AbstractMatchesFragment {
 
     @Override
     public void prepareListView() {
-        matchesPresenter.prepareRequiredListView();
+        matchesPresenter.prepareRequestedListView();
     }
 
     @Override

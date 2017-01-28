@@ -22,10 +22,10 @@ import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.fragment.ActiveFriendsFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.ActiveMatchesFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.MatchInfoFragment;
+import hr.vspr.dpasic.tenniswithme.fragment.PlayerInfoFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.RequestedMatchesFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.SearchPartnersFragment;
 import hr.vspr.dpasic.tenniswithme.fragment.RequestedFriendsFragment;
-import hr.vspr.dpasic.tenniswithme.fragment.UserInfoFragment;
 import hr.vspr.dpasic.tenniswithme.activity.main_mvp.MainPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.activity.main_mvp.MainView;
 import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnMatchListFragmentInteractionListener;
@@ -36,7 +36,7 @@ import hr.vspr.dpasic.tenniswithme.model.ActionType;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainView,
-        UserInfoFragment.OnFragmentInteractionListener,
+        PlayerInfoFragment.OnFragmentInteractionListener,
         OnPeopleListFragmentInteractionListener,
         OnMatchListFragmentInteractionListener {
 
@@ -92,11 +92,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void commitUserInfoFragment(Player player, ActionType actionType) {
-        Fragment fragment = UserInfoFragment.newInstance(player, actionType);
+        Fragment fragment = PlayerInfoFragment.newInstance(player, actionType);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment, UserInfoFragment.class.getName())
-                .addToBackStack(UserInfoFragment.class.getName()).commit();
+                .replace(R.id.fragment_container, fragment, PlayerInfoFragment.class.getName())
+                .addToBackStack(PlayerInfoFragment.class.getName()).commit();
 
         setTitle(R.string.title_user_info);
     }

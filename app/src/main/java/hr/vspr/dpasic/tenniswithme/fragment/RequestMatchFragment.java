@@ -73,7 +73,7 @@ public class RequestMatchFragment extends Fragment implements RequestMatchView {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment UserInfoFragment.
+     * @return A new instance of fragment PlayerInfoFragment.
      */
     public static RequestMatchFragment newInstance(Player player) {
         RequestMatchFragment fragment = new RequestMatchFragment();

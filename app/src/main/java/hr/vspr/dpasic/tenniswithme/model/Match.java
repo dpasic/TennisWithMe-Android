@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
+import com.raizlabs.android.dbflow.annotation.Column;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -59,6 +60,9 @@ public class Match implements Parcelable {
 
     @SerializedName("CityPlayed")
     private String cityPlayed;
+
+    @SerializedName("IsMatchReceived")
+    private boolean isMatchReceived;
 
     public Match() {
     }
@@ -173,6 +177,14 @@ public class Match implements Parcelable {
 
     public void setCityPlayed(String cityPlayed) {
         this.cityPlayed = cityPlayed;
+    }
+
+    public boolean isMatchReceived() {
+        return isMatchReceived;
+    }
+
+    public void setMatchReceived(boolean matchReceived) {
+        isMatchReceived = matchReceived;
     }
 
     @Override

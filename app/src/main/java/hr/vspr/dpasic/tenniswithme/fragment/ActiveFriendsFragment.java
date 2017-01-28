@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.adapter.PlayerRecyclerViewAdapter;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsPresenter;
-import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.ActiveFriendsPresenterImpl;
+import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.friends_mvp.FriendsView;
 import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnPeopleListFragmentInteractionListener;
 import hr.vspr.dpasic.tenniswithme.model.Player;
@@ -31,16 +31,7 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnPeopleListFragmentInteractionListener}
  * interface.
  */
-public class ActiveFriendsFragment extends Fragment implements FriendsView,
-        SwipeRefreshLayout.OnRefreshListener {
-
-    private FriendsPresenter friendsPresenter;
-    private OnPeopleListFragmentInteractionListener mListener;
-
-    @BindView(R.id.list)
-    RecyclerView recyclerView;
-    @BindView(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout swipeRefreshLayout;
+public class ActiveFriendsFragment extends AbstractFriendsFragment {
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -55,61 +46,12 @@ public class ActiveFriendsFragment extends Fragment implements FriendsView,
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_active_friends_list, container, false);
-        ButterKnife.bind(this, view);
-
-        Context context = view.getContext();
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(context, layoutManager.getOrientation()));
-
-        swipeRefreshLayout.setOnRefreshListener(this);
-
-        friendsPresenter = new ActiveFriendsPresenterImpl(this);
-        friendsPresenter.prepareListView();
-
-        return view;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnPeopleListFragmentInteractionListener) {
-            mListener = (OnPeopleListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnPeopleListFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void prepareListView() {
+        friendsPresenter.prepareActiveListView();
     }
 
     @Override
     public void updateListViewAdapter(List<Player> players) {
         recyclerView.setAdapter(new PlayerRecyclerViewAdapter(players, ActionType.REQUEST_MATCH, mListener));
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Override
-    public void onRefresh() {
-        friendsPresenter.prepareListView();
-    }
-
-
-    @Override
-    public void notifyRequestError(String msg) {
-        swipeRefreshLayout.setRefreshing(false);
-        Snackbar.make(swipeRefreshLayout, msg, Snackbar.LENGTH_LONG);
     }
 }

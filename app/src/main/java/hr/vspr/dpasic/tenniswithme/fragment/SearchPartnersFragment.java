@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
@@ -53,7 +54,7 @@ public class SearchPartnersFragment extends Fragment implements SearchPartnersVi
     @BindView(R.id.players_list)
     RecyclerView recyclerView;
     @BindView(R.id.search_partners_view)
-    FrameLayout searchPartnersView;
+    LinearLayout searchPartnersView;
 
     public SearchPartnersFragment() {
         // Required empty public constructor

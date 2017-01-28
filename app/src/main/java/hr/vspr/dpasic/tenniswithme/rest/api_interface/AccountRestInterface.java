@@ -18,6 +18,9 @@ public interface AccountRestInterface {
     @POST("api/account/register")
     Call<ResponseBody> register(@Body RegisterViewModel registerViewModel);
 
+    @POST("api/account/logout")
+    Call<ResponseBody> logout();
+
     @FormUrlEncoded
     @POST("token")
     Call<AccessToken> getAccessToken(

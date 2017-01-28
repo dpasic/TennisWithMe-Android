@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="hr.vspr.dpasic.tenniswithme.fragment.EditUserInfoFragment">
+    tools:context="hr.vspr.dpasic.tenniswithme.fragment.EditPlayerInfoFragment">
 
 
     <LinearLayout
@@ -49,12 +49,13 @@
 
         <TextView
             style="@style/FormLabel"
-            android:text="@string/email_lbl" />
+            android:text="@string/age_lbl" />
 
         <EditText
-            android:id="@+id/et_email"
+            android:id="@+id/et_age"
             style="@style/FormEditContent"
-            tools:text="djani@mail.com" />
+            android:inputType="number"
+            tools:text="23" />
     </LinearLayout>
 
     <LinearLayout
@@ -85,21 +86,6 @@
             android:id="@+id/spinner_skills"
             style="@style/FormSpinner"
             android:entries="@array/array_skills_undef" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/FormLabel"
-            android:text="@string/age_lbl" />
-
-        <EditText
-            android:id="@+id/et_age"
-            style="@style/FormEditContent"
-            tools:text="23" />
     </LinearLayout>
 
     <LinearLayout

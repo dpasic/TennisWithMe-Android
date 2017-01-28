@@ -64,7 +64,7 @@ public class MatchesPresenterImpl implements MatchesPresenter {
     }
 
     @Override
-    public void prepareRequiredListView() {
+    public void prepareRequestedListView() {
         AccessTokenRefresher refresher = new AccessTokenRefresher();
 
         refresher.registerSubscriber(new RestSubscriber() {

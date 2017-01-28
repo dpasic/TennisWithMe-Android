@@ -19,9 +19,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
+import hr.vspr.dpasic.tenniswithme.activity.LoginActivity;
 import hr.vspr.dpasic.tenniswithme.activity.MainActivity;
-import hr.vspr.dpasic.tenniswithme.fragment.edit_user_info_mvp.UserInfoPublisher;
-import hr.vspr.dpasic.tenniswithme.fragment.edit_user_info_mvp.UserInfoSubscriber;
 import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoPresenter;
 import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoView;
@@ -31,12 +30,12 @@ import hr.vspr.dpasic.tenniswithme.model.ActionType;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link UserInfoFragment.OnFragmentInteractionListener} interface
+ * {@link PlayerInfoFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link UserInfoFragment#newInstance} factory method to
+ * Use the {@link PlayerInfoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UserInfoFragment extends Fragment implements UserInfoView, UserInfoSubscriber {
+public class PlayerInfoFragment extends Fragment implements UserInfoView {
 
     private Player player;
     private ActionType actionType;
@@ -61,12 +60,14 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     Button btnRequestMatch;
     @BindView(R.id.btn_request_friendship)
     Button btnRequestFriendship;
+    @BindView(R.id.btn_sign_out)
+    Button btnSignOut;
     @BindView(R.id.loading_progress)
     ProgressBar loadingProgress;
     @BindView(R.id.userInfoView)
     FrameLayout userInfoView;
 
-    public UserInfoFragment() {
+    public PlayerInfoFragment() {
         // Required empty public constructor
     }
 
@@ -74,10 +75,10 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment UserInfoFragment.
+     * @return A new instance of fragment PlayerInfoFragment.
      */
-    public static UserInfoFragment newInstance(Player player, ActionType actionType) {
-        UserInfoFragment fragment = new UserInfoFragment();
+    public static PlayerInfoFragment newInstance(Player player, ActionType actionType) {
+        PlayerInfoFragment fragment = new PlayerInfoFragment();
         Bundle args = new Bundle();
         args.putParcelable(MainActivity.PLAYER, player);
         args.putSerializable(MainActivity.ACTION_TYPE, actionType);
@@ -98,7 +99,7 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_user_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_player_info, container, false);
         ButterKnife.bind(this, view);
 
         userInfoPresenter = new UserInfoPresenterImpl(this);
@@ -116,24 +117,28 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
                 btnConfirmFriendship.setVisibility(View.GONE);
                 btnRequestMatch.setVisibility(View.GONE);
                 btnRequestFriendship.setVisibility(View.GONE);
+                btnSignOut.setVisibility(View.VISIBLE);
                 break;
             case CONFIRM_FRIENDSHIP:
                 fabEdit.setVisibility(View.GONE);
                 btnConfirmFriendship.setVisibility(View.VISIBLE);
                 btnRequestMatch.setVisibility(View.VISIBLE);
                 btnRequestFriendship.setVisibility(View.GONE);
+                btnSignOut.setVisibility(View.GONE);
                 break;
             case REQUEST_MATCH:
                 fabEdit.setVisibility(View.GONE);
                 btnConfirmFriendship.setVisibility(View.GONE);
                 btnRequestMatch.setVisibility(View.VISIBLE);
                 btnRequestFriendship.setVisibility(View.GONE);
+                btnSignOut.setVisibility(View.GONE);
                 break;
             case REQUEST_FRIENDSHIP:
                 fabEdit.setVisibility(View.GONE);
                 btnConfirmFriendship.setVisibility(View.GONE);
                 btnRequestMatch.setVisibility(View.VISIBLE);
                 btnRequestFriendship.setVisibility(View.VISIBLE);
+                btnSignOut.setVisibility(View.GONE);
                 break;
         }
     }
@@ -141,7 +146,6 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     @Override
     public void onResume() {
         super.onResume();
-        //TODO: read player info from REST
     }
 
     private void updateUserInfo() {
@@ -154,11 +158,11 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
 
     @OnClick(R.id.fab_edit)
     public void editUserInfoClick() {
-        Fragment fragment = EditUserInfoFragment.newInstance(player);
+        Fragment fragment = EditPlayerInfoFragment.newInstance(player);
 
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment, EditUserInfoFragment.class.getName())
-                .addToBackStack(EditUserInfoFragment.class.getName()).commit();
+                .replace(R.id.fragment_container, fragment, EditPlayerInfoFragment.class.getName())
+                .addToBackStack(EditPlayerInfoFragment.class.getName()).commit();
 
         getActivity().setTitle(R.string.title_edit_user_info);
     }
@@ -173,6 +177,12 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     public void requestFriendshipClick() {
         loadingProgress.setVisibility(View.VISIBLE);
         userInfoPresenter.requestFriendship(player);
+    }
+
+    @OnClick(R.id.btn_sign_out)
+    public void signOutClick() {
+        loadingProgress.setVisibility(View.VISIBLE);
+        userInfoPresenter.signOut();
     }
 
     @OnClick(R.id.btn_request_match)
@@ -203,9 +213,17 @@ public class UserInfoFragment extends Fragment implements UserInfoView, UserInfo
     }
 
     @Override
-    public void update(UserInfoPublisher publisher, Player player) {
+    public void signedOut() {
+        loadingProgress.setVisibility(View.GONE);
+
+        Intent loginActivity = new Intent(getContext(), LoginActivity.class);
+        loginActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginActivity);
+    }
+
+    @Override
+    public void updatePlayer(Player player) {
         this.player = player;
-        updateUserInfo();
     }
 
     @Override

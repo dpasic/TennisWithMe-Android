@@ -44,7 +44,7 @@ public class FriendRequestFragment extends Fragment implements SearchView.OnQuer
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment UserInfoFragment.
+     * @return A new instance of fragment PlayerInfoFragment.
      */
     public static FriendRequestFragment newInstance() {
         FriendRequestFragment fragment = new FriendRequestFragment();
@@ -97,11 +97,11 @@ public class FriendRequestFragment extends Fragment implements SearchView.OnQuer
 
     @Override
     public void onListFragmentInteraction(Player player, ActionType actionType) {
-        Fragment fragment = UserInfoFragment.newInstance(player, actionType);
+        Fragment fragment = PlayerInfoFragment.newInstance(player, actionType);
 
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment, UserInfoFragment.class.getName())
-                .addToBackStack(UserInfoFragment.class.getName()).commit();
+                .replace(R.id.fragment_container, fragment, PlayerInfoFragment.class.getName())
+                .addToBackStack(PlayerInfoFragment.class.getName()).commit();
 
         getActivity().setTitle(R.string.title_user_info);
     }

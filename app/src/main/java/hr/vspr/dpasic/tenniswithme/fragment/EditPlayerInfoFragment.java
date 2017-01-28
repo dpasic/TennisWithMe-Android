@@ -11,9 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -22,22 +19,18 @@ import hr.vspr.dpasic.tenniswithme.activity.MainActivity;
 import hr.vspr.dpasic.tenniswithme.fragment.edit_user_info_mvp.EditUserInfoPresenter;
 import hr.vspr.dpasic.tenniswithme.fragment.edit_user_info_mvp.EditUserInfoPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.edit_user_info_mvp.EditUserInfoView;
-import hr.vspr.dpasic.tenniswithme.fragment.edit_user_info_mvp.UserInfoPublisher;
-import hr.vspr.dpasic.tenniswithme.fragment.edit_user_info_mvp.UserInfoSubscriber;
+import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoView;
 import hr.vspr.dpasic.tenniswithme.model.Player;
 
-public class EditUserInfoFragment extends Fragment implements EditUserInfoView, UserInfoPublisher {
+public class EditPlayerInfoFragment extends Fragment implements EditUserInfoView {
 
     private EditUserInfoPresenter editUserInfoPresenter;
     private Player player;
-    private List<UserInfoSubscriber> subscribers;
 
     @BindView(R.id.et_name)
     EditText etName;
     @BindView(R.id.et_surname)
     EditText etSurname;
-    @BindView(R.id.et_email)
-    EditText etEmail;
     @BindView(R.id.spinner_genders)
     Spinner spinnerGenders;
     @BindView(R.id.spinner_skills)
@@ -51,7 +44,7 @@ public class EditUserInfoFragment extends Fragment implements EditUserInfoView, 
     @BindView(R.id.activity_edit_user_info)
     LinearLayout editUserInfoView;
 
-    public EditUserInfoFragment() {
+    public EditPlayerInfoFragment() {
         // Required empty public constructor
     }
 
@@ -59,10 +52,10 @@ public class EditUserInfoFragment extends Fragment implements EditUserInfoView, 
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment UserInfoFragment.
+     * @return A new instance of fragment PlayerInfoFragment.
      */
-    public static EditUserInfoFragment newInstance(Player player) {
-        EditUserInfoFragment fragment = new EditUserInfoFragment();
+    public static EditPlayerInfoFragment newInstance(Player player) {
+        EditPlayerInfoFragment fragment = new EditPlayerInfoFragment();
         Bundle args = new Bundle();
         args.putParcelable(MainActivity.PLAYER, player);
         fragment.setArguments(args);
@@ -81,21 +74,18 @@ public class EditUserInfoFragment extends Fragment implements EditUserInfoView, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_edit_user_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_edit_player_info, container, false);
         ButterKnife.bind(this, view);
 
         editUserInfoPresenter = new EditUserInfoPresenterImpl(this);
-        subscribers = new ArrayList<>();
 
         setUserInfo();
-
         return view;
     }
 
     private void setUserInfo() {
         etName.setText(player.getFirstName());
         etSurname.setText(player.getLastName());
-        etEmail.setText(player.getEmail());
         etAge.setText(player.getAge());
 
         String[] genders = getContext().getResources().getStringArray(R.array.array_genders_undef);
@@ -118,23 +108,16 @@ public class EditUserInfoFragment extends Fragment implements EditUserInfoView, 
     }
 
     @OnClick(R.id.btn_save_profile)
-    public void saveProfileClick(View view) {
+    public void saveProfileClick() {
         loadingProgress.setVisibility(View.VISIBLE);
 
-        //TODO: get new data
+        player.setFirstName(etName.getText().toString());
+        player.setLastName(etSurname.getText().toString());
+        player.setAge(etAge.getText().toString());
+        player.setGender(spinnerGenders.getSelectedItem().toString());
+        player.setSkill(spinnerSkills.getSelectedItem().toString());
+
         editUserInfoPresenter.updateProfile(player);
-    }
-
-    @Override
-    public void subscribe(UserInfoSubscriber subscriber) {
-        subscribers.add(subscriber);
-    }
-
-    @Override
-    public void notifySubscribers(Player player) {
-        for (UserInfoSubscriber sub : subscribers) {
-            sub.update(this, player);
-        }
     }
 
     @Override
@@ -147,7 +130,10 @@ public class EditUserInfoFragment extends Fragment implements EditUserInfoView, 
     public void onUpdatedProfile(Player player) {
         loadingProgress.setVisibility(View.GONE);
 
-        notifySubscribers(player);
+        UserInfoView userInfoView = (UserInfoView) getActivity().getSupportFragmentManager()
+                .findFragmentByTag(PlayerInfoFragment.class.getName());
+        userInfoView.updatePlayer(player);
+
         getActivity().getSupportFragmentManager().popBackStackImmediate();
     }
 }

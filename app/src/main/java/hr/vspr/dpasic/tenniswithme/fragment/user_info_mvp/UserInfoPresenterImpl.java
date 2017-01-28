@@ -6,9 +6,11 @@ import hr.vspr.dpasic.tenniswithme.common.AccessTokenRefresher;
 import hr.vspr.dpasic.tenniswithme.common.RestPublisher;
 import hr.vspr.dpasic.tenniswithme.common.RestSubscriber;
 import hr.vspr.dpasic.tenniswithme.model.AccessToken;
+import hr.vspr.dpasic.tenniswithme.model.Credentials;
 import hr.vspr.dpasic.tenniswithme.model.PlayersFriendship;
 import hr.vspr.dpasic.tenniswithme.model.Player;
 import hr.vspr.dpasic.tenniswithme.rest.ServiceGenerator;
+import hr.vspr.dpasic.tenniswithme.rest.api_interface.AccountRestInterface;
 import hr.vspr.dpasic.tenniswithme.rest.api_interface.FriendsRestInterface;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -92,6 +94,54 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     userInfoView.friendshipRequested();
+
+                } else {
+                    userInfoView.notifyRequestError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                userInfoView.notifyRequestError(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void signOut() {
+        AccessTokenRefresher refresher = new AccessTokenRefresher();
+
+        refresher.registerSubscriber(new RestSubscriber() {
+            @Override
+            public void doRequest(RestPublisher publisher, AccessToken token) {
+                signOutRequest(token);
+            }
+        });
+
+        refresher.refreshTokenIfNecessary();
+    }
+
+    private void signOutRequest(AccessToken token) {
+        final AccountRestInterface accountRestInterface = ServiceGenerator.createService(AccountRestInterface.class, token);
+
+        Call<ResponseBody> call = accountRestInterface.logout();
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    //delete old access token from LocalDB
+                    AccessToken tokenToDelete = SQLite.select().from(AccessToken.class).querySingle();
+                    if (tokenToDelete != null) {
+                        tokenToDelete.delete();
+                    }
+
+                    //delete old credentials from LocalDB
+                    Credentials credentialsToDelete = SQLite.select().from(Credentials.class).querySingle();
+                    if (credentialsToDelete != null) {
+                        credentialsToDelete.delete();
+                    }
+
+                    userInfoView.signedOut();
 
                 } else {
                     userInfoView.notifyRequestError(response.message());

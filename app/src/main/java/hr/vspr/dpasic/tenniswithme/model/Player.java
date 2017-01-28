@@ -72,6 +72,9 @@ public class Player extends BaseModel implements Parcelable {
     @SerializedName("Rating")
     private String rating;
 
+    @SerializedName("IsFriendshipReceived")
+    private boolean isFriendshipReceived;
+
     public Player() {
     }
 
@@ -189,6 +192,14 @@ public class Player extends BaseModel implements Parcelable {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public boolean isFriendshipReceived() {
+        return isFriendshipReceived;
+    }
+
+    public void setFriendshipReceived(boolean friendshipReceived) {
+        isFriendshipReceived = friendshipReceived;
     }
 
     @Override

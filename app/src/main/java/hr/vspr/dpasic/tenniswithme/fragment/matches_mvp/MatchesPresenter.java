@@ -7,5 +7,5 @@ package hr.vspr.dpasic.tenniswithme.fragment.matches_mvp;
 public interface MatchesPresenter {
 
     void prepareActiveListView();
-    void prepareRequiredListView();
+    void prepareRequestedListView();
 }

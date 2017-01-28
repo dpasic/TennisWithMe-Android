@@ -26,5 +26,8 @@ public interface MatchesRestInterface {
     Call<ResponseBody> requestMatch(@Body Match match);
 
     @PUT("api/Matches/ConfirmMatch")
-    Call<ResponseBody> confirmFriendship(@Body Match match);
+    Call<ResponseBody> confirmMatch(@Body Match match);
+
+    @PUT("api/Matches/UpdateMatch")
+    Call<ResponseBody> updateMatch(@Body Match match);
 }

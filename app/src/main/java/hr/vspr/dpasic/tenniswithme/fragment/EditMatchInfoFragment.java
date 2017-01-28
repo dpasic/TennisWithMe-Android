@@ -23,7 +23,7 @@ public class EditMatchInfoFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment UserInfoFragment.
+     * @return A new instance of fragment PlayerInfoFragment.
      */
     public static EditMatchInfoFragment newInstance(Match match) {
         EditMatchInfoFragment fragment = new EditMatchInfoFragment();

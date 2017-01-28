@@ -76,6 +76,7 @@
     <string name="title_friend_requests">Friend Requests</string>
     <string name="title_match_requests">Match Requests</string>
     <string name="requested_friendship">Friendship request sent</string>
+    <string name="sign_out">Sign out</string>
 
     <string-array name="array_genders_all">
         <item>@string/all</item>

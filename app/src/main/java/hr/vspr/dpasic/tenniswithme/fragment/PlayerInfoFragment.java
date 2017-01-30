@@ -101,6 +101,7 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_player_info, container, false);
         ButterKnife.bind(this, view);
+        getActivity().setTitle(R.string.title_user_info);
 
         userInfoPresenter = new UserInfoPresenterImpl(this);
 
@@ -163,8 +164,6 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, EditPlayerInfoFragment.class.getName())
                 .addToBackStack(EditPlayerInfoFragment.class.getName()).commit();
-
-        getActivity().setTitle(R.string.title_edit_user_info);
     }
 
     @OnClick(R.id.btn_confirm_friendship)
@@ -192,8 +191,6 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, RequestMatchFragment.class.getName())
                 .addToBackStack(RequestMatchFragment.class.getName()).commit();
-
-        getActivity().setTitle(R.string.title_request_match);
     }
 
     @Override

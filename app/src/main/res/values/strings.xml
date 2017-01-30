@@ -49,21 +49,21 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="city_lbl">City</string>
-    <string name="gender_lbl">Gender</string>
-    <string name="skill_lbl">Skill</string>
+    <string name="city_lbl">City:</string>
+    <string name="gender_lbl">Gender:</string>
+    <string name="skill_lbl">Skill:</string>
     <string name="search_partners">Search partners</string>
 
     <string name="all">All</string>
     <string name="undefined">Undefined</string>
     <string name="zagreb">Zagreb</string>
-    <string name="player1_lbl">Player one</string>
-    <string name="player2_lbl">Player two</string>
-    <string name="result_lbl">Result</string>
-    <string name="rating_lbl">Rating</string>
-    <string name="comment_lbl">Comment</string>
-    <string name="time_lbl">Time</string>
-    <string name="date_lbl">Date</string>
+    <string name="player1_lbl">Player one:</string>
+    <string name="player2_lbl">Player two:</string>
+    <string name="result_lbl">Result:</string>
+    <string name="rating_lbl">Rating:</string>
+    <string name="comment_lbl">Comment:</string>
+    <string name="time_lbl">Time:</string>
+    <string name="date_lbl">Date:</string>
     <string name="send_request">Send Request</string>
     <string name="match_requested">Match requested</string>
     <string name="vs">vs.</string>
@@ -80,6 +80,7 @@
     <string name="sign_out">Sign out</string>
     <string name="result_example">6:4 6:4</string>
     <string name="update_match">Update match</string>
+    <string name="update_profile">Update profile</string>
 
     <string-array name="array_rating">
         <item>@string/undefined</item>

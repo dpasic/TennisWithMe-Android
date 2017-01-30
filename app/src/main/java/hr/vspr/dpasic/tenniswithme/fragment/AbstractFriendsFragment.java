@@ -51,6 +51,7 @@ public abstract class AbstractFriendsFragment extends Fragment implements Friend
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friends_list, container, false);
         ButterKnife.bind(this, view);
+        setTitle();
 
         Context context = view.getContext();
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
@@ -65,6 +66,7 @@ public abstract class AbstractFriendsFragment extends Fragment implements Friend
         return view;
     }
 
+    public abstract void setTitle();
     public abstract void prepareListView();
     public abstract void updateListViewAdapter(List<Player> players);
 

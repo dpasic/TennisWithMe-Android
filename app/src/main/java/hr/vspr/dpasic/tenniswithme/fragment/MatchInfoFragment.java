@@ -91,6 +91,7 @@ public class MatchInfoFragment extends Fragment implements MatchInfoView {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_match_info, container, false);
         ButterKnife.bind(this, view);
+        getActivity().setTitle(R.string.title_match_info);
 
         matchInfoPresenter = new MatchInfoPresenterImpl(this);
 
@@ -136,8 +137,6 @@ public class MatchInfoFragment extends Fragment implements MatchInfoView {
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, EditMatchInfoFragment.class.getName())
                 .addToBackStack(EditMatchInfoFragment.class.getName()).commit();
-
-        getActivity().setTitle(R.string.title_edit_match_info);
     }
 
     @Override

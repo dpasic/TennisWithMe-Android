@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 
 import java.util.List;
 
+import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.adapter.MatchRecyclerViewAdapter;
 import hr.vspr.dpasic.tenniswithme.adapter.PendingMatchRecyclerViewAdapter;
 import hr.vspr.dpasic.tenniswithme.model.ActionType;
@@ -32,6 +33,11 @@ public class RequestedMatchesFragment extends AbstractMatchesFragment {
     public static RequestedMatchesFragment newInstance() {
         RequestedMatchesFragment fragment = new RequestedMatchesFragment();
         return fragment;
+    }
+
+    @Override
+    public void setTitle() {
+        getActivity().setTitle(R.string.title_match_requests);
     }
 
     @Override

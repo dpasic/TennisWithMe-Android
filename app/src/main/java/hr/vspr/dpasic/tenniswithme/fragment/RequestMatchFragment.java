@@ -97,6 +97,7 @@ public class RequestMatchFragment extends Fragment implements RequestMatchView {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_match_request, container, false);
         ButterKnife.bind(this, view);
+        getActivity().setTitle(R.string.title_request_match);
 
         requestMatchPresenter = new RequestMatchPresenterImpl(this);
 

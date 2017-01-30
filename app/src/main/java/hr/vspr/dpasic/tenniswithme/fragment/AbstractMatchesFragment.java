@@ -53,6 +53,7 @@ public abstract class AbstractMatchesFragment extends Fragment implements Matche
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_matches_list, container, false);
         ButterKnife.bind(this, view);
+        setTitle();
 
         Context context = view.getContext();
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
@@ -69,6 +70,7 @@ public abstract class AbstractMatchesFragment extends Fragment implements Matche
         return view;
     }
 
+    public abstract void setTitle();
     public abstract void prepareListView();
     public abstract void updateListViewAdapter(List<Match> matches);
 

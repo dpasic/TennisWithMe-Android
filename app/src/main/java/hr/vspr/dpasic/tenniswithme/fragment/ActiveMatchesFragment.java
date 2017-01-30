@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 
 import java.util.List;
 
+import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.adapter.MatchRecyclerViewAdapter;
 import hr.vspr.dpasic.tenniswithme.model.ActionType;
 import hr.vspr.dpasic.tenniswithme.model.Match;
@@ -31,6 +32,11 @@ public class ActiveMatchesFragment extends AbstractMatchesFragment {
     public static ActiveMatchesFragment newInstance() {
         ActiveMatchesFragment fragment = new ActiveMatchesFragment();
         return fragment;
+    }
+
+    @Override
+    public void setTitle() {
+        getActivity().setTitle(R.string.matches);
     }
 
     @Override

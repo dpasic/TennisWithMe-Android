@@ -119,5 +119,5 @@
         style="@style/SubmitButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/save_profile" />
+        android:text="@string/update_profile" />
 </LinearLayout>

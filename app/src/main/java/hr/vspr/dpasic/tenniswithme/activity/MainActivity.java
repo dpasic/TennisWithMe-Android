@@ -97,8 +97,6 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, PlayerInfoFragment.class.getName())
                 .addToBackStack(PlayerInfoFragment.class.getName()).commit();
-
-        setTitle(R.string.title_user_info);
     }
 
     private void commitFindPartnerFragment() {
@@ -107,8 +105,6 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, SearchPartnersFragment.class.getName())
                 .addToBackStack(SearchPartnersFragment.class.getName()).commit();
-
-        setTitle(R.string.title_find_partner);
     }
 
     private void commitActiveFriendsFragment() {
@@ -117,8 +113,6 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, ActiveFriendsFragment.class.getName())
                 .addToBackStack(ActiveFriendsFragment.class.getName()).commit();
-
-        setTitle(R.string.friends);
     }
 
     private void commitRequestedFriendsFragment() {
@@ -127,8 +121,6 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, RequestedFriendsFragment.class.getName())
                 .addToBackStack(RequestedFriendsFragment.class.getName()).commit();
-
-        setTitle(R.string.title_friend_requests);
     }
 
     private void commitActiveMatchesFragment() {
@@ -137,8 +129,6 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, ActiveMatchesFragment.class.getName())
                 .addToBackStack(ActiveMatchesFragment.class.getName()).commit();
-
-        setTitle(R.string.matches);
     }
 
     private void commitRequestedMatchesFragment() {
@@ -147,8 +137,6 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, RequestedMatchesFragment.class.getName())
                 .addToBackStack(RequestedMatchesFragment.class.getName()).commit();
-
-        setTitle(R.string.title_match_requests);
     }
 
     private void clearFragmentManagerStack() {
@@ -165,7 +153,7 @@ public class MainActivity extends AppCompatActivity
         } else {
             FragmentManager fm = getSupportFragmentManager();
             if (fm.getBackStackEntryCount() > 1) {
-                fm.popBackStack();
+                fm.popBackStackImmediate();
             } else {
                 finish();
             }
@@ -262,8 +250,6 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, MatchInfoFragment.class.getName())
                 .addToBackStack(MatchInfoFragment.class.getName()).commit();
-
-        setTitle(R.string.title_match_info);
     }
 
     @Override

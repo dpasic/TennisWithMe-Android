@@ -78,8 +78,8 @@ public class EditMatchInfoFragment extends Fragment implements EditMatchInfoView
      *
      * @return A new instance of fragment RequestMatchFragment.
      */
-    public static RequestMatchFragment newInstance(Match match) {
-        RequestMatchFragment fragment = new RequestMatchFragment();
+    public static EditMatchInfoFragment newInstance(Match match) {
+        EditMatchInfoFragment fragment = new EditMatchInfoFragment();
         Bundle args = new Bundle();
         args.putParcelable(MainActivity.MATCH, match);
         fragment.setArguments(args);
@@ -100,6 +100,7 @@ public class EditMatchInfoFragment extends Fragment implements EditMatchInfoView
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_match_info, container, false);
         ButterKnife.bind(this, view);
+        getActivity().setTitle(R.string.title_edit_match_info);
 
         editMatchInfoPresenter = new EditMatchInfoPresenterImpl(this);
 

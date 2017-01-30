@@ -46,6 +46,11 @@ public class ActiveFriendsFragment extends AbstractFriendsFragment {
     }
 
     @Override
+    public void setTitle() {
+        getActivity().setTitle(R.string.friends);
+    }
+
+    @Override
     public void prepareListView() {
         friendsPresenter.prepareActiveListView();
     }

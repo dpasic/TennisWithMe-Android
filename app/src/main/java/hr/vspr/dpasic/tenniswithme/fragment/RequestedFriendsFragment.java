@@ -2,6 +2,7 @@ package hr.vspr.dpasic.tenniswithme.fragment;
 
 import java.util.List;
 
+import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.adapter.PendingPlayerRecyclerViewAdapter;
 import hr.vspr.dpasic.tenniswithme.adapter.PlayerRecyclerViewAdapter;
 import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnPeopleListFragmentInteractionListener;
@@ -26,6 +27,11 @@ public class RequestedFriendsFragment extends AbstractFriendsFragment {
     public static RequestedFriendsFragment newInstance() {
         RequestedFriendsFragment fragment = new RequestedFriendsFragment();
         return fragment;
+    }
+
+    @Override
+    public void setTitle() {
+        getActivity().setTitle(R.string.title_friend_requests);
     }
 
     @Override

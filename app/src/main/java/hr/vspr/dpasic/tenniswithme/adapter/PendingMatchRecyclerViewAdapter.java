@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -13,30 +14,26 @@ import java.util.Locale;
 
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnMatchListFragmentInteractionListener;
-import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnPeopleListFragmentInteractionListener;
 import hr.vspr.dpasic.tenniswithme.model.ActionType;
 import hr.vspr.dpasic.tenniswithme.model.Match;
-import hr.vspr.dpasic.tenniswithme.model.Player;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Match} and makes a call to the
  * specified {@link OnMatchListFragmentInteractionListener}.
  *
  */
-public class MatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchRecyclerViewAdapter.ViewHolder> {
+public class PendingMatchRecyclerViewAdapter extends RecyclerView.Adapter<PendingMatchRecyclerViewAdapter.ViewHolder> {
 
     private Context mContext;
     private final List<Match> mValues;
-    private final Player mLoginPlayer;
     private final ActionType mActionType;
     private final OnMatchListFragmentInteractionListener mListener;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy. HH:mm", Locale.getDefault());
 
-    public MatchRecyclerViewAdapter(Context context, List<Match> items, Player loginPlayer, ActionType actionType, OnMatchListFragmentInteractionListener listener) {
+    public PendingMatchRecyclerViewAdapter(Context context, List<Match> items, ActionType actionType, OnMatchListFragmentInteractionListener listener) {
         mContext = context;
         mValues = items;
-        mLoginPlayer = loginPlayer;
         mActionType = actionType;
         mListener = listener;
     }
@@ -44,7 +41,7 @@ public class MatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchRecycler
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.match_item, parent, false);
+                .inflate(R.layout.match_pending_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -52,11 +49,15 @@ public class MatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchRecycler
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
+        final boolean isMatchReceived = holder.mItem.isMatchReceived();
         String vsFullName;
-        if (mLoginPlayer.getFullName().equals(holder.mItem.getPlayerOneName())) {
-            vsFullName = String.format("%s %s", mContext.getString(R.string.vs), holder.mItem.getPlayerTwoName());
-        } else {
+
+        if (isMatchReceived) {
+            holder.mPendingView.setImageResource(R.mipmap.confirm_match);
             vsFullName = String.format("%s %s", mContext.getString(R.string.vs), holder.mItem.getPlayerOneName());
+        } else {
+            holder.mPendingView.setImageResource(R.mipmap.sent_request);
+            vsFullName = String.format("%s %s", mContext.getString(R.string.vs), holder.mItem.getPlayerTwoName());
         }
 
         holder.mVsFullName.setText(vsFullName);
@@ -70,7 +71,11 @@ public class MatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchRecycler
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem, mActionType);
+                    if (isMatchReceived) {
+                        mListener.onListFragmentInteraction(holder.mItem, ActionType.CONFIRM_MATCH);
+                    } else {
+                        mListener.onListFragmentInteraction(holder.mItem, ActionType.VIEW_AND_EDIT);
+                    }
                 }
             }
         });
@@ -91,6 +96,7 @@ public class MatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchRecycler
         public final TextView mDate;
         public final TextView mCity;
         public final TextView mComment;
+        public final ImageView mPendingView;
 
         public ViewHolder(View view) {
             super(view);
@@ -99,6 +105,7 @@ public class MatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchRecycler
             mDate = (TextView) view.findViewById(R.id.tv_date);
             mCity = (TextView) view.findViewById(R.id.tv_city);
             mComment = (TextView) view.findViewById(R.id.tv_comment);
+            mPendingView = (ImageView) view.findViewById(R.id.pending_view);
         }
 
         @Override

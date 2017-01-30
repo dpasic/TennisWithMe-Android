@@ -40,6 +40,6 @@ public class ActiveMatchesFragment extends AbstractMatchesFragment {
 
     @Override
     public void updateListViewAdapter(List<Match> matches) {
-        recyclerView.setAdapter(new MatchRecyclerViewAdapter(getContext(), matches, ActionType.VIEW_AND_EDIT, mListener));
+        recyclerView.setAdapter(new MatchRecyclerViewAdapter(getContext(), matches, loginPlayer, ActionType.VIEW_AND_EDIT, mListener));
     }
 }

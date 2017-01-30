@@ -197,7 +197,7 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
     }
 
     @Override
-    public void acceptFriendship() {
+    public void acceptedFriendship() {
         loadingProgress.setVisibility(View.GONE);
         btnConfirmFriendship.setVisibility(View.GONE);
 

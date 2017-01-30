@@ -31,6 +31,7 @@
     <string name="matches">Matches</string>
     <string name="match_requests">Match requests</string>
     <string name="confirmed_friendship">Confirmed friendship</string>
+    <string name="confirmed_match">Confirmed match</string>
 
     <string name="name_lbl">Name:</string>
     <string name="email_lbl">Email:</string>
@@ -77,6 +78,17 @@
     <string name="title_match_requests">Match Requests</string>
     <string name="requested_friendship">Friendship request sent</string>
     <string name="sign_out">Sign out</string>
+    <string name="result_example">6:4 6:4</string>
+    <string name="update_match">Update match</string>
+
+    <string-array name="array_rating">
+        <item>@string/undefined</item>
+        <item>1 star</item>
+        <item>2 stars</item>
+        <item>3 stars</item>
+        <item>4 stars</item>
+        <item>5 stars</item>
+    </string-array>
 
     <string-array name="array_genders_all">
         <item>@string/all</item>

@@ -1,12 +1,15 @@
 package hr.vspr.dpasic.tenniswithme.fragment;
 
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -17,13 +20,17 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.activity.MainActivity;
+import hr.vspr.dpasic.tenniswithme.fragment.match_info_mvp.MatchInfoPresenter;
+import hr.vspr.dpasic.tenniswithme.fragment.match_info_mvp.MatchInfoPresenterImpl;
+import hr.vspr.dpasic.tenniswithme.fragment.match_info_mvp.MatchInfoView;
 import hr.vspr.dpasic.tenniswithme.model.ActionType;
 import hr.vspr.dpasic.tenniswithme.model.Match;
 
-public class MatchInfoFragment extends Fragment {
+public class MatchInfoFragment extends Fragment implements MatchInfoView {
 
     private final SimpleDateFormat SDF = new SimpleDateFormat("dd.MM.yyyy. HH:mm", Locale.getDefault());
 
+    private MatchInfoPresenter matchInfoPresenter;
     private Match match;
     private ActionType actionType;
 
@@ -45,6 +52,10 @@ public class MatchInfoFragment extends Fragment {
     FloatingActionButton fabEdit;
     @BindView(R.id.btn_confirm_match)
     Button btnConfirmMatch;
+    @BindView(R.id.loading_progress)
+    ProgressBar loadingProgress;
+    @BindView(R.id.activity_match_info)
+    RelativeLayout matchInfoView;
 
     public MatchInfoFragment() {
         // Required empty public constructor
@@ -81,6 +92,8 @@ public class MatchInfoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_match_info, container, false);
         ButterKnife.bind(this, view);
 
+        matchInfoPresenter = new MatchInfoPresenterImpl(this);
+
         prepareViewBasedOnActionType();
         setMatchInfo();
 
@@ -112,7 +125,8 @@ public class MatchInfoFragment extends Fragment {
 
     @OnClick(R.id.btn_confirm_match)
     public void confirmMatchClick() {
-        //TODO: complete action
+        loadingProgress.setVisibility(View.VISIBLE);
+        matchInfoPresenter.confirmMatch(match);
     }
 
     @OnClick(R.id.fab_edit)
@@ -123,6 +137,26 @@ public class MatchInfoFragment extends Fragment {
                 .replace(R.id.fragment_container, fragment, EditMatchInfoFragment.class.getName())
                 .addToBackStack(EditMatchInfoFragment.class.getName()).commit();
 
-        getActivity().setTitle(R.string.title_match_info);
+        getActivity().setTitle(R.string.title_edit_match_info);
+    }
+
+    @Override
+    public void acceptedMatch() {
+        loadingProgress.setVisibility(View.GONE);
+        btnConfirmMatch.setVisibility(View.GONE);
+        fabEdit.setVisibility(View.VISIBLE);
+
+        Snackbar.make(matchInfoView, R.string.confirmed_match, Snackbar.LENGTH_LONG);
+    }
+
+    @Override
+    public void updateMatch(Match match) {
+        this.match = match;
+    }
+
+    @Override
+    public void notifyRequestError(String msg) {
+        loadingProgress.setVisibility(View.GONE);
+        Snackbar.make(matchInfoView, msg, Snackbar.LENGTH_LONG);
     }
 }

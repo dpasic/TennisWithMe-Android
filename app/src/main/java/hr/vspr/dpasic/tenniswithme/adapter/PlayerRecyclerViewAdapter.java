@@ -40,10 +40,10 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecycl
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
-        holder.mFullName.setText(mValues.get(position).getFullName());
-        holder.mSkill.setText(mValues.get(position).getSkill());
-        holder.mGender.setText(mValues.get(position).getGender());
-        holder.mSummary.setText(mValues.get(position).getSummary());
+        holder.mFullName.setText(holder.mItem.getFullName());
+        holder.mSkill.setText(holder.mItem.getSkill());
+        holder.mGender.setText(holder.mItem.getGender());
+        holder.mSummary.setText(holder.mItem.getSummary());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

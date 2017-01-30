@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.activity.MainActivity;
+import hr.vspr.dpasic.tenniswithme.common.Utility;
 import hr.vspr.dpasic.tenniswithme.fragment.edit_user_info_mvp.EditUserInfoPresenter;
 import hr.vspr.dpasic.tenniswithme.fragment.edit_user_info_mvp.EditUserInfoPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.edit_user_info_mvp.EditUserInfoView;
@@ -91,20 +92,9 @@ public class EditPlayerInfoFragment extends Fragment implements EditUserInfoView
         String[] genders = getContext().getResources().getStringArray(R.array.array_genders_undef);
         String[] skills = getContext().getResources().getStringArray(R.array.array_skills_undef);
 
-        spinnerGenders.setSelection(getIndexOfItemInArray(player.getGender(), genders));
-        spinnerSkills.setSelection(getIndexOfItemInArray(player.getSkill(), skills));
+        spinnerGenders.setSelection(Utility.getIndexOfItemInArray(player.getGender(), genders));
+        spinnerSkills.setSelection(Utility.getIndexOfItemInArray(player.getSkill(), skills));
         etSummary.setText(player.getSummary());
-    }
-
-    private int getIndexOfItemInArray(String item, String[] items) {
-        int index = 0;
-        for (String str : items) {
-            if (str.equals(item)) {
-                return index;
-            }
-            index++;
-        }
-        return 0;
     }
 
     @OnClick(R.id.btn_save_profile)

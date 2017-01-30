@@ -11,5 +11,6 @@ public enum ActionType {
     CONFIRM_FRIENDSHIP,
     PENDING_FRIENDSHIP,
     CONFIRM_MATCH,
+    PENDING_MATCH,
     VIEW_AND_EDIT
 }

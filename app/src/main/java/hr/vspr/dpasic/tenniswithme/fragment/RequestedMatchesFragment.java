@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import java.util.List;
 
 import hr.vspr.dpasic.tenniswithme.adapter.MatchRecyclerViewAdapter;
+import hr.vspr.dpasic.tenniswithme.adapter.PendingMatchRecyclerViewAdapter;
 import hr.vspr.dpasic.tenniswithme.model.ActionType;
 import hr.vspr.dpasic.tenniswithme.model.Match;
 
@@ -40,6 +41,6 @@ public class RequestedMatchesFragment extends AbstractMatchesFragment {
 
     @Override
     public void updateListViewAdapter(List<Match> matches) {
-        recyclerView.setAdapter(new MatchRecyclerViewAdapter(getContext(), matches, ActionType.CONFIRM_MATCH, mListener));
+        recyclerView.setAdapter(new PendingMatchRecyclerViewAdapter(getContext(), matches, ActionType.PENDING_MATCH, mListener));
     }
 }

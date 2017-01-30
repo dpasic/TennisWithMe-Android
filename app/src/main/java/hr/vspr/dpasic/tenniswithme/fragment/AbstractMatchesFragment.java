@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,6 +24,7 @@ import hr.vspr.dpasic.tenniswithme.fragment.matches_mvp.MatchesPresenter;
 import hr.vspr.dpasic.tenniswithme.fragment.matches_mvp.MatchesPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.matches_mvp.MatchesView;
 import hr.vspr.dpasic.tenniswithme.model.Match;
+import hr.vspr.dpasic.tenniswithme.model.Player;
 
 /**
  * Created by edjapas on 24.1.2017..
@@ -32,6 +35,7 @@ public abstract class AbstractMatchesFragment extends Fragment implements Matche
 
     protected MatchesPresenter matchesPresenter;
     protected OnMatchListFragmentInteractionListener mListener;
+    protected Player loginPlayer;
 
     @BindView(R.id.list)
     RecyclerView recyclerView;
@@ -56,6 +60,8 @@ public abstract class AbstractMatchesFragment extends Fragment implements Matche
         recyclerView.addItemDecoration(new DividerItemDecoration(context, layoutManager.getOrientation()));
 
         swipeRefreshLayout.setOnRefreshListener(this);
+
+        loginPlayer = SQLite.select().from(Player.class).querySingle();
 
         matchesPresenter = new MatchesPresenterImpl(this);
         prepareListView();

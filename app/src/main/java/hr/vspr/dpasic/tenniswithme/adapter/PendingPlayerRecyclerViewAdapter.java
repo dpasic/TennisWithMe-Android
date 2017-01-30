@@ -46,13 +46,13 @@ public class PendingPlayerRecyclerViewAdapter extends RecyclerView.Adapter<Pendi
         if (isFriendshipReceived) {
             holder.mPendingView.setImageResource(R.mipmap.confirm_friendship);
         } else {
-            holder.mPendingView.setImageResource(R.mipmap.sent_friendship_request);
+            holder.mPendingView.setImageResource(R.mipmap.sent_request);
         }
 
-        holder.mFullName.setText(mValues.get(position).getFullName());
-        holder.mSkill.setText(mValues.get(position).getSkill());
-        holder.mGender.setText(mValues.get(position).getGender());
-        holder.mSummary.setText(mValues.get(position).getSummary());
+        holder.mFullName.setText(holder.mItem.getFullName());
+        holder.mSkill.setText(holder.mItem.getSkill());
+        holder.mGender.setText(holder.mItem.getGender());
+        holder.mSummary.setText(holder.mItem.getSummary());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

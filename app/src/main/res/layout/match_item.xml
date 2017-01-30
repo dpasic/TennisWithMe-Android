@@ -12,8 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
         app:srcCompat="@android:drawable/sym_def_app_icon" />
 
     <LinearLayout
@@ -25,9 +25,9 @@
             android:id="@+id/tv_vs_full_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textAppearance="?attr/textAppearanceListItem"
             tools:text="vs. Đani Pašić" />
 
         <LinearLayout
@@ -40,8 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="15sp"
                 android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="15sp"
                 tools:text="24.01.2017. 16:30" />
 
             <TextView
@@ -49,8 +49,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:textSize="15sp"
                 android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="15sp"
                 tools:text="Zagreb" />
         </LinearLayout>
 
@@ -58,10 +58,10 @@
             android:id="@+id/tv_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:lines="1"
             android:ellipsize="end"
+            android:lines="1"
             android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="14sp"
             tools:text="It was great match!" />
 
     </LinearLayout>

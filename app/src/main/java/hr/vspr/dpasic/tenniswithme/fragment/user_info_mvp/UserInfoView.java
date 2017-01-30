@@ -9,7 +9,7 @@ import hr.vspr.dpasic.tenniswithme.model.Player;
 
 public interface UserInfoView extends RestView {
 
-    void acceptFriendship();
+    void acceptedFriendship();
     void friendshipRequested();
     void signedOut();
     void updatePlayer(Player player);

@@ -54,7 +54,7 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    userInfoView.acceptFriendship();
+                    userInfoView.acceptedFriendship();
 
                 } else {
                     userInfoView.notifyRequestError(response.message());

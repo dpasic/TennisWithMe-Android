@@ -67,6 +67,7 @@
     <string name="send_request">Send Request</string>
     <string name="match_requested">Match requested</string>
     <string name="vs">vs.</string>
+    <string name="me_postfix">\u0020(Me)</string>
     <string name="confirm_match">Confirm match</string>
     <string name="title_edit_user_info">Edit User Info</string>
     <string name="title_match_info">Match Info</string>
@@ -81,6 +82,11 @@
     <string name="result_example">6:4 6:4</string>
     <string name="update_match">Update match</string>
     <string name="update_profile">Update profile</string>
+    <string name="won">Won</string>
+    <string name="lost">Lost</string>
+    <string name="not_played">Not played</string>
+    <string name="challenger_lbl">Challenger:</string>
+    <string name="opponent_lbl">Opponent:</string>
 
     <string-array name="array_rating">
         <item>@string/undefined</item>

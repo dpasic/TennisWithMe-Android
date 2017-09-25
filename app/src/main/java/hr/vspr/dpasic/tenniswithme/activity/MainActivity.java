@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListFragmentInteraction(Match match, ActionType actionType) {
-        Fragment fragment = MatchInfoFragment.newInstance(match, actionType);
+        Fragment fragment = MatchInfoFragment.newInstance(match, player, actionType);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, MatchInfoFragment.class.getName())

@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -35,6 +36,7 @@ import hr.vspr.dpasic.tenniswithme.fragment.edit_match_info_mvp.EditMatchInfoPre
 import hr.vspr.dpasic.tenniswithme.fragment.edit_match_info_mvp.EditMatchInfoView;
 import hr.vspr.dpasic.tenniswithme.fragment.match_info_mvp.MatchInfoView;
 import hr.vspr.dpasic.tenniswithme.model.Match;
+import hr.vspr.dpasic.tenniswithme.model.Player;
 
 public class EditMatchInfoFragment extends Fragment implements EditMatchInfoView {
 
@@ -45,6 +47,7 @@ public class EditMatchInfoFragment extends Fragment implements EditMatchInfoView
     private EditMatchInfoPresenter editMatchInfoPresenter;
 
     private Match match;
+    private Player player;
     private Calendar calendar = Calendar.getInstance();
 
     @BindView(R.id.tv_player1)
@@ -55,6 +58,12 @@ public class EditMatchInfoFragment extends Fragment implements EditMatchInfoView
     EditText etCity;
     @BindView(R.id.et_result)
     EditText etResult;
+    @BindView(R.id.radio_won)
+    RadioButton radioWon;
+    @BindView(R.id.radio_lost)
+    RadioButton radioLost;
+    @BindView(R.id.radio_not_player)
+    RadioButton radioNotPlayer;
     @BindView(R.id.spinner_rating)
     Spinner spinnerRating;
     @BindView(R.id.et_comment)
@@ -78,10 +87,11 @@ public class EditMatchInfoFragment extends Fragment implements EditMatchInfoView
      *
      * @return A new instance of fragment RequestMatchFragment.
      */
-    public static EditMatchInfoFragment newInstance(Match match) {
+    public static EditMatchInfoFragment newInstance(Match match, Player player) {
         EditMatchInfoFragment fragment = new EditMatchInfoFragment();
         Bundle args = new Bundle();
         args.putParcelable(MainActivity.MATCH, match);
+        args.putParcelable(MainActivity.PLAYER, player);
         fragment.setArguments(args);
         return fragment;
     }
@@ -91,6 +101,7 @@ public class EditMatchInfoFragment extends Fragment implements EditMatchInfoView
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             match = getArguments().getParcelable(MainActivity.MATCH);
+            player = getArguments().getParcelable(MainActivity.PLAYER);
         }
     }
 
@@ -109,11 +120,17 @@ public class EditMatchInfoFragment extends Fragment implements EditMatchInfoView
     }
 
     private void setMatchInfo() {
-        tvPlayer1.setText(match.getPlayerOneName());
-        tvPlayer2.setText(match.getPlayerTwoName());
+        if (player.getId() == match.getPlayerOneId()) {
+            tvPlayer1.setText(match.getPlayerOneName() + getString(R.string.me_postfix));
+            tvPlayer2.setText(match.getPlayerTwoName());
+        } else {
+            tvPlayer1.setText(match.getPlayerOneName());
+            tvPlayer2.setText(match.getPlayerTwoName() + getString(R.string.me_postfix));
+        }
 
         etCity.setText(match.getCityPlayed());
         etComment.setText(match.getComment());
+
         etResult.setText(match.getResult());
 
         String[] ratings = getContext().getResources().getStringArray(R.array.array_rating);

@@ -27,7 +27,7 @@
 
                 <TextView
                     style="@style/FormLabel"
-                    android:text="@string/player1_lbl" />
+                    android:text="@string/challenger_lbl" />
 
                 <TextView
                     android:id="@+id/tv_player1"
@@ -42,7 +42,7 @@
 
                 <TextView
                     style="@style/FormLabel"
-                    android:text="@string/player2_lbl" />
+                    android:text="@string/opponent_lbl" />
 
                 <TextView
                     android:id="@+id/tv_player2"

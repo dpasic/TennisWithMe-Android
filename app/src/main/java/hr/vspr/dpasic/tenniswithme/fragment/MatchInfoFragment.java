@@ -25,6 +25,7 @@ import hr.vspr.dpasic.tenniswithme.fragment.match_info_mvp.MatchInfoPresenterImp
 import hr.vspr.dpasic.tenniswithme.fragment.match_info_mvp.MatchInfoView;
 import hr.vspr.dpasic.tenniswithme.model.ActionType;
 import hr.vspr.dpasic.tenniswithme.model.Match;
+import hr.vspr.dpasic.tenniswithme.model.Player;
 
 public class MatchInfoFragment extends Fragment implements MatchInfoView {
 
@@ -32,6 +33,7 @@ public class MatchInfoFragment extends Fragment implements MatchInfoView {
 
     private MatchInfoPresenter matchInfoPresenter;
     private Match match;
+    private Player player;
     private ActionType actionType;
 
     @BindView(R.id.tv_player1)
@@ -67,10 +69,11 @@ public class MatchInfoFragment extends Fragment implements MatchInfoView {
      *
      * @return A new instance of fragment PlayerInfoFragment.
      */
-    public static MatchInfoFragment newInstance(Match match, ActionType actionType) {
+    public static MatchInfoFragment newInstance(Match match, Player player, ActionType actionType) {
         MatchInfoFragment fragment = new MatchInfoFragment();
         Bundle args = new Bundle();
         args.putParcelable(MainActivity.MATCH, match);
+        args.putParcelable(MainActivity.PLAYER, player);
         args.putSerializable(MainActivity.ACTION_TYPE, actionType);
         fragment.setArguments(args);
         return fragment;
@@ -81,6 +84,7 @@ public class MatchInfoFragment extends Fragment implements MatchInfoView {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             match = getArguments().getParcelable(MainActivity.MATCH);
+            player = getArguments().getParcelable(MainActivity.PLAYER);
             actionType = (ActionType) getArguments().getSerializable(MainActivity.ACTION_TYPE);
         }
     }
@@ -115,8 +119,14 @@ public class MatchInfoFragment extends Fragment implements MatchInfoView {
     }
 
     private void setMatchInfo() {
-        tvPlayer1.setText(match.getPlayerOneName());
-        tvPlayer2.setText(match.getPlayerTwoName());
+        if (player.getId() == match.getPlayerOneId()) {
+            tvPlayer1.setText(match.getPlayerOneName() + getString(R.string.me_postfix));
+            tvPlayer2.setText(match.getPlayerTwoName());
+        } else {
+            tvPlayer1.setText(match.getPlayerOneName());
+            tvPlayer2.setText(match.getPlayerTwoName() + getString(R.string.me_postfix));
+        }
+
         tvCity.setText(match.getCityPlayed());
         tvComment.setText(match.getComment());
         tvRating.setText(match.getRating());
@@ -132,7 +142,7 @@ public class MatchInfoFragment extends Fragment implements MatchInfoView {
 
     @OnClick(R.id.fab_edit)
     public void editMatchInfoClick() {
-        Fragment fragment = EditMatchInfoFragment.newInstance(match);
+        Fragment fragment = EditMatchInfoFragment.newInstance(match, player);
 
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, EditMatchInfoFragment.class.getName())

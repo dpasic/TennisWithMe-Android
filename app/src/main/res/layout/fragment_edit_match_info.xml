@@ -18,7 +18,7 @@
 
         <TextView
             style="@style/FormLabel"
-            android:text="@string/player1_lbl" />
+            android:text="@string/challenger_lbl" />
 
         <TextView
             android:id="@+id/tv_player1"
@@ -33,7 +33,7 @@
 
         <TextView
             style="@style/FormLabel"
-            android:text="@string/player2_lbl" />
+            android:text="@string/opponent_lbl" />
 
         <TextView
             android:id="@+id/tv_player2"
@@ -100,11 +100,36 @@
             style="@style/FormLabel"
             android:text="@string/result_lbl" />
 
-        <EditText
-            android:id="@+id/et_result"
-            style="@style/FormEditContent"
-            android:hint="@string/result_example"
-            tools:text="6:4 6:4" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton android:id="@+id/radio_won"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/won" />
+                <RadioButton android:id="@+id/radio_lost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lost" />
+                <RadioButton android:id="@+id/radio_not_player"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/not_played"
+                    android:checked="true"/>
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/et_result"
+                style="@style/FormEditContent"
+                android:hint="@string/result_example"
+                tools:text="6:4 6:4" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

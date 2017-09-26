@@ -72,6 +72,18 @@ public class Player extends BaseModel implements Parcelable {
     @SerializedName("Rating")
     private String rating;
 
+    @Column
+    @SerializedName("PlayedGames")
+    private int playedGames;
+
+    @Column
+    @SerializedName("WonGames")
+    private int wonGames;
+
+    @Column
+    @SerializedName("LostGames")
+    private int lostGames;
+
     @SerializedName("IsFriendshipReceived")
     private boolean isFriendshipReceived;
 
@@ -194,6 +206,30 @@ public class Player extends BaseModel implements Parcelable {
         this.rating = rating;
     }
 
+    public int getPlayedGames() {
+        return playedGames;
+    }
+
+    public void setPlayedGames(int playedGames) {
+        this.playedGames = playedGames;
+    }
+
+    public int getWonGames() {
+        return wonGames;
+    }
+
+    public void setWonGames(int wonGames) {
+        this.wonGames = wonGames;
+    }
+
+    public int getLostGames() {
+        return lostGames;
+    }
+
+    public void setLostGames(int lostGames) {
+        this.lostGames = lostGames;
+    }
+
     public boolean isFriendshipReceived() {
         return isFriendshipReceived;
     }
@@ -218,6 +254,9 @@ public class Player extends BaseModel implements Parcelable {
         dest.writeString(this.lastName);
         dest.writeString(this.mobileNumber);
         dest.writeString(this.rating);
+        dest.writeInt(this.playedGames);
+        dest.writeInt(this.wonGames);
+        dest.writeInt(this.lostGames);
         dest.writeString(this.gender);
         dest.writeString(this.summary);
         dest.writeString(this.userName);
@@ -233,6 +272,9 @@ public class Player extends BaseModel implements Parcelable {
         this.lastName = in.readString();
         this.mobileNumber = in.readString();
         this.rating = in.readString();
+        this.playedGames = in.readInt();
+        this.wonGames = in.readInt();
+        this.lostGames = in.readInt();
         this.gender = in.readString();
         this.summary = in.readString();
         this.userName = in.readString();

@@ -11,11 +11,11 @@ public class PlayersFriendship {
     @SerializedName("Id")
     public int id;
 
-    @SerializedName("PlayerOneId")
-    public String playerOneId;
+    @SerializedName("RequestSenderId")
+    public String requestSenderId;
 
-    @SerializedName("PlayerTwoId")
-    public String playerTwoId;
+    @SerializedName("RequestReceiverId")
+    public String requestReceiverId;
 
     @SerializedName("IsConfirmed")
     public boolean isConfirmed;

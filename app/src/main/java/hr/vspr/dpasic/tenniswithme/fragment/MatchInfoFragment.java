@@ -119,12 +119,12 @@ public class MatchInfoFragment extends Fragment implements MatchInfoView {
     }
 
     private void setMatchInfo() {
-        if (player.getId() == match.getPlayerOneId()) {
-            tvPlayer1.setText(match.getPlayerOneName() + getString(R.string.me_postfix));
-            tvPlayer2.setText(match.getPlayerTwoName());
+        if (player.getId() == match.getChallengerId()) {
+            tvPlayer1.setText(match.getChallengerName() + getString(R.string.me_postfix));
+            tvPlayer2.setText(match.getOpponentName());
         } else {
-            tvPlayer1.setText(match.getPlayerOneName());
-            tvPlayer2.setText(match.getPlayerTwoName() + getString(R.string.me_postfix));
+            tvPlayer1.setText(match.getChallengerName());
+            tvPlayer2.setText(match.getOpponentName() + getString(R.string.me_postfix));
         }
 
         tvCity.setText(match.getCityPlayed());

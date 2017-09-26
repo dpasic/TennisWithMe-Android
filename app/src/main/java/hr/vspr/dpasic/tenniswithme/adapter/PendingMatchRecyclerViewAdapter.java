@@ -54,10 +54,10 @@ public class PendingMatchRecyclerViewAdapter extends RecyclerView.Adapter<Pendin
 
         if (isMatchReceived) {
             holder.mPendingView.setImageResource(R.mipmap.confirm_match);
-            vsFullName = String.format("%s %s", mContext.getString(R.string.vs), holder.mItem.getPlayerOneName());
+            vsFullName = String.format("%s %s", mContext.getString(R.string.vs), holder.mItem.getChallengerName());
         } else {
             holder.mPendingView.setImageResource(R.mipmap.sent_request);
-            vsFullName = String.format("%s %s", mContext.getString(R.string.vs), holder.mItem.getPlayerTwoName());
+            vsFullName = String.format("%s %s", mContext.getString(R.string.vs), holder.mItem.getOpponentName());
         }
 
         holder.mVsFullName.setText(vsFullName);

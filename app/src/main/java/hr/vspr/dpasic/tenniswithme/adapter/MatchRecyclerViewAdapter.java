@@ -13,7 +13,6 @@ import java.util.Locale;
 
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnMatchListFragmentInteractionListener;
-import hr.vspr.dpasic.tenniswithme.fragment.interaction_listener.OnPeopleListFragmentInteractionListener;
 import hr.vspr.dpasic.tenniswithme.model.ActionType;
 import hr.vspr.dpasic.tenniswithme.model.Match;
 import hr.vspr.dpasic.tenniswithme.model.Player;
@@ -53,10 +52,10 @@ public class MatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchRecycler
         holder.mItem = mValues.get(position);
 
         String vsFullName;
-        if (mLoginPlayer.getFullName().equals(holder.mItem.getPlayerOneName())) {
-            vsFullName = String.format("%s %s", mContext.getString(R.string.vs), holder.mItem.getPlayerTwoName());
+        if (mLoginPlayer.getFullName().equals(holder.mItem.getChallengerName())) {
+            vsFullName = String.format("%s %s", mContext.getString(R.string.vs), holder.mItem.getOpponentName());
         } else {
-            vsFullName = String.format("%s %s", mContext.getString(R.string.vs), holder.mItem.getPlayerOneName());
+            vsFullName = String.format("%s %s", mContext.getString(R.string.vs), holder.mItem.getChallengerName());
         }
 
         holder.mVsFullName.setText(vsFullName);

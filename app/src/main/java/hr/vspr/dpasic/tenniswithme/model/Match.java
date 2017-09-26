@@ -2,16 +2,10 @@ package hr.vspr.dpasic.tenniswithme.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
-import com.raizlabs.android.dbflow.annotation.Column;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by dpasic on 1/21/17.
@@ -22,17 +16,20 @@ public class Match implements Parcelable {
     @SerializedName("Id")
     private int id;
 
-    @SerializedName("PlayerOneId")
-    private String playerOneId;
+    @SerializedName("ChallengerId")
+    private String challengerId;
 
-    @SerializedName("PlayerOneName")
-    private String playerOneName;
+    @SerializedName("ChallengerName")
+    private String challengerName;
 
-    @SerializedName("PlayerTwoId")
-    private String playerTwoId;
+    @SerializedName("OpponentId")
+    private String opponentId;
 
-    @SerializedName("PlayerTwoName")
-    private String playerTwoName;
+    @SerializedName("OpponentName")
+    private String opponentName;
+
+    @SerializedName("WinnerId")
+    private String winnerId;
 
     @SerializedName("IsConfirmed")
     private boolean isConfirmed;
@@ -49,11 +46,11 @@ public class Match implements Parcelable {
     @SerializedName("Rating")
     private String rating;
 
-    @SerializedName("PlayerOneComment")
-    private String playerOneComment;
+    @SerializedName("ChallengerComment")
+    private String challengerComment;
 
-    @SerializedName("PlayerTwoComment")
-    private String playerTwoComment;
+    @SerializedName("OpponentComment")
+    private String opponentComment;
 
     @SerializedName("TimestampPlayed")
     private long timestampPlayed;
@@ -75,36 +72,44 @@ public class Match implements Parcelable {
         this.id = id;
     }
 
-    public String getPlayerOneId() {
-        return playerOneId;
+    public String getChallengerId() {
+        return challengerId;
     }
 
-    public void setPlayerOneId(String playerOneId) {
-        this.playerOneId = playerOneId;
+    public void setChallengerId(String challengerId) {
+        this.challengerId = challengerId;
     }
 
-    public String getPlayerOneName() {
-        return playerOneName;
+    public String getChallengerName() {
+        return challengerName;
     }
 
-    public void setPlayerOneName(String playerOneName) {
-        this.playerOneName = playerOneName;
+    public void setChallengerName(String challengerName) {
+        this.challengerName = challengerName;
     }
 
-    public String getPlayerTwoId() {
-        return playerTwoId;
+    public String getOpponentId() {
+        return opponentId;
     }
 
-    public void setPlayerTwoId(String playerTwoId) {
-        this.playerTwoId = playerTwoId;
+    public void setOpponentId(String opponentId) {
+        this.opponentId = opponentId;
     }
 
-    public String getPlayerTwoName() {
-        return playerTwoName;
+    public String getOpponentName() {
+        return opponentName;
     }
 
-    public void setPlayerTwoName(String playerTwoName) {
-        this.playerTwoName = playerTwoName;
+    public void setOpponentName(String opponentName) {
+        this.opponentName = opponentName;
+    }
+
+    public String getWinnerId() {
+        return winnerId;
+    }
+
+    public void setWinnerId(String winnerId) {
+        this.winnerId = winnerId;
     }
 
     public boolean isConfirmed() {
@@ -147,20 +152,20 @@ public class Match implements Parcelable {
         this.rating = rating;
     }
 
-    public String getPlayerOneComment() {
-        return playerOneComment;
+    public String getChallengerComment() {
+        return challengerComment;
     }
 
-    public void setPlayerOneComment(String playerOneComment) {
-        this.playerOneComment = playerOneComment;
+    public void setChallengerComment(String challengerComment) {
+        this.challengerComment = challengerComment;
     }
 
-    public String getPlayerTwoComment() {
-        return playerTwoComment;
+    public String getOpponentComment() {
+        return opponentComment;
     }
 
-    public void setPlayerTwoComment(String playerTwoComment) {
-        this.playerTwoComment = playerTwoComment;
+    public void setOpponentComment(String opponentComment) {
+        this.opponentComment = opponentComment;
     }
 
     public Date getDatePlayed() {
@@ -191,12 +196,13 @@ public class Match implements Parcelable {
     public void writeToParcel(Parcel dest, int i) {
         dest.writeString(this.cityPlayed);
         dest.writeString(this.comment);
-        dest.writeString(this.playerOneComment);
-        dest.writeString(this.playerOneId);
-        dest.writeString(this.playerOneName);
-        dest.writeString(this.playerTwoComment);
-        dest.writeString(this.playerTwoId);
-        dest.writeString(this.playerTwoName);
+        dest.writeString(this.challengerComment);
+        dest.writeString(this.challengerId);
+        dest.writeString(this.challengerName);
+        dest.writeString(this.winnerId);
+        dest.writeString(this.opponentComment);
+        dest.writeString(this.opponentId);
+        dest.writeString(this.opponentName);
         dest.writeString(this.rating);
         dest.writeString(this.result);
         dest.writeString(Long.toString(this.timestampPlayed));
@@ -207,12 +213,13 @@ public class Match implements Parcelable {
     protected Match(Parcel in) {
         this.cityPlayed = in.readString();
         this.comment = in.readString();
-        this.playerOneComment = in.readString();
-        this.playerOneId = in.readString();
-        this.playerOneName = in.readString();
-        this.playerTwoComment = in.readString();
-        this.playerTwoId = in.readString();
-        this.playerTwoName = in.readString();
+        this.challengerComment = in.readString();
+        this.challengerId = in.readString();
+        this.challengerName = in.readString();
+        this.winnerId = in.readString();
+        this.opponentComment = in.readString();
+        this.opponentId = in.readString();
+        this.opponentName = in.readString();
         this.rating = in.readString();
         this.result = in.readString();
         this.timestampPlayed = Long.valueOf(in.readString());

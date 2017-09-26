@@ -47,7 +47,7 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
         final FriendsRestInterface friendsRestInterface = ServiceGenerator.createService(FriendsRestInterface.class, token);
 
         PlayersFriendship friendship = new PlayersFriendship();
-        friendship.playerTwoId = player.getId();
+        friendship.requestReceiverId = player.getId();
 
         Call<ResponseBody> call = friendsRestInterface.confirmFriendship(friendship);
         call.enqueue(new Callback<ResponseBody>() {
@@ -86,7 +86,7 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
         final FriendsRestInterface friendsRestInterface = ServiceGenerator.createService(FriendsRestInterface.class, token);
 
         PlayersFriendship friendship = new PlayersFriendship();
-        friendship.playerTwoId = player.getId();
+        friendship.requestReceiverId = player.getId();
 
         Call<ResponseBody> call = friendsRestInterface.requestFriendship(friendship);
         call.enqueue(new Callback<ResponseBody>() {

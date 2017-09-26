@@ -125,10 +125,10 @@ public class RequestMatchFragment extends Fragment implements RequestMatchView {
             Log.d("DATE", e.getMessage());
         }
 
-        requestMatch.setPlayerOneId(loginPlayer.getId());
-        requestMatch.setPlayerOneName(loginPlayer.getFullName());
-        requestMatch.setPlayerTwoId(otherPlayer.getId());
-        requestMatch.setPlayerTwoName(otherPlayer.getFullName());
+        requestMatch.setChallengerId(loginPlayer.getId());
+        requestMatch.setChallengerName(loginPlayer.getFullName());
+        requestMatch.setOpponentId(otherPlayer.getId());
+        requestMatch.setOpponentName(otherPlayer.getFullName());
 
         loadingProgress.setVisibility(View.VISIBLE);
         requestMatchPresenter.requestMatch(requestMatch);

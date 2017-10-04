@@ -119,7 +119,7 @@ public class EditMatchInfoFragment extends Fragment implements EditMatchInfoView
     }
 
     private void setMatchInfo() {
-        if (player.getId() == match.getChallengerId()) {
+        if (player.getId().equals(match.getChallengerId())) {
             tvPlayer1.setText(match.getChallengerName() + getString(R.string.me_postfix));
             tvPlayer2.setText(match.getOpponentName());
         } else {

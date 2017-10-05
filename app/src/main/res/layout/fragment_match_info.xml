@@ -32,7 +32,16 @@
                 <TextView
                     android:id="@+id/tv_player1"
                     style="@style/FormViewContent"
+                    android:layout_width="wrap_content"
                     tools:text="Đani Pašić" />
+
+                <TextView
+                    android:id="@+id/tv_winner_challenger"
+                    style="@style/FormViewContent"
+                    android:layout_width="wrap_content"
+                    android:textStyle="italic"
+                    android:visibility="gone"
+                    android:text="@string/winner" />
             </LinearLayout>
 
             <LinearLayout
@@ -47,7 +56,16 @@
                 <TextView
                     android:id="@+id/tv_player2"
                     style="@style/FormViewContent"
+                    android:layout_width="wrap_content"
                     tools:text="Edi Pašić" />
+
+                <TextView
+                    android:id="@+id/tv_winner_opponent"
+                    style="@style/FormViewContent"
+                    android:layout_width="wrap_content"
+                    android:textStyle="italic"
+                    android:visibility="gone"
+                    android:text="@string/winner" />
             </LinearLayout>
 
             <LinearLayout

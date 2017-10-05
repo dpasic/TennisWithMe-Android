@@ -127,6 +127,14 @@ public class EditMatchInfoFragment extends Fragment implements EditMatchInfoView
             tvPlayer2.setText(match.getOpponentName() + getString(R.string.me_postfix));
         }
 
+        if (player.getId().equals(match.getWinnerId())) {
+            radioWon.setChecked(true);
+        } else if (match.getWinnerId() != null) {
+            radioLost.setChecked(true);
+        } else {
+            radioNotPlayer.setChecked(true);
+        }
+
         etCity.setText(match.getCityPlayed());
         etComment.setText(match.getComment());
 
@@ -145,6 +153,15 @@ public class EditMatchInfoFragment extends Fragment implements EditMatchInfoView
         match.setComment(etComment.getText().toString());
         match.setResult(etResult.getText().toString());
         match.setRating(spinnerRating.getSelectedItem().toString());
+
+        if (radioWon.isChecked()) {
+            match.setWinnerId(player.getId());
+        } else if (radioLost.isChecked()) {
+            String winnerId = (player.getId().equals(match.getChallengerId())) ? match.getOpponentId() : match.getChallengerId();
+            match.setWinnerId(winnerId);
+        } else {
+            match.setWinnerId(null);
+        }
 
         try {
             match.setDatePlayed(SDF_FULL_TIME.parse(btnChooseDate.getText().toString() + " " + btnChooseTime.getText().toString()));

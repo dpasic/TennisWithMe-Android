@@ -40,6 +40,10 @@ public class MatchInfoFragment extends Fragment implements MatchInfoView {
     TextView tvPlayer1;
     @BindView(R.id.tv_player2)
     TextView tvPlayer2;
+    @BindView(R.id.tv_winner_challenger)
+    TextView tvWinnerChallenger;
+    @BindView(R.id.tv_winner_opponent)
+    TextView tvWinnerOpponent;
     @BindView(R.id.tv_city)
     TextView tvCity;
     @BindView(R.id.tv_time)
@@ -125,6 +129,12 @@ public class MatchInfoFragment extends Fragment implements MatchInfoView {
         } else {
             tvPlayer1.setText(match.getChallengerName());
             tvPlayer2.setText(match.getOpponentName() + getString(R.string.me_postfix));
+        }
+
+        if (match.getChallengerId().equals(match.getWinnerId())) {
+            tvWinnerChallenger.setVisibility(View.VISIBLE);
+        } else if (match.getOpponentId().equals(match.getWinnerId())) {
+            tvWinnerOpponent.setVisibility(View.VISIBLE);
         }
 
         tvCity.setText(match.getCityPlayed());

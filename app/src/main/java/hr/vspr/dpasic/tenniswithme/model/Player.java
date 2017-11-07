@@ -68,6 +68,7 @@ public class Player extends BaseModel implements Parcelable {
     @SerializedName("UserName")
     private String userName;
 
+    // TODO: check if this is ok data type
     @Column
     @SerializedName("Rating")
     private String rating;
@@ -83,6 +84,36 @@ public class Player extends BaseModel implements Parcelable {
     @Column
     @SerializedName("LostGames")
     private int lostGames;
+
+    @Column
+    @SerializedName("Points")
+    private int points;
+
+    // Badges
+    @SerializedName("IsFavoritePlayer")
+    private boolean isFavoritePlayer;
+
+    @SerializedName("HasBronzeBadge")
+    private boolean hasBronzeBadge;
+
+    @SerializedName("HasSilverBadge")
+    private boolean hasSilverBadge;
+
+    @SerializedName("HasGoldBadge")
+    private boolean hasGoldBadge;
+
+    @SerializedName("HasPlatinumBadge")
+    private boolean hasPlatinumBadge;
+
+    @SerializedName("HasWinnerRookieBadge")
+    private boolean hasWinnerRookieBadge;
+
+    @SerializedName("HasWinnerChallengerBadge")
+    private boolean hasWinnerChallengerBadge;
+
+    @SerializedName("HasWinnerMasterBadge")
+    private boolean hasWinnerMasterBadge;
+
 
     @SerializedName("IsFriendshipReceived")
     private boolean isFriendshipReceived;
@@ -230,6 +261,78 @@ public class Player extends BaseModel implements Parcelable {
         this.lostGames = lostGames;
     }
 
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public boolean isFavoritePlayer() {
+        return isFavoritePlayer;
+    }
+
+    public void setFavoritePlayer(boolean favoritePlayer) {
+        isFavoritePlayer = favoritePlayer;
+    }
+
+    public boolean isHasBronzeBadge() {
+        return hasBronzeBadge;
+    }
+
+    public void setHasBronzeBadge(boolean hasBronzeBadge) {
+        this.hasBronzeBadge = hasBronzeBadge;
+    }
+
+    public boolean isHasSilverBadge() {
+        return hasSilverBadge;
+    }
+
+    public void setHasSilverBadge(boolean hasSilverBadge) {
+        this.hasSilverBadge = hasSilverBadge;
+    }
+
+    public boolean isHasGoldBadge() {
+        return hasGoldBadge;
+    }
+
+    public void setHasGoldBadge(boolean hasGoldBadge) {
+        this.hasGoldBadge = hasGoldBadge;
+    }
+
+    public boolean isHasPlatinumBadge() {
+        return hasPlatinumBadge;
+    }
+
+    public void setHasPlatinumBadge(boolean hasPlatinumBadge) {
+        this.hasPlatinumBadge = hasPlatinumBadge;
+    }
+
+    public boolean isHasWinnerRookieBadge() {
+        return hasWinnerRookieBadge;
+    }
+
+    public void setHasWinnerRookieBadge(boolean hasWinnerRookieBadge) {
+        this.hasWinnerRookieBadge = hasWinnerRookieBadge;
+    }
+
+    public boolean isHasWinnerChallengerBadge() {
+        return hasWinnerChallengerBadge;
+    }
+
+    public void setHasWinnerChallengerBadge(boolean hasWinnerChallengerBadge) {
+        this.hasWinnerChallengerBadge = hasWinnerChallengerBadge;
+    }
+
+    public boolean isHasWinnerMasterBadge() {
+        return hasWinnerMasterBadge;
+    }
+
+    public void setHasWinnerMasterBadge(boolean hasWinnerMasterBadge) {
+        this.hasWinnerMasterBadge = hasWinnerMasterBadge;
+    }
+
     public boolean isFriendshipReceived() {
         return isFriendshipReceived;
     }
@@ -257,9 +360,21 @@ public class Player extends BaseModel implements Parcelable {
         dest.writeInt(this.playedGames);
         dest.writeInt(this.wonGames);
         dest.writeInt(this.lostGames);
+        dest.writeInt(this.points);
         dest.writeString(this.gender);
         dest.writeString(this.summary);
         dest.writeString(this.userName);
+
+        // booleans
+        dest.writeByte((byte) (this.isFavoritePlayer ? 1 : 0));
+        dest.writeByte((byte) (this.hasBronzeBadge ? 1 : 0));
+        dest.writeByte((byte) (this.hasSilverBadge ? 1 : 0));
+        dest.writeByte((byte) (this.hasGoldBadge ? 1 : 0));
+        dest.writeByte((byte) (this.hasPlatinumBadge ? 1 : 0));
+        dest.writeByte((byte) (this.hasWinnerRookieBadge ? 1 : 0));
+        dest.writeByte((byte) (this.hasWinnerChallengerBadge ? 1 : 0));
+        dest.writeByte((byte) (this.hasWinnerMasterBadge ? 1 : 0));
+        dest.writeByte((byte) (this.isFriendshipReceived ? 1 : 0));
     }
 
     protected Player(Parcel in) {
@@ -275,9 +390,21 @@ public class Player extends BaseModel implements Parcelable {
         this.playedGames = in.readInt();
         this.wonGames = in.readInt();
         this.lostGames = in.readInt();
+        this.points = in.readInt();
         this.gender = in.readString();
         this.summary = in.readString();
         this.userName = in.readString();
+
+        // booleans
+        this.isFavoritePlayer = in.readByte() != 0;
+        this.hasBronzeBadge = in.readByte() != 0;
+        this.hasSilverBadge = in.readByte() != 0;
+        this.hasGoldBadge = in.readByte() != 0;
+        this.hasPlatinumBadge = in.readByte() != 0;
+        this.hasWinnerRookieBadge = in.readByte() != 0;
+        this.hasWinnerChallengerBadge = in.readByte() != 0;
+        this.hasWinnerMasterBadge = in.readByte() != 0;
+        this.isFriendshipReceived = in.readByte() != 0;
     }
 
     public static final Parcelable.Creator<Player> CREATOR = new Parcelable.Creator<Player>() {

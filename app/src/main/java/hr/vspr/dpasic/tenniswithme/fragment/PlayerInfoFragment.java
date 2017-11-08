@@ -153,7 +153,7 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
         tvFullName.setText(player.getFullName());
         tvEmail.setText(player.getEmail());
         tvAge.setText(player.getAge());
-        tvSex.setText(player.getGender());
+        tvSex.setText(player.getGenderDescription());
         tvSummary.setText(player.getSummary());
     }
 

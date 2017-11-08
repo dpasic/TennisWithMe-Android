@@ -93,8 +93,8 @@ public class EditPlayerInfoFragment extends Fragment implements EditUserInfoView
         String[] genders = getContext().getResources().getStringArray(R.array.array_genders_undef);
         String[] skills = getContext().getResources().getStringArray(R.array.array_skills_undef);
 
-        spinnerGenders.setSelection(Utility.getIndexOfItemInArray(player.getGender(), genders));
-        spinnerSkills.setSelection(Utility.getIndexOfItemInArray(player.getSkill(), skills));
+        spinnerGenders.setSelection(Utility.getIndexOfItemInArray(player.getGenderDescription(), genders));
+        spinnerSkills.setSelection(Utility.getIndexOfItemInArray(player.getSkillDescription(), skills));
         etSummary.setText(player.getSummary());
     }
 
@@ -105,8 +105,8 @@ public class EditPlayerInfoFragment extends Fragment implements EditUserInfoView
         player.setFirstName(etName.getText().toString());
         player.setLastName(etSurname.getText().toString());
         player.setAge(etAge.getText().toString());
-        player.setGender(spinnerGenders.getSelectedItem().toString());
-        player.setSkill(spinnerSkills.getSelectedItem().toString());
+        player.setGenderDescription(spinnerGenders.getSelectedItem().toString());
+        player.setSkillDescription(spinnerSkills.getSelectedItem().toString());
 
         editUserInfoPresenter.updateProfile(player);
     }

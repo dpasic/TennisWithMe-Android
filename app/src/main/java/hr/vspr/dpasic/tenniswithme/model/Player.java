@@ -41,12 +41,12 @@ public class Player extends BaseModel implements Parcelable {
     private String city;
 
     @Column
-    @SerializedName("Skill")
-    private String skill;
+    @SerializedName("SkillDescription")
+    private String skillDescription;
 
     @Column
-    @SerializedName("Gender")
-    private String gender;
+    @SerializedName("GenderDescription")
+    private String genderDescription;
 
     @Column
     @SerializedName("MobileNumber")
@@ -70,8 +70,8 @@ public class Player extends BaseModel implements Parcelable {
 
     // TODO: check if this is ok data type
     @Column
-    @SerializedName("Rating")
-    private String rating;
+    @SerializedName("OverallRating")
+    private String overallRating;
 
     @Column
     @SerializedName("PlayedGames")
@@ -173,20 +173,20 @@ public class Player extends BaseModel implements Parcelable {
         this.city = city;
     }
 
-    public String getSkill() {
-        return skill;
+    public String getSkillDescription() {
+        return skillDescription;
     }
 
-    public void setSkill(String skill) {
-        this.skill = skill;
+    public void setSkillDescription(String skillDescription) {
+        this.skillDescription = skillDescription;
     }
 
-    public String getGender() {
-        return gender;
+    public String getGenderDescription() {
+        return genderDescription;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setGenderDescription(String genderDescription) {
+        this.genderDescription = genderDescription;
     }
 
     public String getMobileNumber() {
@@ -229,12 +229,12 @@ public class Player extends BaseModel implements Parcelable {
         this.userName = userName;
     }
 
-    public String getRating() {
-        return rating;
+    public String getOverallRating() {
+        return overallRating;
     }
 
-    public void setRating(String rating) {
-        this.rating = rating;
+    public void setOverallRating(String overallRating) {
+        this.overallRating = overallRating;
     }
 
     public int getPlayedGames() {
@@ -356,14 +356,15 @@ public class Player extends BaseModel implements Parcelable {
         dest.writeString(this.id);
         dest.writeString(this.lastName);
         dest.writeString(this.mobileNumber);
-        dest.writeString(this.rating);
+        dest.writeString(this.overallRating);
         dest.writeInt(this.playedGames);
         dest.writeInt(this.wonGames);
         dest.writeInt(this.lostGames);
         dest.writeInt(this.points);
-        dest.writeString(this.gender);
+        dest.writeString(this.genderDescription);
         dest.writeString(this.summary);
         dest.writeString(this.userName);
+        dest.writeString(this.skillDescription);
 
         // booleans
         dest.writeByte((byte) (this.isFavoritePlayer ? 1 : 0));
@@ -386,14 +387,15 @@ public class Player extends BaseModel implements Parcelable {
         this.id = in.readString();
         this.lastName = in.readString();
         this.mobileNumber = in.readString();
-        this.rating = in.readString();
+        this.overallRating = in.readString();
         this.playedGames = in.readInt();
         this.wonGames = in.readInt();
         this.lostGames = in.readInt();
         this.points = in.readInt();
-        this.gender = in.readString();
+        this.genderDescription = in.readString();
         this.summary = in.readString();
         this.userName = in.readString();
+        this.skillDescription = in.readString();
 
         // booleans
         this.isFavoritePlayer = in.readByte() != 0;

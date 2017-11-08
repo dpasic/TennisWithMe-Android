@@ -50,8 +50,8 @@ public class PendingPlayerRecyclerViewAdapter extends RecyclerView.Adapter<Pendi
         }
 
         holder.mFullName.setText(holder.mItem.getFullName());
-        holder.mSkill.setText(holder.mItem.getSkill());
-        holder.mGender.setText(holder.mItem.getGender());
+        holder.mSkill.setText(holder.mItem.getSkillDescription());
+        holder.mGender.setText(holder.mItem.getGenderDescription());
         holder.mSummary.setText(holder.mItem.getSummary());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {

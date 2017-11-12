@@ -141,7 +141,7 @@ public class EditMatchInfoFragment extends Fragment implements EditMatchInfoView
         etResult.setText(match.getResult());
 
         String[] ratings = getContext().getResources().getStringArray(R.array.array_rating);
-        spinnerRating.setSelection(Utility.getIndexOfItemInArray(match.getRating(), ratings));
+        spinnerRating.setSelection(Utility.getIndexOfItemInArray(match.getRatingDescription(), ratings));
 
         btnChooseDate.setText(SDF_DATE.format(match.getDatePlayed()));
         btnChooseTime.setText(SDF_TIME.format(match.getDatePlayed()));
@@ -152,7 +152,7 @@ public class EditMatchInfoFragment extends Fragment implements EditMatchInfoView
         match.setCityPlayed(etCity.getText().toString());
         match.setComment(etComment.getText().toString());
         match.setResult(etResult.getText().toString());
-        match.setRating(spinnerRating.getSelectedItem().toString());
+        match.setRatingDescription(spinnerRating.getSelectedItem().toString());
 
         if (radioWon.isChecked()) {
             match.setWinnerId(player.getId());

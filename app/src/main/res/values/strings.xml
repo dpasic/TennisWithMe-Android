@@ -88,6 +88,7 @@
     <string name="challenger_lbl">Challenger:</string>
     <string name="opponent_lbl">Opponent:</string>
     <string name="winner">Winner</string>
+    <string name="points_lbl">Points:</string>
 
     <string-array name="array_rating">
         <item>@string/undefined</item>

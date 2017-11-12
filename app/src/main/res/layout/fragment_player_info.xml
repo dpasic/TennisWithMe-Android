@@ -57,6 +57,21 @@
 
                 <TextView
                     style="@style/FormLabel"
+                    android:text="@string/city_lbl" />
+
+                <TextView
+                    android:id="@+id/tv_city"
+                    style="@style/FormViewContent"
+                    tools:text="Zagreb" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/FormLabel"
                     android:text="@string/gender_lbl" />
 
                 <TextView
@@ -78,6 +93,21 @@
                     android:id="@+id/tv_age"
                     style="@style/FormViewContent"
                     tools:text="23" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/FormLabel"
+                    android:text="@string/points_lbl" />
+
+                <TextView
+                    android:id="@+id/tv_points"
+                    style="@style/FormViewContent"
+                    tools:text="2500" />
             </LinearLayout>
 
             <LinearLayout

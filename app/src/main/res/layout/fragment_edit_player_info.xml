@@ -49,6 +49,21 @@
 
         <TextView
             style="@style/FormLabel"
+            android:text="@string/city_lbl" />
+
+        <EditText
+            android:id="@+id/et_city"
+            style="@style/FormEditContent"
+            tools:text="Zagreb" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/FormLabel"
             android:text="@string/age_lbl" />
 
         <EditText

@@ -32,6 +32,8 @@ public class EditPlayerInfoFragment extends Fragment implements EditUserInfoView
     EditText etName;
     @BindView(R.id.et_surname)
     EditText etSurname;
+    @BindView(R.id.et_city)
+    EditText etCity;
     @BindView(R.id.spinner_genders)
     Spinner spinnerGenders;
     @BindView(R.id.spinner_skills)
@@ -88,6 +90,7 @@ public class EditPlayerInfoFragment extends Fragment implements EditUserInfoView
     private void setUserInfo() {
         etName.setText(player.getFirstName());
         etSurname.setText(player.getLastName());
+        etCity.setText(player.getCity());
         etAge.setText(player.getAge());
 
         String[] genders = getContext().getResources().getStringArray(R.array.array_genders_undef);
@@ -104,6 +107,7 @@ public class EditPlayerInfoFragment extends Fragment implements EditUserInfoView
 
         player.setFirstName(etName.getText().toString());
         player.setLastName(etSurname.getText().toString());
+        player.setCity(etCity.getText().toString());
         player.setAge(etAge.getText().toString());
         player.setGenderDescription(spinnerGenders.getSelectedItem().toString());
         player.setSkillDescription(spinnerSkills.getSelectedItem().toString());

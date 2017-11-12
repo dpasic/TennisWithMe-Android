@@ -139,7 +139,7 @@ public class MatchInfoFragment extends Fragment implements MatchInfoView {
 
         tvCity.setText(match.getCityPlayed());
         tvComment.setText(match.getComment());
-        tvRating.setText(match.getRating());
+        tvRating.setText(match.getRatingDescription());
         tvResult.setText(match.getResult());
         tvTime.setText(SDF.format(match.getDatePlayed()));
     }

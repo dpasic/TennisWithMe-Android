@@ -46,10 +46,14 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
     TextView tvFullName;
     @BindView(R.id.tv_email)
     TextView tvEmail;
+    @BindView(R.id.tv_city)
+    TextView tvCity;
     @BindView(R.id.tv_gender)
-    TextView tvSex;
+    TextView tvGender;
     @BindView(R.id.tv_age)
     TextView tvAge;
+    @BindView(R.id.tv_points)
+    TextView tvPoints;
     @BindView(R.id.tv_summary)
     TextView tvSummary;
     @BindView(R.id.fab_edit)
@@ -152,9 +156,22 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
     private void updateUserInfo() {
         tvFullName.setText(player.getFullName());
         tvEmail.setText(player.getEmail());
+        tvCity.setText(player.getCity());
         tvAge.setText(player.getAge());
-        tvSex.setText(player.getGenderDescription());
+        tvGender.setText(player.getGenderDescription());
         tvSummary.setText(player.getSummary());
+
+        if (player.isHasPlatinumBadge()) {
+            tvPoints.setText(String.format("%s (Platinum Badge)", player.getPoints()));
+        } else if (player.isHasGoldBadge()) {
+            tvPoints.setText(String.format("%s (Gold Badge)", player.getPoints()));
+        } else if (player.isHasSilverBadge()) {
+            tvPoints.setText(String.format("%s (Silver Badge)", player.getPoints()));
+        } else if (player.isHasBronzeBadge()) {
+            tvPoints.setText(String.format("%s (Bronze Badge)", player.getPoints()));
+        } else {
+            tvPoints.setText(String.format("%s", player.getPoints()));
+        }
     }
 
     @OnClick(R.id.fab_edit)

@@ -43,8 +43,8 @@ public class Match implements Parcelable {
     @SerializedName("Result")
     private String result;
 
-    @SerializedName("Rating")
-    private String rating;
+    @SerializedName("RatingDescription")
+    private String ratingDescription;
 
     @SerializedName("ChallengerComment")
     private String challengerComment;
@@ -144,12 +144,12 @@ public class Match implements Parcelable {
         this.result = result;
     }
 
-    public String getRating() {
-        return rating;
+    public String getRatingDescription() {
+        return ratingDescription;
     }
 
-    public void setRating(String rating) {
-        this.rating = rating;
+    public void setRatingDescription(String ratingDescription) {
+        this.ratingDescription = ratingDescription;
     }
 
     public String getChallengerComment() {
@@ -203,7 +203,7 @@ public class Match implements Parcelable {
         dest.writeString(this.opponentComment);
         dest.writeString(this.opponentId);
         dest.writeString(this.opponentName);
-        dest.writeString(this.rating);
+        dest.writeString(this.ratingDescription);
         dest.writeString(this.result);
         dest.writeString(Long.toString(this.timestampPlayed));
         dest.writeString(Boolean.toString(isConfirmed));
@@ -220,7 +220,7 @@ public class Match implements Parcelable {
         this.opponentComment = in.readString();
         this.opponentId = in.readString();
         this.opponentName = in.readString();
-        this.rating = in.readString();
+        this.ratingDescription = in.readString();
         this.result = in.readString();
         this.timestampPlayed = Long.valueOf(in.readString());
         this.isConfirmed = Boolean.valueOf(in.readString());

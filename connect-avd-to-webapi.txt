@@ -12,12 +12,12 @@ private static final String BASE_URL = "http://10.0.2.2:8080/";
 </application>
 <bindings>
   <binding protocol="http" bindingInformation=":8080:localhost" />
-  <binding protocol="http" bindingInformation="*:8080:*" /> <!--ovo treba dodati!!!-->
+  <binding protocol="http" bindingInformation="*:8080:*" />
 </bindings>
 </site>
 
 3) U cmd-u pokreni komandu kao admin:
 
-netsh http add urlacl url=http://*:8080/ player=everyone
+netsh http add urlacl url=http://*:8080/ user=everyone
 
 *4) Postaviti Firewall Inbound Connections port 8080 na Allow Connections od svuda

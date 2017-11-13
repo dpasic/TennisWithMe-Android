@@ -117,14 +117,46 @@
 
                 <TextView
                     style="@style/FormLabel"
+                    android:text="@string/overall_rating_lbl" />
+
+                <TextView
+                    android:id="@+id/tv_overall_rating"
+                    style="@style/FormViewContent"
+                    tools:text="4.1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/FormLabel"
                     android:text="@string/summary_lbl" />
 
                 <TextView
                     android:id="@+id/tv_summary"
                     style="@style/FormViewContent"
                     android:ellipsize="end"
-                    android:lines="3"
+                    android:lines="2"
                     tools:text="I'm former tennis player." />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_spinner_rating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="30dp">
+
+                <TextView
+                    style="@style/FormLabel"
+                    android:text="@string/your_rating_lbl" />
+
+                <Spinner
+                    android:id="@+id/spinner_rating"
+                    style="@style/FormSpinner"
+                    android:entries="@array/array_rating" />
             </LinearLayout>
 
             <ProgressBar
@@ -154,6 +186,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/request_match" />
+            <Button
+                android:id="@+id/btn_udpate_rating"
+                style="@style/SubmitButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_rating" />
 
             <Button
                 android:id="@+id/btn_sign_out"

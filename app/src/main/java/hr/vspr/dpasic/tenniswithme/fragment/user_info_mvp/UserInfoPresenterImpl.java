@@ -154,4 +154,9 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
             }
         });
     }
+
+    @Override
+    public void getPlayersRating(Player player) {
+
+    }
 }

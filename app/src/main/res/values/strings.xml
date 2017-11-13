@@ -89,6 +89,9 @@
     <string name="opponent_lbl">Opponent:</string>
     <string name="winner">Winner</string>
     <string name="points_lbl">Points:</string>
+    <string name="overall_rating_lbl">Rating:</string>
+    <string name="your_rating_lbl">Your Rating:</string>
+    <string name="update_rating">Update rating</string>
 
     <string-array name="array_rating">
         <item>@string/undefined</item>

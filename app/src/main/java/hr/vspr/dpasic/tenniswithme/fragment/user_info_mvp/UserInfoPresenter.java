@@ -13,4 +13,6 @@ public interface UserInfoPresenter {
     void requestFriendship(Player player);
 
     void signOut();
+
+    void getPlayersRating(Player player);
 }

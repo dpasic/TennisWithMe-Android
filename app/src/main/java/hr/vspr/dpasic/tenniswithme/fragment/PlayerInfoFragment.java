@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -54,16 +56,24 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
     TextView tvAge;
     @BindView(R.id.tv_points)
     TextView tvPoints;
+    @BindView(R.id.tv_overall_rating)
+    TextView tvOverallRating;
     @BindView(R.id.tv_summary)
     TextView tvSummary;
+    @BindView(R.id.spinner_rating)
+    Spinner spinnerRating;
     @BindView(R.id.fab_edit)
     FloatingActionButton fabEdit;
+    @BindView(R.id.layout_spinner_rating)
+    LinearLayout layoutSpinnerRating;
     @BindView(R.id.btn_confirm_friendship)
     Button btnConfirmFriendship;
     @BindView(R.id.btn_request_match)
     Button btnRequestMatch;
     @BindView(R.id.btn_request_friendship)
     Button btnRequestFriendship;
+    @BindView(R.id.btn_udpate_rating)
+    Button btnUdpateRating;
     @BindView(R.id.btn_sign_out)
     Button btnSignOut;
     @BindView(R.id.loading_progress)
@@ -108,6 +118,8 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
         getActivity().setTitle(R.string.title_user_info);
 
         userInfoPresenter = new UserInfoPresenterImpl(this);
+        // signed in player and other player if not in VIEW_AND_EDIT mode
+        userInfoPresenter.getPlayersRating(player);
 
         prepareViewBasedOnActionType();
         updateUserInfo();
@@ -119,30 +131,38 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
         switch (actionType) {
             case VIEW_AND_EDIT:
                 fabEdit.setVisibility(View.VISIBLE);
+                layoutSpinnerRating.setVisibility(View.GONE);
                 btnConfirmFriendship.setVisibility(View.GONE);
                 btnRequestMatch.setVisibility(View.GONE);
                 btnRequestFriendship.setVisibility(View.GONE);
+                btnUdpateRating.setVisibility(View.GONE);
                 btnSignOut.setVisibility(View.VISIBLE);
                 break;
             case CONFIRM_FRIENDSHIP:
                 fabEdit.setVisibility(View.GONE);
+                layoutSpinnerRating.setVisibility(View.VISIBLE);
                 btnConfirmFriendship.setVisibility(View.VISIBLE);
                 btnRequestMatch.setVisibility(View.VISIBLE);
                 btnRequestFriendship.setVisibility(View.GONE);
+                btnUdpateRating.setVisibility(View.VISIBLE);
                 btnSignOut.setVisibility(View.GONE);
                 break;
             case REQUEST_MATCH:
                 fabEdit.setVisibility(View.GONE);
+                layoutSpinnerRating.setVisibility(View.VISIBLE);
                 btnConfirmFriendship.setVisibility(View.GONE);
                 btnRequestMatch.setVisibility(View.VISIBLE);
                 btnRequestFriendship.setVisibility(View.GONE);
+                btnUdpateRating.setVisibility(View.VISIBLE);
                 btnSignOut.setVisibility(View.GONE);
                 break;
             case REQUEST_FRIENDSHIP:
                 fabEdit.setVisibility(View.GONE);
+                layoutSpinnerRating.setVisibility(View.VISIBLE);
                 btnConfirmFriendship.setVisibility(View.GONE);
                 btnRequestMatch.setVisibility(View.VISIBLE);
                 btnRequestFriendship.setVisibility(View.VISIBLE);
+                btnUdpateRating.setVisibility(View.VISIBLE);
                 btnSignOut.setVisibility(View.GONE);
                 break;
         }
@@ -171,6 +191,12 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
             tvPoints.setText(String.format("%s (Bronze Badge)", player.getPoints()));
         } else {
             tvPoints.setText(String.format("%s", player.getPoints()));
+        }
+
+        if (player.isFavoritePlayer()) {
+            tvOverallRating.setText(String.format("%.1f (Favorite Player Badge)", Double.parseDouble(player.getOverallRating())));
+        } else if (player.getOverallRating() != null) {
+            tvOverallRating.setText(String.format("%.1f", Double.parseDouble(player.getOverallRating())));
         }
     }
 
@@ -208,6 +234,11 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, RequestMatchFragment.class.getName())
                 .addToBackStack(RequestMatchFragment.class.getName()).commit();
+    }
+
+    @OnClick(R.id.btn_udpate_rating)
+    public void updateRatingClick() {
+
     }
 
     @Override

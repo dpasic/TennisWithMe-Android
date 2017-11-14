@@ -176,7 +176,7 @@ public class RequestMatchFragment extends Fragment implements RequestMatchView {
     @Override
     public void requestCompleted(Match match) {
         loadingProgress.setVisibility(View.GONE);
-        Snackbar.make(activityRequestView, R.string.match_requested, Snackbar.LENGTH_LONG);
+        Snackbar.make(activityRequestView, R.string.match_requested, Snackbar.LENGTH_LONG).show();
 
         getActivity().getSupportFragmentManager().popBackStackImmediate();
     }
@@ -184,6 +184,6 @@ public class RequestMatchFragment extends Fragment implements RequestMatchView {
     @Override
     public void notifyRequestError(String msg) {
         loadingProgress.setVisibility(View.GONE);
-        Snackbar.make(activityRequestView, msg, Snackbar.LENGTH_LONG);
+        Snackbar.make(activityRequestView, msg, Snackbar.LENGTH_LONG).show();
     }
 }

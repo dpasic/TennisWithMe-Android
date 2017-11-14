@@ -9,9 +9,11 @@ import hr.vspr.dpasic.tenniswithme.model.AccessToken;
 import hr.vspr.dpasic.tenniswithme.model.Credentials;
 import hr.vspr.dpasic.tenniswithme.model.PlayersFriendship;
 import hr.vspr.dpasic.tenniswithme.model.Player;
+import hr.vspr.dpasic.tenniswithme.model.PlayersRating;
 import hr.vspr.dpasic.tenniswithme.rest.ServiceGenerator;
 import hr.vspr.dpasic.tenniswithme.rest.api_interface.AccountRestInterface;
 import hr.vspr.dpasic.tenniswithme.rest.api_interface.FriendsRestInterface;
+import hr.vspr.dpasic.tenniswithme.rest.api_interface.PlayerRatingsRestInterface;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -156,7 +158,74 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
     }
 
     @Override
-    public void getPlayersRating(Player player) {
+    public void getPlayersRating(final Player player) {
+        AccessTokenRefresher refresher = new AccessTokenRefresher();
 
+        refresher.registerSubscriber(new RestSubscriber() {
+            @Override
+            public void doRequest(RestPublisher publisher, AccessToken token) {
+                getPlayersRatingRequest(token, player);
+            }
+        });
+
+        refresher.refreshTokenIfNecessary();
+    }
+
+    private void getPlayersRatingRequest(AccessToken token, Player player) {
+        final PlayerRatingsRestInterface playerRatingsRestInterface = ServiceGenerator.createService(PlayerRatingsRestInterface.class, token);
+
+        Call<PlayersRating> call = playerRatingsRestInterface.getPlayersRatingForPlayerId(player.getId());
+        call.enqueue(new Callback<PlayersRating>() {
+            @Override
+            public void onResponse(Call<PlayersRating> call, Response<PlayersRating> response) {
+                if (response.isSuccessful()) {
+                    userInfoView.setPlayersRating(response.body());
+
+                } else {
+                    userInfoView.notifyRequestError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PlayersRating> call, Throwable t) {
+                userInfoView.notifyRequestError(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void createOrUpdatePlayersRating(final PlayersRating playersRating) {
+        AccessTokenRefresher refresher = new AccessTokenRefresher();
+
+        refresher.registerSubscriber(new RestSubscriber() {
+            @Override
+            public void doRequest(RestPublisher publisher, AccessToken token) {
+                createOrUpdatePlayersRatingRequest(token, playersRating);
+            }
+        });
+
+        refresher.refreshTokenIfNecessary();
+    }
+
+    private void createOrUpdatePlayersRatingRequest(AccessToken token, final PlayersRating playersRating) {
+        final PlayerRatingsRestInterface playerRatingsRestInterface = ServiceGenerator.createService(PlayerRatingsRestInterface.class, token);
+
+        Call<ResponseBody> call = playerRatingsRestInterface.createOrUpdatePlayersRating(playersRating);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    userInfoView.onUpdatePlayersRating(playersRating);
+
+                } else {
+                    userInfoView.notifyRequestError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                userInfoView.notifyRequestError(t.getMessage());
+            }
+        });
     }
 }

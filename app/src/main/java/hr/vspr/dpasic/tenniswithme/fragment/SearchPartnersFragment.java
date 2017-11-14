@@ -118,7 +118,7 @@ public class SearchPartnersFragment extends Fragment implements SearchPartnersVi
     @Override
     public void notifyRequestError(String msg) {
         loadingProgress.setVisibility(View.GONE);
-        Snackbar.make(searchPartnersView, msg, Snackbar.LENGTH_LONG);
+        Snackbar.make(searchPartnersView, msg, Snackbar.LENGTH_LONG).show();
     }
 
     @Override

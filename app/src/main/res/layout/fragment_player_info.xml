@@ -117,6 +117,21 @@
 
                 <TextView
                     style="@style/FormLabel"
+                    android:text="@string/wins_lbl" />
+
+                <TextView
+                    android:id="@+id/tv_wins"
+                    style="@style/FormViewContent"
+                    tools:text="15" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/FormLabel"
                     android:text="@string/overall_rating_lbl" />
 
                 <TextView

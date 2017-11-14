@@ -5,7 +5,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 /**
@@ -15,8 +15,8 @@ import retrofit2.http.Query;
 public interface PlayerRatingsRestInterface {
 
     @GET("api/PlayerRatings")
-    Call<PlayersRating> getPlayersRatingForFriendId(@Query("friendId") String friendId);
+    Call<PlayersRating> getPlayersRatingForPlayerId(@Query("playerId") String playerId);
 
-    @POST("api/PlayerRatings")
+    @PUT("api/PlayerRatings")
     Call<ResponseBody> createOrUpdatePlayersRating(@Body PlayersRating playersRating);
 }

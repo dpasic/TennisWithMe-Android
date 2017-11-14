@@ -23,11 +23,13 @@ import butterknife.OnClick;
 import hr.vspr.dpasic.tenniswithme.R;
 import hr.vspr.dpasic.tenniswithme.activity.LoginActivity;
 import hr.vspr.dpasic.tenniswithme.activity.MainActivity;
+import hr.vspr.dpasic.tenniswithme.common.Utility;
 import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoPresenter;
 import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoPresenterImpl;
 import hr.vspr.dpasic.tenniswithme.fragment.user_info_mvp.UserInfoView;
 import hr.vspr.dpasic.tenniswithme.model.Player;
 import hr.vspr.dpasic.tenniswithme.model.ActionType;
+import hr.vspr.dpasic.tenniswithme.model.PlayersRating;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,6 +58,8 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
     TextView tvAge;
     @BindView(R.id.tv_points)
     TextView tvPoints;
+    @BindView(R.id.tv_wins)
+    TextView tvWins;
     @BindView(R.id.tv_overall_rating)
     TextView tvOverallRating;
     @BindView(R.id.tv_summary)
@@ -118,8 +122,10 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
         getActivity().setTitle(R.string.title_user_info);
 
         userInfoPresenter = new UserInfoPresenterImpl(this);
-        // signed in player and other player if not in VIEW_AND_EDIT mode
-        userInfoPresenter.getPlayersRating(player);
+
+        if (actionType != ActionType.VIEW_AND_EDIT) {
+            userInfoPresenter.getPlayersRating(player);
+        }
 
         prepareViewBasedOnActionType();
         updateUserInfo();
@@ -193,6 +199,16 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
             tvPoints.setText(String.format("%s", player.getPoints()));
         }
 
+        if (player.isHasWinnerMasterBadge()) {
+            tvWins.setText(String.format("%s (Master Badge)", player.getWonGames()));
+        } else if (player.isHasWinnerChallengerBadge()) {
+            tvWins.setText(String.format("%s (Challenger Badge)", player.getWonGames()));
+        } else if (player.isHasWinnerRookieBadge()) {
+            tvWins.setText(String.format("%s (Rookie Badge)", player.getWonGames()));
+        } else {
+            tvWins.setText(String.format("%s", player.getWonGames()));
+        }
+
         if (player.isFavoritePlayer()) {
             tvOverallRating.setText(String.format("%.1f (Favorite Player Badge)", Double.parseDouble(player.getOverallRating())));
         } else if (player.getOverallRating() != null) {
@@ -238,7 +254,13 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
 
     @OnClick(R.id.btn_udpate_rating)
     public void updateRatingClick() {
+        loadingProgress.setVisibility(View.VISIBLE);
 
+        PlayersRating playersRating = new PlayersRating();
+        playersRating.setRatedId(player.getId());
+        playersRating.setRatingDescription(spinnerRating.getSelectedItem().toString());
+
+        userInfoPresenter.createOrUpdatePlayersRating(playersRating);
     }
 
     @Override
@@ -246,7 +268,7 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
         loadingProgress.setVisibility(View.GONE);
         btnConfirmFriendship.setVisibility(View.GONE);
 
-        Snackbar.make(userInfoView, R.string.confirmed_friendship, Snackbar.LENGTH_LONG);
+        Snackbar.make(userInfoView, R.string.confirmed_friendship, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -254,7 +276,7 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
         loadingProgress.setVisibility(View.GONE);
         btnRequestFriendship.setVisibility(View.GONE);
 
-        Snackbar.make(userInfoView, R.string.requested_friendship, Snackbar.LENGTH_LONG);
+        Snackbar.make(userInfoView, R.string.requested_friendship, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -272,9 +294,25 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
     }
 
     @Override
+    public void setPlayersRating(PlayersRating playersRating) {
+        if (playersRating == null) {
+            return;
+        }
+
+        String[] ratings = getContext().getResources().getStringArray(R.array.array_rating);
+        spinnerRating.setSelection(Utility.getIndexOfItemInArray(playersRating.getRatingDescription(), ratings));
+    }
+
+    @Override
+    public void onUpdatePlayersRating(PlayersRating playersRating) {
+        loadingProgress.setVisibility(View.GONE);
+        Snackbar.make(userInfoView, R.string.updated_players_rating, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
     public void notifyRequestError(String msg) {
         loadingProgress.setVisibility(View.GONE);
-        Snackbar.make(userInfoView, msg, Snackbar.LENGTH_LONG);
+        Snackbar.make(userInfoView, msg, Snackbar.LENGTH_LONG).show();
     }
 
     @Override

@@ -226,6 +226,6 @@ public class EditMatchInfoFragment extends Fragment implements EditMatchInfoView
     @Override
     public void notifyRequestError(String msg) {
         loadingProgress.setVisibility(View.GONE);
-        Snackbar.make(editMatchInfoView, msg, Snackbar.LENGTH_LONG);
+        Snackbar.make(editMatchInfoView, msg, Snackbar.LENGTH_LONG).show();
     }
 }

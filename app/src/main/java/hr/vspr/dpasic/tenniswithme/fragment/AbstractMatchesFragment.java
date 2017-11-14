@@ -83,7 +83,7 @@ public abstract class AbstractMatchesFragment extends Fragment implements Matche
     @Override
     public void notifyRequestError(String msg) {
         swipeRefreshLayout.setRefreshing(false);
-        Snackbar.make(swipeRefreshLayout, msg, Snackbar.LENGTH_LONG);
+        Snackbar.make(swipeRefreshLayout, msg, Snackbar.LENGTH_LONG).show();
     }
 
     @Override

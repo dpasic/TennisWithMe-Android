@@ -111,6 +111,7 @@ public class EditPlayerInfoFragment extends Fragment implements EditUserInfoView
         player.setAge(etAge.getText().toString());
         player.setGenderDescription(spinnerGenders.getSelectedItem().toString());
         player.setSkillDescription(spinnerSkills.getSelectedItem().toString());
+        player.setSummary(etSummary.getText().toString());
 
         editUserInfoPresenter.updateProfile(player);
     }
@@ -118,7 +119,7 @@ public class EditPlayerInfoFragment extends Fragment implements EditUserInfoView
     @Override
     public void notifyRequestError(String msg) {
         loadingProgress.setVisibility(View.GONE);
-        Snackbar.make(editUserInfoView, msg, Snackbar.LENGTH_LONG);
+        Snackbar.make(editUserInfoView, msg, Snackbar.LENGTH_LONG).show();
     }
 
     @Override

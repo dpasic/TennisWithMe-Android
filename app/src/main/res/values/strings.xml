@@ -92,6 +92,8 @@
     <string name="overall_rating_lbl">Rating:</string>
     <string name="your_rating_lbl">Your Rating:</string>
     <string name="update_rating">Update rating</string>
+    <string name="wins_lbl">Wins:</string>
+    <string name="updated_players_rating">Updated players rating</string>
 
     <string-array name="array_rating">
         <item>@string/undefined</item>

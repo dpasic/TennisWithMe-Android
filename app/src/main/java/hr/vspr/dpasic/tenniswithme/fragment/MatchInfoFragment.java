@@ -165,7 +165,7 @@ public class MatchInfoFragment extends Fragment implements MatchInfoView {
         btnConfirmMatch.setVisibility(View.GONE);
         fabEdit.setVisibility(View.VISIBLE);
 
-        Snackbar.make(matchInfoView, R.string.confirmed_match, Snackbar.LENGTH_LONG);
+        Snackbar.make(matchInfoView, R.string.confirmed_match, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -176,6 +176,6 @@ public class MatchInfoFragment extends Fragment implements MatchInfoView {
     @Override
     public void notifyRequestError(String msg) {
         loadingProgress.setVisibility(View.GONE);
-        Snackbar.make(matchInfoView, msg, Snackbar.LENGTH_LONG);
+        Snackbar.make(matchInfoView, msg, Snackbar.LENGTH_LONG).show();
     }
 }

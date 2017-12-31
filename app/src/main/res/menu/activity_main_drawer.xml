@@ -6,7 +6,7 @@
         <item
             android:id="@+id/nav_find_partner"
             android:icon="@mipmap/find_user"
-            android:title="@string/find_partner" />
+            android:title="@string/find_player" />
     </group>
 
     <group android:id="@+id/drawer_group_second"

@@ -75,7 +75,7 @@
             style="@style/SubmitButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/search_partners" />
+            android:text="@string/search_players" />
     </LinearLayout>
 
     <LinearLayout

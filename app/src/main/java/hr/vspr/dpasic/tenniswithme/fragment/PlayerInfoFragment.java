@@ -56,6 +56,8 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
     TextView tvGender;
     @BindView(R.id.tv_age)
     TextView tvAge;
+    @BindView(R.id.tv_skill)
+    TextView tvSkill;
     @BindView(R.id.tv_points)
     TextView tvPoints;
     @BindView(R.id.tv_wins)
@@ -185,6 +187,7 @@ public class PlayerInfoFragment extends Fragment implements UserInfoView {
         tvCity.setText(player.getCity());
         tvAge.setText(player.getAge());
         tvGender.setText(player.getGenderDescription());
+        tvSkill.setText(player.getSkillDescription());
         tvSummary.setText(player.getSummary());
 
         if (player.isHasPlatinumBadge()) {

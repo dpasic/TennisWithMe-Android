@@ -45,14 +45,14 @@
     <string name="request_match">Request match</string>
     <string name="search_by_username">Search by username</string>
     <string name="request_friendship">Request friendship</string>
-    <string name="find_partner">Find partner</string>
+    <string name="find_player">Find player</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="city_lbl">City:</string>
     <string name="gender_lbl">Gender:</string>
     <string name="skill_lbl">Skill:</string>
-    <string name="search_partners">Search partners</string>
+    <string name="search_players">Search players</string>
 
     <string name="all">All</string>
     <string name="undefined">Undefined</string>
@@ -74,7 +74,7 @@
     <string name="title_edit_match_info">Edit Match Info</string>
     <string name="title_request_friendship">Request Friendship</string>
     <string name="title_request_match">Request Match</string>
-    <string name="title_find_partner">Find Partner</string>
+    <string name="title_find_player">Find Player</string>
     <string name="title_friend_requests">Friend Requests</string>
     <string name="title_match_requests">Match Requests</string>
     <string name="requested_friendship">Friendship request sent</string>

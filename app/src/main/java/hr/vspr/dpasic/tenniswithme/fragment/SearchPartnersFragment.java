@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -82,7 +81,7 @@ public class SearchPartnersFragment extends Fragment implements SearchPartnersVi
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search_partners, container, false);
         ButterKnife.bind(this, view);
-        getActivity().setTitle(R.string.title_find_partner);
+        getActivity().setTitle(R.string.title_find_player);
 
         Context context = view.getContext();
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
